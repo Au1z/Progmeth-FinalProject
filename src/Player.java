@@ -1,10 +1,26 @@
 public class Player {
+    private String name;
     private int hp;
     private int position;
 
     public Player() {
+        setName("");
         setHp(Config.PlayerStartHp);
         setPosition(Config.PlayerStartPosition);
+    }
+
+    public Player(String name) {
+        setName(name);
+        setHp(Config.PlayerStartHp);
+        setPosition(Config.PlayerStartPosition);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getPosition() {
@@ -12,7 +28,7 @@ public class Player {
     }
 
     public void setPosition(int position) {
-        this.position = Math.max(0, Math.min(Config.NumberOfArea, position));
+        this.position = Math.max(1, Math.min(Config.NumberOfArea, position) % Config.NumberOfArea);
     }
 
     public int getHp() {

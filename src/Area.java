@@ -1,15 +1,25 @@
 public class Area {
-    private boolean hasOwned;
+    private Player owner;
+    private int level;
 
     public Area() {
-        setHasOwned(false);
+        setLevel(0);
+        setOwner(new Player());
     }
 
-    public boolean isHasOwned() {
-        return hasOwned;
+    public Player getOwner() {
+        return owner;
     }
 
-    public void setHasOwned(boolean hasOwned) {
-        this.hasOwned = hasOwned;
+    public void setOwner(Player owner) {
+        this.owner = owner;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = Math.max(0, level);
     }
 }
