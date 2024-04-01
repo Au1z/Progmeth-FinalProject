@@ -6,7 +6,6 @@ public class Main {
         Player player1 = new Player("player1");
         Player player2 = new Player("player2");
         System.out.println("Game Start");
-        Dice dice = new Dice();
         ArrayList<Area> areas = new ArrayList<>();
         for (int i = 0; i < Config.NumberOfArea + 1; i++) {
             areas.add(new Area());
