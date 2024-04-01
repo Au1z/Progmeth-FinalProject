@@ -1,3 +1,5 @@
+package GameMaterial;
+
 public class Area {
     private Player owner;
     private int level;

@@ -1,3 +1,5 @@
+package Game;
+
 public class Config {
     public static int PlayerStartHp = 12;
     public static int PlayerStartPosition = 0;

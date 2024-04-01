@@ -1,3 +1,7 @@
+package GameMaterial;
+
+import Game.Config;
+
 public class Player {
     private String name;
     private int hp;
@@ -28,7 +32,7 @@ public class Player {
     }
 
     public void setPosition(int position) {
-        this.position = Math.max(0, Math.min(Config.NumberOfArea, position) % Config.NumberOfArea);
+        this.position = Math.max(0, position % Config.NumberOfArea);
     }
 
     public int getHp() {

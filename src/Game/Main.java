@@ -1,3 +1,10 @@
+package Game;
+
+import GameMaterial.Area;
+import GameMaterial.Dice;
+import GameMaterial.Player;
+import card.HealCard;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,6 +32,7 @@ public class Main {
         dice1.randomFaceValue();
         Dice dice2 = new Dice();
         dice2.randomFaceValue();
+        HealCard healCard1 = new HealCard();
 
         System.out.println("<< " + player.getName() + " Turn >>");
         System.out.println("Now position is " + player.getPosition());
@@ -33,10 +41,14 @@ public class Main {
         int totalMove = dice1.getFaceValue() + dice2.getFaceValue();
         player.setPosition(player.getPosition() + totalMove);
 
-        System.out.println("Now player move " + totalMove + " position");
+        System.out.println("Player move " + totalMove + " position");
         System.out.println("Now position is " + player.getPosition());
 
-        existArea(player, areas);
+        if (player.getPosition() == 7 || player.getPosition() == 13 || player.getPosition() == 20 || player.getPosition() == 0) {
+            System.out.println("HEAL!");
+            healCard1.activate(player);
+        }
+        else existArea(player, areas);
 
         System.out.println("Now player health is " + player.getHp());
         System.out.println(player.getName() + ": player Health " + player.getHp() + " Position " + player.getPosition() );
@@ -46,6 +58,7 @@ public class Main {
     }
 
     private static void existArea(Player player, ArrayList<Area> areas) {
+
         if (areas.get(player.getPosition()).getOwner().getName().isEmpty()) {
             System.out.println("Do you want to buy this Area? (Y/N)");
             Scanner scanner = new Scanner(System.in);
