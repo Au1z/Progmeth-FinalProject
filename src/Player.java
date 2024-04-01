@@ -28,7 +28,7 @@ public class Player {
     }
 
     public void setPosition(int position) {
-        this.position = Math.max(1, Math.min(Config.NumberOfArea, position) % Config.NumberOfArea);
+        this.position = Math.max(0, Math.min(Config.NumberOfArea, position) % Config.NumberOfArea);
     }
 
     public int getHp() {

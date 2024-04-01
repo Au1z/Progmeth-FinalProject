@@ -21,10 +21,21 @@ public class Main {
     }
 
     public static void play(Player player, ArrayList<Area> areas) {
-        Dice dice = new Dice();
-        dice.randomFaceValue();
-        player.setPosition(player.getPosition() + dice.getFaceValue());
+        Dice dice1 = new Dice();
+        dice1.randomFaceValue();
+        Dice dice2 = new Dice();
+        dice2.randomFaceValue();
+
+        System.out.println(player.getPosition());
+        System.out.println("Dice1 is " + dice1.getFaceValue());
+        System.out.println("Dice2 is " + dice2.getFaceValue());
+
+        int totalMove = dice1.getFaceValue() + dice2.getFaceValue();
+        player.setPosition(player.getPosition() + totalMove);
+
+        System.out.println("Now player move " + totalMove + " position");
         System.out.println(player.getName() + ": "  + player.getHp() + " position: " + player.getPosition());
+
         if (areas.get(player.getPosition()).getOwner().getName().isEmpty()) {
             areas.get(player.getPosition()).setLevel(1);
             areas.get(player.getPosition()).setOwner(player);
