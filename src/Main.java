@@ -34,11 +34,13 @@ public class Main {
         player.setPosition(player.getPosition() + totalMove);
 
         System.out.println("Now player move " + totalMove + " position");
-        System.out.println(player.getName() + ": " + player.getHp() + " position: " + player.getPosition());
+        System.out.println("Now position is " + player.getPosition());
 
         existArea(player, areas);
 
-        System.out.println(player.getName() + ": " + player.getHp() + " position: " + player.getPosition());
+        System.out.println("Now player health is " + player.getHp());
+        System.out.println(player.getName() + ": player Health " + player.getHp() + " Position " + player.getPosition() );
+
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
     }
@@ -53,6 +55,7 @@ public class Main {
                     if (player.getHp() - 1 <= 0) {
                         System.out.println("Cannot buy this area");
                     } else {
+                        System.out.println("You lose 1 hp for buy this area");
                         player.setHp(player.getHp() - 1);
                         areas.get(player.getPosition()).setLevel(1);
                         areas.get(player.getPosition()).setOwner(player);
@@ -70,6 +73,7 @@ public class Main {
                     if (player.getHp() - areas.get(player.getPosition()).getLevel() <= 0) {
                         System.out.println("Cannot upgrade this area");
                     } else {
+                        System.out.println("You lose 1 hp for upgrade this area");
                         areas.get(player.getPosition()).setLevel(areas.get(player.getPosition()).getLevel() + 1);
                         player.setHp(player.getHp() - 1);
                     }
