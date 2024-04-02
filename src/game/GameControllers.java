@@ -2,6 +2,7 @@ package game;
 
 import item.card.BaseCard;
 import item.area.Area;
+import item.card.TravelCard;
 import player.Player;
 import item.Dice;
 import utils.AllCards;
@@ -48,12 +49,29 @@ public class GameControllers {
             Random random = new Random();
             BaseCard drawnCard = allCards.get(random.nextInt(allCards.size()));
 
+            Scanner scanner = new Scanner(System.in);
+            scanner.nextLine();
+
             System.out.println("You draw a " + drawnCard.getName() + " card.");
+
+            if (drawnCard instanceof TravelCard) {
+                showAreaOwner(areas);
+            }
             System.out.println(drawnCard.effect());
             drawnCard.activate(player);
         } else {
             System.out.println("Current health is " + player.getHp());
-            showAreaOwner(areas);
+            System.out.println("Do you want to see area? (Y/N)");
+            Scanner scanner = new Scanner(System.in);
+            String result = scanner.nextLine();
+            switch (result) {
+                case "Y":
+                    showAreaOwner(areas);
+                    break;
+                case "N":
+                    break;
+            }
+            //showAreaOwner(areas);
             existArea(player, areas);
         }
 
@@ -61,6 +79,7 @@ public class GameControllers {
 
         System.out.println("Now player health is " + player.getHp());
         System.out.println(player.getName() + ": player Health " + player.getHp() + " Position " + player.getPosition());
+        System.out.println("End turn");
         scanner.nextLine();
         System.out.println("==================================================");
     }
@@ -84,26 +103,16 @@ public class GameControllers {
     }
 
     public static void showAreaOwner(ArrayList<Area> areas){
-        System.out.println("Do you want to see area? (Y/N)");
-        Scanner scanner = new Scanner(System.in);
-        String result = scanner.nextLine();
-
-        switch (result) {
-            case "Y":
-                for (int i = 0; i < areas.size(); i++) {
-                    if (i != 0 && i != 5 && i != 10 && i != 15) {
-                        System.out.println("Area " + i + ": " + areas.get(i).getLevel() + " " + areas.get(i).getOwner().getName());
-                    } else{
-                        System.out.println("Area " + i + ": Event Area!");
-                    }
-                }
-            case "N":
-                break;
+        for (int i = 0; i < areas.size(); i++) {
+            if (i != 0 && i != 5 && i != 10 && i != 15) {
+                System.out.println("Area " + i + ": " + areas.get(i).getLevel() + " " + areas.get(i).getOwner().getName());
+            } else {
+                System.out.println("Area " + i + ": Event Area!");
+            }
         }
     }
 
     private static void existArea(Player player, ArrayList<Area> areas) {
-
         if (areas.get(player.getPosition()).getOwner().getName().isEmpty()) {
             buyArea(player, areas);
         } else if (areas.get(player.getPosition()).getOwner().equals(player)) {

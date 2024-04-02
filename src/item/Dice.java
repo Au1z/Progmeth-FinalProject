@@ -10,7 +10,7 @@ public class Dice {
     }
 
     public void randomFaceValue() {
-        setFaceValue(new Random().nextInt(6));
+        setFaceValue(new Random().nextInt(6) + 1);
     }
 
     public int getFaceValue() {
