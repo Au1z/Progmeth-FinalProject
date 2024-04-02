@@ -10,7 +10,7 @@ public class Main {
         Player player2 = new Player("player2");
         System.out.println("Game Start");
         ArrayList<Area> areas = new ArrayList<>();
-        for (int i = 0; i < Config.NumberOfArea + 1; i++) {
+        for (int i = 0; i < Config.NumberOfArea; i++) {
             areas.add(new Area());
         }
         while (player1.getHp() != 0 && player2.getHp() != 0) {

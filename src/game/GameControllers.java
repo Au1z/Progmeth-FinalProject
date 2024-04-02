@@ -1,13 +1,12 @@
 package game;
 
-import item.area.Area;
-import item.Dice;
-import player.Player;
-import utils.AllCards;
 import item.card.BaseCard;
+import item.area.Area;
+import player.Player;
+import item.Dice;
+import utils.AllCards;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -28,7 +27,7 @@ public class GameControllers {
         System.out.println("Player move " + totalMove + " position");
         System.out.println("Now position is " + player.getPosition());
 
-        if (Arrays.asList(Config.DrawCardPosition).contains(player.getPosition())) {
+        if (player.getPosition() == 0 || player.getPosition() == 5 || player.getPosition() == 10 || player.getPosition() == 15) {
             System.out.println("Draw a card!");
 
             ArrayList<BaseCard> allCards = AllCards.getAllCards();
@@ -39,12 +38,13 @@ public class GameControllers {
             System.out.println(drawnCard.effect());
             drawnCard.activate(player);
         } else {
+            System.out.println("Current health is " + player.getHp());
+            showAreaOwner(areas);
             existArea(player, areas);
         }
 
         System.out.println("Now player health is " + player.getHp());
         System.out.println(player.getName() + ": player Health " + player.getHp() + " Position " + player.getPosition());
-
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
         System.out.println("========================");
@@ -92,4 +92,24 @@ public class GameControllers {
             player.setHp(player.getHp() - areas.get(player.getPosition()).getLevel());
         }
     }
+
+    public static void showAreaOwner(ArrayList<Area> areas){
+        System.out.println("Do you want to see area? (Y/N)");
+        Scanner scanner = new Scanner(System.in);
+        String result = scanner.nextLine();
+
+        switch (result) {
+            case "Y":
+                for (int i = 0; i < areas.size(); i++) {
+                    if (i != 0 && i != 5 && i != 10 && i != 15) {
+                        System.out.println("Area " + i + ": " + areas.get(i).getLevel() + " " + areas.get(i).getOwner().getName());
+                    } else{
+                        System.out.println("Area " + i + ": Event Area!");
+                    }
+                }
+            case "N":
+                break;
+        }
+    }
+
 }
