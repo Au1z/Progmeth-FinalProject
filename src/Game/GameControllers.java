@@ -1,12 +1,13 @@
 package game;
 
-import item.Area;
+import item.area.Area;
 import item.Dice;
 import player.Player;
 import utils.AllCards;
 import item.card.BaseCard;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -27,7 +28,7 @@ public class GameControllers {
         System.out.println("Player move " + totalMove + " position");
         System.out.println("Now position is " + player.getPosition());
 
-        if (player.getPosition() == 7 || player.getPosition() == 13 || player.getPosition() == 20 || player.getPosition() == 0) {
+        if (Arrays.asList(Config.DrawCardPosition).contains(player.getPosition())) {
             System.out.println("Draw a card!");
 
             ArrayList<BaseCard> allCards = AllCards.getAllCards();

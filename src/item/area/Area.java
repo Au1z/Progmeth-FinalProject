@@ -1,4 +1,4 @@
-package item;
+package item.area;
 
 import player.Player;
 

@@ -1,6 +1,6 @@
 package game;
 
-import item.Area;
+import item.area.Area;
 import player.Player;
 import java.util.ArrayList;
 
