@@ -56,9 +56,14 @@ public class GameControllers {
 
             if (drawnCard instanceof TravelCard) {
                 showAreaOwner(areas);
+                System.out.println(drawnCard.effect());
+                drawnCard.activate(player);
+                existArea(player, areas);
+            }else{
+                System.out.println(drawnCard.effect());
+                drawnCard.activate(player);
             }
-            System.out.println(drawnCard.effect());
-            drawnCard.activate(player);
+
         } else {
             System.out.println("Current health is " + player.getHp());
             System.out.println("Do you want to see area? (Y/N)");
