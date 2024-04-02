@@ -1,7 +1,7 @@
-package card;
+package item.card;
 
-import Game.Config;
-import GameMaterial.Player;
+import game.Config;
+import player.Player;
 
 public class HealCard extends BaseCard { // increase player hp 2
 

@@ -1,4 +1,6 @@
-package GameMaterial;
+package item;
+
+import player.Player;
 
 public class Area {
     private Player owner;

@@ -1,6 +1,6 @@
-package GameMaterial;
+package player;
 
-import Game.Config;
+import game.Config;
 
 public class Player {
     private String name;

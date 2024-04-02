@@ -1,6 +1,6 @@
-package card;
+package item.card;
 
-import GameMaterial.Player;
+import player.Player;
 
 public abstract class BaseCard {
     private String name;

@@ -1,6 +1,6 @@
-package card;
+package item.card;
 
-import GameMaterial.Player;
+import player.Player;
 import java.util.Scanner;
 
 public class TravelCard extends BaseCard { // choose 0-25 to go that position

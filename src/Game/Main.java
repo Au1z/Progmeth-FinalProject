@@ -1,7 +1,7 @@
-package Game;
+package game;
 
-import GameMaterial.Area;
-import GameMaterial.Player;
+import item.Area;
+import player.Player;
 import java.util.ArrayList;
 
 public class Main {

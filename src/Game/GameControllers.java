@@ -1,10 +1,10 @@
-package Game;
+package game;
 
-import GameMaterial.Area;
-import GameMaterial.Dice;
-import GameMaterial.Player;
-import Utility.AllCards;
-import card.BaseCard;
+import item.Area;
+import item.Dice;
+import player.Player;
+import utils.AllCards;
+import item.card.BaseCard;
 
 import java.util.ArrayList;
 import java.util.Random;

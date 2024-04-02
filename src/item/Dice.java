@@ -1,4 +1,4 @@
-package GameMaterial;
+package item;
 
 import java.util.Random;
 

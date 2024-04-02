@@ -1,6 +1,6 @@
-package card;
+package item.card;
 
-import GameMaterial.Player;
+import player.Player;
 
 public class DamageCard extends BaseCard { // decrease player hp 2
 

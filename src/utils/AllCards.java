@@ -1,6 +1,6 @@
-package Utility;
+package utils;
 
-import card.*;
+import item.card.*;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package Game;
+package game;
 
 public class Config {
     public static int PlayerStartHp = 12;
