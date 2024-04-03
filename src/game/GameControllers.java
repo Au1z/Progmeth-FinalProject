@@ -28,10 +28,10 @@ public class GameControllers {
             }
             play(player2, areas);
         }
-        System.out.println(player1.getHp() == 0 ? "player2 win!!" : "player1 win!!");
+        System.out.println(player1.getHp() == 0 ? "player 2 win!!" : "player 1 win!!");
     }
 
-    public static void play(Player player, ArrayList<Area> areas) {
+    private static void play(Player player, ArrayList<Area> areas) {
         System.out.println("<< " + player.getName() + " Turn >>");
         System.out.println("Now position is " + player.getPosition());
 
@@ -41,24 +41,8 @@ public class GameControllers {
 
         System.out.println("Now position is " + player.getPosition());
 
-        //Area check
-        if (player.getPosition() == 0 || player.getPosition() == 5 || player.getPosition() == 10 || player.getPosition() == 15) {
-            System.out.println("Draw a card!");
-
-            ArrayList<BaseCard> allCards = AllCards.getAllCards();
-            Random random = new Random();
-            BaseCard drawnCard = allCards.get(random.nextInt(allCards.size()));
-
-            Scanner scanner = new Scanner(System.in);
-            scanner.nextLine();
-
-            System.out.println("You draw a " + drawnCard.getName() + " card.");
-
-            if (drawnCard instanceof TravelCard) {
-                showAreaOwner(areas);
-            }
-            System.out.println(drawnCard.effect());
-            drawnCard.activate(player);
+        if (isCardArea(player.getPosition())) {
+            drawCard(player, areas);
         } else {
             System.out.println("Current health is " + player.getHp());
             System.out.println("Do you want to see area? (Y/N)");
@@ -71,7 +55,6 @@ public class GameControllers {
                 case "N":
                     break;
             }
-            //showAreaOwner(areas);
             existArea(player, areas);
         }
 
@@ -102,9 +85,41 @@ public class GameControllers {
         System.out.println(player.getName() + " move " + totalMove + " position");
     }
 
-    public static void showAreaOwner(ArrayList<Area> areas){
+    private static boolean isCardArea(int position) {
+        for (int i = 0; i < Config.DrawCardPosition.length; i++) {
+            if (Config.DrawCardPosition[i] == position) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static void drawCard(Player player, ArrayList<Area> areas) {
+        System.out.println("Draw a card!");
+
+        ArrayList<BaseCard> allCards = AllCards.getAllCards();
+        Random random = new Random();
+        BaseCard drawnCard = allCards.get(random.nextInt(allCards.size()));
+
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+
+        System.out.println("You draw a " + drawnCard.getName() + " card.");
+
+        if (drawnCard instanceof TravelCard) {
+            showAreaOwner(areas);
+            System.out.println(drawnCard.effect());
+            drawnCard.activate(player);
+            existArea(player, areas);//bug at 0, 5, 10, 15
+        } else {
+            System.out.println(drawnCard.effect());
+            drawnCard.activate(player);
+        }
+    }
+
+    private static void showAreaOwner(ArrayList<Area> areas){
         for (int i = 0; i < areas.size(); i++) {
-            if (i != 0 && i != 5 && i != 10 && i != 15) {
+            if (!isCardArea(i)) {
                 System.out.println("Area " + i + ": " + areas.get(i).getLevel() + " " + areas.get(i).getOwner().getName());
             } else {
                 System.out.println("Area " + i + ": Event Area!");

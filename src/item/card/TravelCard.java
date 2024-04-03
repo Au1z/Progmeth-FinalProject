@@ -3,7 +3,7 @@ package item.card;
 import player.Player;
 import java.util.Scanner;
 
-public class TravelCard extends BaseCard { // choose 0-25 to go that position
+public class TravelCard extends BaseCard { // choose 0-19 to go that position
 
     public TravelCard() {
         super("TRAVEL");
@@ -12,7 +12,7 @@ public class TravelCard extends BaseCard { // choose 0-25 to go that position
     @Override
     public void activate(Player player) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Choose a number you want to go (0-25): ");
+        System.out.println("Choose a number you want to go (0-19): ");
         int newPosition = scanner.nextInt();
         player.setPosition(newPosition);
         System.out.println("Player moved to position " + newPosition);
