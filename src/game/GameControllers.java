@@ -67,7 +67,7 @@ public class GameControllers {
         System.out.println("==================================================");
     }
 
-    private static int rollDice() {
+    static int rollDice() {
         Dice dice1 = new Dice();
         Dice dice2 = new Dice();
 

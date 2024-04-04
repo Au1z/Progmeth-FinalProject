@@ -12,6 +12,8 @@ import java.util.Objects;
 
 
 public class Main extends Application {
+
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -19,8 +21,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Board.fxml")));
-            primaryStage.setTitle("My Application");
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HomePage.fxml")));
+            primaryStage.setTitle("Castle of Bloodlines: The Monopoly of Nightmares");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         } catch (Exception e) {
