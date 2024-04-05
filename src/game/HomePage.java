@@ -23,21 +23,20 @@ public class HomePage implements Initializable {
 
 
     public void gotoBoard() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Board.fxml"));
-
-
         try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Board.fxml"));
             Parent root = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+
+            // Get the current stage from any UI element
+            Stage stage = (Stage) startButton1.getScene().getWindow();
+
             stage.setTitle("Castle of Bloodlines: The Monopoly of Nightmares");
-            stage.show();
-
-
-        }  catch (IOException e) {
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
