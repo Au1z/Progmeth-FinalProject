@@ -37,8 +37,6 @@ public class HomePage implements Initializable {
         }
     }
 
-
-
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startButton1.setImage(new Image("startGameText1.png"));
         option1.setImage(new Image("howToPlayText.png"));
