@@ -1,5 +1,6 @@
 package item.area;
 
-public abstract class BaseArea {
+import player.Player;
 
+public class BaseArea extends Area {
 }

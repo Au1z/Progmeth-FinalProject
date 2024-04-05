@@ -2,7 +2,7 @@ package item.area;
 
 import player.Player;
 
-public class Area {
+public abstract class Area {
     private Player owner;
     private int level;
 
