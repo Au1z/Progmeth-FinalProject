@@ -13,9 +13,7 @@ import java.util.Scanner;
 
 public class GameControllers {
 
-    public static void start() {
-        Player player1 = new Player("player 1");
-        Player player2 = new Player("player 2");
+    public static void start(Player player1, Player player2) {
         System.out.println("Game Start");
         ArrayList<Area> areas = new ArrayList<>();
         for (int i = 0; i < Config.NumberOfArea; i++) {
@@ -35,26 +33,17 @@ public class GameControllers {
         System.out.println("<< " + player.getName() + " Turn >>");
         System.out.println("Now position is " + player.getPosition());
 
-        int totalMove = rollDice();
+//       int totalMove = rollDice();
+//
+//        movePlayer(player, totalMove);
 
-        movePlayer(player, totalMove);
-
-        System.out.println("Now position is " + player.getPosition());
 
         if (isCardArea(player.getPosition())) {
             drawCard(player, areas);
         } else {
             System.out.println("Current health is " + player.getHp());
-            System.out.println("Do you want to see area? (Y/N)");
             Scanner scanner = new Scanner(System.in);
             String result = scanner.nextLine();
-            switch (result) {
-                case "Y":
-                    showAreaOwner(areas);
-                    break;
-                case "N":
-                    break;
-            }
             existArea(player, areas);
         }
 
@@ -177,3 +166,4 @@ public class GameControllers {
         }
     }
 }
+

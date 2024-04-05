@@ -13,20 +13,21 @@ import java.util.Objects;
 
 public class Main extends Application {
 
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     @Override
     public void start(Stage primaryStage) throws IOException {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HomePage.fxml")));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
+            Parent root = loader.load();
             primaryStage.setTitle("Castle of Bloodlines: The Monopoly of Nightmares");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
+
         } catch (Exception e) {
-            e.printStackTrace();;
+            e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
