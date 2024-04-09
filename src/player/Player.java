@@ -42,4 +42,9 @@ public class Player {
     public void setHp(int hp) {
         this.hp = Math.max(0, hp);
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

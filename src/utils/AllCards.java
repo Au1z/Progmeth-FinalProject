@@ -9,8 +9,8 @@ public class AllCards {
         ArrayList<BaseCard> allCards = new ArrayList<>();
         allCards.add(new HealCard());
         allCards.add(new DamageCard());
-        allCards.add(new SkipCard());
-        allCards.add(new TravelCard());
+//        allCards.add(new SkipCard());
+//        allCards.add(new TravelCard());
         return allCards;
     }
 }

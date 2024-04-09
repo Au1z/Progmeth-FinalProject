@@ -1,0 +1,76 @@
+<component name="libraryTable">
+  <library name="javafx.web">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Documents/temp/openjfx-20.0.2_windows-x64_bin-sdk/javafx-sdk-20.0.2/lib/javafx.web.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/temp/openjfx-20.0.2_windows-x64_bin-sdk/javafx-sdk-20.0.2/lib/javafx.swing.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/temp/openjfx-20.0.2_windows-x64_bin-sdk/javafx-sdk-20.0.2/lib/javafx.media.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/temp/openjfx-20.0.2_windows-x64_bin-sdk/javafx-sdk-20.0.2/lib/javafx.graphics.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/temp/openjfx-20.0.2_windows-x64_bin-sdk/javafx-sdk-20.0.2/lib/javafx.controls.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/temp/openjfx-20.0.2_windows-x64_bin-sdk/javafx-sdk-20.0.2/lib/javafx.base.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/temp/openjfx-20.0.2_windows-x64_bin-sdk/javafx-sdk-20.0.2/lib/javafx-swt.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/temp/openjfx-20.0.2_windows-x64_bin-sdk/javafx-sdk-20.0.2/lib/javafx.fxml.jar!/" />
+      <root url="file://$PROJECT_DIR$/.." />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../CEDT_Lecture2/src" />
+      <root url="file://$PROJECT_DIR$/../CEDT_Lecture3/src" />
+      <root url="file://$PROJECT_DIR$/../ExamQ12021/InterfaceNaJa/src" />
+      <root url="file://$PROJECT_DIR$/../ExamQ12021/NewJavaFx/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../ExamQ12021/Q1_2021/src" />
+      <root url="file://$PROJECT_DIR$/../ExamQ12021/Q2_2019/src" />
+      <root url="file://$PROJECT_DIR$/../ExamQ12021/StudyJavaFx/src" />
+      <root url="file://$PROJECT_DIR$/../ExamQ12021/hellojavafx/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../ExamQ12021/testjavafx/src" />
+      <root url="file://$PROJECT_DIR$/src" />
+      <root url="file://$PROJECT_DIR$/../GameCard/src" />
+      <root url="file://$PROJECT_DIR$/../GenshinCharacter/src" />
+      <root url="file://$PROJECT_DIR$/../Instanceof/src" />
+      <root url="file://$PROJECT_DIR$/../Lab2_2023_2_6633254321_Siamrat/src" />
+      <root url="file://$PROJECT_DIR$/../Leacture2-3/src" />
+      <root url="file://$PROJECT_DIR$/../Lecture0_Part2/src" />
+      <root url="file://$PROJECT_DIR$/../Lecture5javafx/src" />
+      <root url="file://$PROJECT_DIR$/../Lecture5javafx/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../Object/ClassOob1/src" />
+      <root url="file://$PROJECT_DIR$/../Object/ClassOob2/src" />
+      <root url="file://$PROJECT_DIR$/../Object/ClassOob3/src" />
+      <root url="file://$PROJECT_DIR$/../Object/ClassOob4/src" />
+      <root url="file://$PROJECT_DIR$/../Oob/Gamecard/src" />
+      <root url="file://$PROJECT_DIR$/../Oob/src" />
+      <root url="file://$PROJECT_DIR$/../Prepare_Midterm2020_part1/src" />
+      <root url="file://$PROJECT_DIR$/../Progmeth-FinalProject/src" />
+      <root url="file://$PROJECT_DIR$/../Progmeth_Lab1_2023_2_6633254321_Siamrat/main/src" />
+      <root url="file://$PROJECT_DIR$/../Progmeth_Lab1_2023_2_6633254321_Siamrat_2/src/src" />
+      <root url="file://$PROJECT_DIR$/../Progmeth_Lab4_2023_2_6633254321_Siamrat/src" />
+      <root url="file://$PROJECT_DIR$/../Progmeth_Lab5_2023_2_6633254321_Siamrat/src" />
+      <root url="file://$PROJECT_DIR$/../Progmeth_Lab6_2023_2_6633254321_Siamrat/src" />
+      <root url="file://$PROJECT_DIR$/../Progmeth_lab3_2023_2_6633254321_Siamrat/src" />
+      <root url="file://$PROJECT_DIR$/../Testjavafx2/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../TreadsJVFX/src" />
+      <root url="file://$PROJECT_DIR$/../canvas/src" />
+      <root url="file://$PROJECT_DIR$/../demo1/test1/src" />
+      <root url="file://$PROJECT_DIR$/../eaevjwbjrkk/src" />
+      <root url="file://$PROJECT_DIR$/../ex2020part2/src" />
+      <root url="file://$PROJECT_DIR$/../ex2021part1/src" />
+      <root url="file://$PROJECT_DIR$/../ex2021part2/src" />
+      <root url="file://$PROJECT_DIR$/../final_2019/src" />
+      <root url="file://$PROJECT_DIR$/../final_2019_part3/src" />
+      <root url="file://$PROJECT_DIR$/../interface/src" />
+      <root url="file://$PROJECT_DIR$/../javaStudy/Class2/src" />
+      <root url="file://$PROJECT_DIR$/../javaStudy/Class/src" />
+      <root url="file://$PROJECT_DIR$/../javaStudy/Classes/src" />
+      <root url="file://$PROJECT_DIR$/../javaStudy/SelfTestJava/src" />
+      <root url="file://$PROJECT_DIR$/../javaStudy/lacture16/src" />
+      <root url="file://$PROJECT_DIR$/../javaStudy/lacture3/src" />
+      <root url="file://$PROJECT_DIR$/../javaStudy/lacture4/src" />
+      <root url="file://$PROJECT_DIR$/../javaStudy/other/src" />
+      <root url="file://$PROJECT_DIR$/../lecture5fx/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../monopolygame/src" />
+      <root url="file://$PROJECT_DIR$/../tank/src" />
+      <root url="file://$PROJECT_DIR$/../test/src" />
+      <root url="file://$PROJECT_DIR$/../testjavafx1/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../testjavafx/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../threads2/src" />
+    </SOURCES>
+  </library>
+</component>

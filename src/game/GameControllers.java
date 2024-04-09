@@ -6,19 +6,14 @@ import item.card.TravelCard;
 import player.Player;
 import item.Dice;
 import utils.AllCards;
-
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 public class GameControllers {
 
-    public static void start(Player player1, Player player2) {
+    public static void start(Player player1, Player player2, ArrayList<Area> areas) {
         System.out.println("Game Start");
-        ArrayList<Area> areas = new ArrayList<>();
-        for (int i = 0; i < Config.NumberOfArea; i++) {
-            areas.add(new Area());
-        }
         while (player1.getHp() != 0 && player2.getHp() != 0) {
             play(player1, areas);
             if (player1.getHp() == 0) {
@@ -32,11 +27,6 @@ public class GameControllers {
     private static void play(Player player, ArrayList<Area> areas) {
         System.out.println("<< " + player.getName() + " Turn >>");
         System.out.println("Now position is " + player.getPosition());
-
-//       int totalMove = rollDice();
-//
-//        movePlayer(player, totalMove);
-
 
         if (isCardArea(player.getPosition())) {
             drawCard(player, areas);
@@ -75,8 +65,8 @@ public class GameControllers {
     }
 
     private static boolean isCardArea(int position) {
-        for (int i = 0; i < Config.DrawCardPosition.length; i++) {
-            if (Config.DrawCardPosition[i] == position) {
+        for (int drawCardPosition : Config.DrawCardPosition) {
+            if (drawCardPosition == position) {
                 return true;
             }
         }
@@ -99,14 +89,14 @@ public class GameControllers {
             showAreaOwner(areas);
             System.out.println(drawnCard.effect());
             drawnCard.activate(player);
-            existArea(player, areas);//bug at 0, 5, 10, 15
+            existArea(player, areas);
         } else {
             System.out.println(drawnCard.effect());
             drawnCard.activate(player);
         }
     }
 
-    private static void showAreaOwner(ArrayList<Area> areas){
+    private static void showAreaOwner(ArrayList<Area> areas) {
         for (int i = 0; i < areas.size(); i++) {
             if (!isCardArea(i)) {
                 System.out.println("Area " + i + ": " + areas.get(i).getLevel() + " " + areas.get(i).getOwner().getName());
@@ -116,7 +106,7 @@ public class GameControllers {
         }
     }
 
-    private static void existArea(Player player, ArrayList<Area> areas) {
+    public static void existArea(Player player, ArrayList<Area> areas) {
         if (areas.get(player.getPosition()).getOwner().getName().isEmpty()) {
             buyArea(player, areas);
         } else if (areas.get(player.getPosition()).getOwner().equals(player)) {
@@ -127,23 +117,14 @@ public class GameControllers {
         }
     }
 
-    private static void buyArea(Player player, ArrayList<Area> areas) {
-        System.out.println("Do you want to buy Area " + player.getPosition() + "? (Y/N)");
-        Scanner scanner = new Scanner(System.in);
-        String ans = scanner.nextLine();
-        switch (ans) {
-            case "Y":
-                if (player.getHp() - 1 <= 0) {
-                    System.out.println("Cannot buy Area " + player.getPosition());
-                } else {
-                    System.out.println("You lose 1 hp for buy Area " + player.getPosition());
-                    player.setHp(player.getHp() - 1);
-                    areas.get(player.getPosition()).setLevel(1);
-                    areas.get(player.getPosition()).setOwner(player);
-                }
-                break;
-            case "N":
-                break;
+    public static void buyArea(Player player, ArrayList<Area> areas) {
+        if (player.getHp() - 1 <= 0) {
+            System.out.println("Cannot buy Area " + player.getPosition());
+        } else {
+            System.out.println("You lose 1 hp for buy Area " + player.getPosition());
+            player.setHp(player.getHp() - 1);
+            areas.get(player.getPosition()).setLevel(1);
+            areas.get(player.getPosition()).setOwner(player);
         }
     }
 
@@ -166,4 +147,3 @@ public class GameControllers {
         }
     }
 }
-
