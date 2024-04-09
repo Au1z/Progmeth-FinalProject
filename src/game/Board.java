@@ -45,6 +45,7 @@ public class Board implements Initializable {
     public TextField hpPlayer1;
     public TextField hpPlayer2;
     public Button buyArea;
+    public ImageView upgradeAreasPics;
     public ImageView rollDicePics;
     public ImageView buyAreaPics;
     public ImageView pickUpPics;
@@ -94,7 +95,8 @@ public class Board implements Initializable {
         area15.setImage(new Image("event.png"));
         imagePlayer1.setImage(new Image("character1mini.png"));
         imagePlayer2.setImage(new Image("character2mini.png"));
-
+        upgradeAreasPics.setImage(new Image("upgrade.png"));
+        upgradeAreasPics.setVisible(false);
         rollDicePics.setImage(new Image("rollDice.png"));
         buyAreaPics.setImage(new Image("buy.png"));
         pickUpPics.setImage(new Image("pickupCard.png"));
@@ -161,11 +163,17 @@ public class Board implements Initializable {
             if (player1.getPosition() == 5 || player1.getPosition() == 10 || player1.getPosition() == 15) {
                 pickUpPics.setVisible(true);
             }
+            if(areas.get(player1.getPosition()).getOwner().getName().equals("player 1")){
+                upgradeAreasPics.setVisible(true);
+            }
         } else {
             textTurn.setText("<< " + player2.getName() + " Turn >>");
             textPosition.setText("Position : " + player2.getPosition());
             if (player2.getPosition() == 5 || player2.getPosition() == 10 || player2.getPosition() == 15) {
                 pickUpPics.setVisible(true);
+            }
+            if(areas.get(player2.getPosition()).getOwner().getName().equals("player 2")){
+                upgradeAreasPics.setVisible(true);
             }
         }
         if ((player1.getPosition() != 5 && player1.getPosition() != 10 && player1.getPosition() != 15) && (player2.getPosition() != 5 && player2.getPosition() != 10 && player2.getPosition() != 15)) {
@@ -196,30 +204,20 @@ public class Board implements Initializable {
             int newPosition = (currentPosition + 1) % 20;
             player.setPosition(newPosition);
 
-            System.out.println("this " + areas.get(player1.getPosition()).isBuyable(player1));
-
         }
-        System.out.println("Can buy this area : " + areas.get(player.getPosition()).isBuyable(player));
+        System.out.println("Area " + player.getPosition() + ": " + areas.get(player.getPosition()).getLevel() + " " + areas.get(player.getPosition()).getOwner().getName());
         System.out.println(player.getName());
         if (isPlayer1Turn) {
-            if (areas.get(player1.getPosition()).getOwner().equals(player2)) {
-
-            }
-            else {
-                System.out.println("H E R E 1");
-                player1.setHp(player1.getHp() - areas.get(player1.getPosition()).getLevel());
-                System.out.println(player1.getHp());
+            if (areas.get(player1.getPosition()).getOwner().getName().equals("player 2")) {
+                player1.setHp(player.getHp() - areas.get(player.getPosition()).getLevel());
+                System.out.println(player.getHp());
                 textDescription.setText("You lose " + areas.get(player1.getPosition()).getLevel() + " hp");
                 hpPlayer1.setText(String.valueOf(player1.getHp()));
             }
-        }
-        else if (areas.get(player2.getPosition()).isBuyable(player2)) {
-            System.out.println("H E R E 2");
-            if (areas.get(player1.getPosition()).isBuyable(player1)) {
 
-            }
-            else {
-                System.out.println("H E R E 1");
+        }
+        else{
+            if (areas.get(player2.getPosition()).getOwner().getName().equals("player 1")) {
                 player2.setHp(player2.getHp() - areas.get(player2.getPosition()).getLevel());
                 textDescription.setText("You lose " + areas.get(player2.getPosition()).getLevel() + " hp");
                 hpPlayer2.setText(String.valueOf(player2.getHp()));
@@ -286,5 +284,29 @@ public class Board implements Initializable {
                 hpPlayer2.setText(String.valueOf(player2.getHp()));
             }
         }
+    }
+
+    public void upgradeArea(MouseEvent mouseEvent) {
+        if (!isPlayer1Turn) {
+            if (!(player1.getPosition() == 0 || player1.getPosition() == 5 || player1.getPosition() == 10 || player1.getPosition() == 15)
+                    && areas.get(player1.getPosition()).getOwner().getName().equals("player 1")) {
+                buyTheArea(player1);
+                areaPanes[player1.getPosition()].setBackground(new Background(new BackgroundFill(Color.ORANGE, null, null)));
+                areas.get(player1.getPosition()).setLevel(areas.get(player1.getPosition()).getLevel() + 1);
+                player1.setHp(player1.getHp() - 1);
+                hpPlayer1.setText(String.valueOf(player1.getHp()));
+            }
+        }
+        else {
+            if (!(player2.getPosition() == 0 || player2.getPosition() == 5 || player2.getPosition() == 10 || player2.getPosition() == 15)
+                    && areas.get(player2.getPosition()).getOwner().getName().equals("player 2")) {
+                buyTheArea(player2);
+                areaPanes[player2.getPosition()].setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
+                areas.get(player2.getPosition()).setLevel(areas.get(player2.getPosition()).getLevel() + 1);
+                player2.setHp(player2.getHp() - 1);
+                hpPlayer2.setText(String.valueOf(player2.getHp()));
+            }
+        }
+        upgradeAreasPics.setVisible(false);
     }
 }

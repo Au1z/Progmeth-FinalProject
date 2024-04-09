@@ -122,28 +122,19 @@ public class GameControllers {
             System.out.println("Cannot buy Area " + player.getPosition());
         } else {
             System.out.println("You lose 1 hp for buy Area " + player.getPosition());
-            player.setHp(player.getHp() - 1);
+//            player.setHp(player.getHp() - 1);
             areas.get(player.getPosition()).setLevel(1);
             areas.get(player.getPosition()).setOwner(player);
         }
     }
 
     private static void upgradeArea(Player player, ArrayList<Area> areas) {
-        System.out.println("Do you want to upgrade this area? (Y/N)");
-        Scanner scanner = new Scanner(System.in);
-        String ans = scanner.nextLine();
-        switch (ans) {
-            case "Y":
-                if (player.getHp() - areas.get(player.getPosition()).getLevel() <= 0) {
-                    System.out.println("Cannot upgrade this area");
-                } else {
-                    System.out.println("You lose 1 hp for upgrade this area");
-                    areas.get(player.getPosition()).setLevel(areas.get(player.getPosition()).getLevel() + 1);
-                    player.setHp(player.getHp() - 1);
-                }
-                break;
-            case "N":
-                break;
+        if (player.getHp() - areas.get(player.getPosition()).getLevel() <= 0) {
+            System.out.println("Cannot upgrade this area");
+        } else {
+            System.out.println("You lose 1 hp for upgrade this area");
+//            areas.get(player.getPosition()).setLevel(areas.get(player.getPosition()).getLevel() + 1);
+//                   player.setHp(player.getHp() - 1);
         }
     }
 }

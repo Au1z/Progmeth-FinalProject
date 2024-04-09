@@ -211,5 +211,10 @@
       <TextField fx:id="textTurn" accessibleRole="IMAGE_VIEW" editable="false" layoutX="53.0" layoutY="631.0" prefHeight="22.0" prefWidth="488.0" style="-fx-background-color: lightgray;" />
       <TextField fx:id="textPosition" accessibleRole="IMAGE_VIEW" editable="false" layoutX="53.0" layoutY="663.0" prefHeight="16.0" prefWidth="488.0" style="-fx-background-color: lightgray;" />
       <TextField fx:id="textDescription" accessibleRole="IMAGE_VIEW" editable="false" layoutX="53.0" layoutY="700.0" prefHeight="16.0" prefWidth="488.0" style="-fx-background-color: lightgray;" />
+      <ImageView fx:id="upgradeAreasPics" fitHeight="123.0" fitWidth="152.0" layoutX="600.0" layoutY="639.0" onMouseClicked="#upgradeArea" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
     </children>
 </AnchorPane>
