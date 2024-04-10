@@ -2,7 +2,11 @@ package game;
 
 import item.Dice;
 import item.card.BaseCard;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -12,11 +16,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import player.Player;
 import item.area.Area;
 import utils.AllCards;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
@@ -49,9 +55,8 @@ public class Board implements Initializable {
     public ImageView rollDicePics;
     public ImageView buyAreaPics;
     public ImageView pickUpPics;
-    public ImageView endPics;
     public TextField textTurn;
-    public TextField textPosition;
+    public TextField textEffect;
     public TextField textDescription;
     private Player player1;
     private Player player2;
@@ -74,6 +79,7 @@ public class Board implements Initializable {
     public AnchorPane area18;
     public AnchorPane area19;
     public AnchorPane[] areaPanes;
+    public boolean isPlayer1Win = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -101,7 +107,6 @@ public class Board implements Initializable {
         buyAreaPics.setImage(new Image("buy.png"));
         pickUpPics.setImage(new Image("pickupCard.png"));
         pickUpPics.setVisible(false);
-        endPics.setImage(new Image("end.png"));
 
         areaPanes = new AnchorPane[]{null, area1, area2, area3, area4, null, area6, area7, area8, area9, null, area11, area12, area13, area14, null, area16, area17, area18, area19};
         areas = new ArrayList<>();
@@ -135,6 +140,7 @@ public class Board implements Initializable {
         dice2.randomFaceValue();
         System.out.println("Dice 1: " + dice1.getFaceValue());
         System.out.println("Dice 2: " + dice2.getFaceValue());
+        textEffect.setText(null);
 
         Thread thread = new Thread() {
             public void run() {
@@ -159,7 +165,7 @@ public class Board implements Initializable {
         startGameLogic(isPlayer1Turn ? player2 : player1);
         if (isPlayer1Turn) {
             textTurn.setText("<< " + player1.getName() + " Turn >>");
-            textPosition.setText("Position : " + player1.getPosition());
+
             if (player1.getPosition() == 5 || player1.getPosition() == 10 || player1.getPosition() == 15) {
                 pickUpPics.setVisible(true);
             }
@@ -168,7 +174,6 @@ public class Board implements Initializable {
             }
         } else {
             textTurn.setText("<< " + player2.getName() + " Turn >>");
-            textPosition.setText("Position : " + player2.getPosition());
             if (player2.getPosition() == 5 || player2.getPosition() == 10 || player2.getPosition() == 15) {
                 pickUpPics.setVisible(true);
             }
@@ -183,8 +188,28 @@ public class Board implements Initializable {
         hpPlayer2.setText(String.valueOf(player2.getHp()));
         isPlayer1Turn = !isPlayer1Turn;
 
-        for(int i=0;i<19;i++){
-            System.out.println("Area " + i + ": " + areas.get(i).getLevel() + " " + areas.get(i).getOwner().getName());
+        if (player1.getHp() <= 0) {
+            player2.setIsWin(true);
+            gotoSummaryPage (rollDicePics);
+        }
+        else if (player2.getHp() <= 0) {
+            player1.setIsWin(true);
+            gotoSummaryPage (rollDicePics);
+        }
+    }
+
+    public void gotoSummaryPage(Node anyNode) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("summaryPage.fxml"));
+            Parent root = fxmlLoader.load();
+
+            Stage stage = (Stage) anyNode.getScene().getWindow();
+
+            stage.setTitle("Game Over");
+            stage.setScene(new Scene(root, 1200, 700));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -211,7 +236,7 @@ public class Board implements Initializable {
             if (areas.get(player1.getPosition()).getOwner().getName().equals("player 2")) {
                 player1.setHp(player.getHp() - areas.get(player.getPosition()).getLevel());
                 System.out.println(player.getHp());
-                textDescription.setText("You lose " + areas.get(player1.getPosition()).getLevel() + " hp");
+                textDescription.setText(player1.getName()+" lose " + areas.get(player1.getPosition()).getLevel() + " hp");
                 hpPlayer1.setText(String.valueOf(player1.getHp()));
             }
 
@@ -219,7 +244,7 @@ public class Board implements Initializable {
         else{
             if (areas.get(player2.getPosition()).getOwner().getName().equals("player 1")) {
                 player2.setHp(player2.getHp() - areas.get(player2.getPosition()).getLevel());
-                textDescription.setText("You lose " + areas.get(player2.getPosition()).getLevel() + " hp");
+                textDescription.setText(player2.getName()+" lose " + areas.get(player2.getPosition()).getLevel() + " hp");
                 hpPlayer2.setText(String.valueOf(player2.getHp()));
             }
 
@@ -240,6 +265,7 @@ public class Board implements Initializable {
 
             System.out.println(player1.getHp());
             hpPlayer1.setText(String.valueOf(player1.getHp()));
+            textEffect.setText(drawnCard.effect());
             pickUpPics.setVisible(false);
         }
 
@@ -253,14 +279,12 @@ public class Board implements Initializable {
 
             System.out.println(player2.getHp());
             hpPlayer2.setText(String.valueOf(player2.getHp()));
+            textEffect.setText(drawnCard.effect());
             pickUpPics.setVisible(false);
         }
 
     }
 
-    public void endTurn(MouseEvent actionEvent) {
-        isPlayer1Turn = !isPlayer1Turn;
-    }
 
     public void buyArea(MouseEvent actionEvent) {
         if (!isPlayer1Turn) {

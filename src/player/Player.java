@@ -6,11 +6,17 @@ public class Player {
     private String name;
     private int hp;
     private int position;
+    private boolean isWin;
 
     public Player() {
         setName("");
         setHp(Config.PlayerStartHp);
         setPosition(Config.PlayerStartPosition);
+        this.isWin = false;
+    }
+
+    public void setIsWin(boolean isWin) {
+        this.isWin = isWin;
     }
 
     public Player(String name) {
@@ -47,4 +53,5 @@ public class Player {
     public String toString() {
         return name;
     }
+
 }
