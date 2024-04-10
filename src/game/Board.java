@@ -1,7 +1,7 @@
 package game;
 
 import item.Dice;
-import item.card.BaseCard;
+import item.card.*;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -20,7 +21,7 @@ import javafx.stage.Stage;
 import player.Player;
 import item.area.Area;
 import utils.AllCards;
-
+import game.Config;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -44,6 +45,7 @@ public class Board implements Initializable {
     public ImageView area10;
     public ImageView area15;
     public ImageView area0;
+    public ImageView cardPics;
     public Button openCard;
     public Button endTurn;
     public ImageView imagePlayer1;
@@ -134,67 +136,74 @@ public class Board implements Initializable {
     }
 
     public void rollDicesAndPutImage(MouseEvent actionEvent) {
-        Dice dice1 = new Dice();
-        Dice dice2 = new Dice();
-        dice1.randomFaceValue();
-        dice2.randomFaceValue();
-        System.out.println("Dice 1: " + dice1.getFaceValue());
-        System.out.println("Dice 2: " + dice2.getFaceValue());
-        textEffect.setText(null);
+        cardPics.setVisible(false);
+        if(actionEvent.getButton() == MouseButton.PRIMARY){
+            Dice dice1 = new Dice();
+            Dice dice2 = new Dice();
+            dice1.randomFaceValue();
+            dice2.randomFaceValue();
+            System.out.println("Dice 1: " + dice1.getFaceValue());
+            System.out.println("Dice 2: " + dice2.getFaceValue());
+            textEffect.setText(null);
+            upgradeAreasPics.setVisible(false);
 
-        Thread thread = new Thread() {
-            public void run() {
-                System.out.println("thread start");
-                try {
-                    for (int i = 0; i < 10; i++) {
-                        File file1 = new File("res/dice/dice" + (dice1.getFaceValue()) + ".png");
-                        dice01.setImage(new Image(file1.toURI().toString()));
-                        File file2 = new File("res/dice/dice" + (dice2.getFaceValue()) + ".png");
-                        dice02.setImage(new Image(file2.toURI().toString()));
-                        Thread.sleep(100);
+            Thread thread = new Thread() {
+                public void run() {
+                    System.out.println("thread start");
+                    try {
+                        for (int i = 0; i < 10; i++) {
+                            File file1 = new File("res/dice/dice" + (dice1.getFaceValue()) + ".png");
+                            dice01.setImage(new Image(file1.toURI().toString()));
+                            File file2 = new File("res/dice/dice" + (dice2.getFaceValue()) + ".png");
+                            dice02.setImage(new Image(file2.toURI().toString()));
+                            Thread.sleep(100);
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                }
+
+            };
+            thread.start();
+            dice.setText(String.valueOf(dice1.getFaceValue() + dice2.getFaceValue()));
+            movePlayer(isPlayer1Turn ? player1 : player2, dice1.getFaceValue() + dice2.getFaceValue(), isPlayer1Turn ? imagePlayer1 : imagePlayer2);
+            startGameLogic(isPlayer1Turn ? player2 : player1);
+            if (isPlayer1Turn) {
+                textTurn.setText("<< " + player1.getName() + " Turn >>");
+
+                if (player1.getPosition() == 5 || player1.getPosition() == 10 || player1.getPosition() == 15) {
+                    pickUpPics.setVisible(true);
+                }
+                if(areas.get(player1.getPosition()).getOwner().getName().equals("player 1")){
+                    upgradeAreasPics.setVisible(true);
+                }
+            } else {
+                textTurn.setText("<< " + player2.getName() + " Turn >>");
+                if (player2.getPosition() == 5 || player2.getPosition() == 10 || player2.getPosition() == 15) {
+                    pickUpPics.setVisible(true);
+                }
+                if(areas.get(player2.getPosition()).getOwner().getName().equals("player 2")){
+                    upgradeAreasPics.setVisible(true);
                 }
             }
+            if ((player1.getPosition() != 5 && player1.getPosition() != 10 && player1.getPosition() != 15) && (player2.getPosition() != 5 && player2.getPosition() != 10 && player2.getPosition() != 15)) {
+                pickUpPics.setVisible(false);
+            }
+            hpPlayer1.setText(String.valueOf(player1.getHp()));
+            hpPlayer2.setText(String.valueOf(player2.getHp()));
+            isPlayer1Turn = !isPlayer1Turn;
 
-        };
-        thread.start();
-        dice.setText(String.valueOf(dice1.getFaceValue() + dice2.getFaceValue()));
-        movePlayer(isPlayer1Turn ? player1 : player2, dice1.getFaceValue() + dice2.getFaceValue(), isPlayer1Turn ? imagePlayer1 : imagePlayer2);
-        startGameLogic(isPlayer1Turn ? player2 : player1);
-        if (isPlayer1Turn) {
-            textTurn.setText("<< " + player1.getName() + " Turn >>");
-
-            if (player1.getPosition() == 5 || player1.getPosition() == 10 || player1.getPosition() == 15) {
-                pickUpPics.setVisible(true);
+            if (player1.getHp() <= 0) {
+                player2.setIsWin(true);
+                gotoSummaryPage (rollDicePics);
             }
-            if(areas.get(player1.getPosition()).getOwner().getName().equals("player 1")){
-                upgradeAreasPics.setVisible(true);
-            }
-        } else {
-            textTurn.setText("<< " + player2.getName() + " Turn >>");
-            if (player2.getPosition() == 5 || player2.getPosition() == 10 || player2.getPosition() == 15) {
-                pickUpPics.setVisible(true);
-            }
-            if(areas.get(player2.getPosition()).getOwner().getName().equals("player 2")){
-                upgradeAreasPics.setVisible(true);
+            else if (player2.getHp() <= 0) {
+                player1.setIsWin(true);
+                gotoSummaryPage (rollDicePics);
             }
         }
-        if ((player1.getPosition() != 5 && player1.getPosition() != 10 && player1.getPosition() != 15) && (player2.getPosition() != 5 && player2.getPosition() != 10 && player2.getPosition() != 15)) {
-            pickUpPics.setVisible(false);
-        }
-        hpPlayer1.setText(String.valueOf(player1.getHp()));
-        hpPlayer2.setText(String.valueOf(player2.getHp()));
-        isPlayer1Turn = !isPlayer1Turn;
-
-        if (player1.getHp() <= 0) {
-            player2.setIsWin(true);
-            gotoSummaryPage (rollDicePics);
-        }
-        else if (player2.getHp() <= 0) {
-            player1.setIsWin(true);
-            gotoSummaryPage (rollDicePics);
+        for (int i = 0; i < areas.size(); i++) {
+            System.out.println("Area " + i + ": " + areas.get(i).getLevel() + " " + areas.get(i).getOwner().getName());
         }
     }
 
@@ -229,6 +238,10 @@ public class Board implements Initializable {
             int newPosition = (currentPosition + 1) % 20;
             player.setPosition(newPosition);
 
+
+        }
+        if(player.getPosition()==0){
+            player.setHp(Math.max(player.getHp()-1,0));
         }
         System.out.println("Area " + player.getPosition() + ": " + areas.get(player.getPosition()).getLevel() + " " + areas.get(player.getPosition()).getOwner().getName());
         System.out.println(player.getName());
@@ -253,8 +266,16 @@ public class Board implements Initializable {
         System.out.println("=====================================");
     }
 
+    public int gethpPlayer1() {
+        return player1.getHp();
+    }
+
+    public int gethpPlayer2() {
+        return player2.getHp();
+    }
 
     public void openCard(MouseEvent actionEvent) {
+        cardPics.setVisible(false);
         if (player1.getPosition() == 5 || player1.getPosition() == 10 || player1.getPosition() == 15) {
             ArrayList<BaseCard> allCards = AllCards.getAllCards();
             Random random = new Random();
@@ -262,6 +283,12 @@ public class Board implements Initializable {
             System.out.println("O P E N 1");
             System.out.println(drawnCard.getName());
             drawnCard.activate(player1);
+            if(drawnCard instanceof HealCard) cardPics.setImage(new Image("heal1.png"));
+            else if(drawnCard instanceof SuperHealCard) cardPics.setImage(new Image("heal2.png"));
+            else if(drawnCard instanceof ExtremeHealCard) cardPics.setImage(new Image("heal3.png"));
+            else if(drawnCard instanceof DamageCard) cardPics.setImage(new Image("damage1.png"));
+            else if(drawnCard instanceof SuperDamageCard) cardPics.setImage(new Image("damage2.png"));
+            else if(drawnCard instanceof ExtremeDamageCard) cardPics.setImage(new Image("damage3.png"));
 
             System.out.println(player1.getHp());
             hpPlayer1.setText(String.valueOf(player1.getHp()));
@@ -276,12 +303,19 @@ public class Board implements Initializable {
             System.out.println("O P E N 2");
             System.out.println(drawnCard.getName());
             drawnCard.activate(player2);
+            if(drawnCard instanceof HealCard) cardPics.setImage(new Image("heal1.png"));
+            else if(drawnCard instanceof SuperHealCard) cardPics.setImage(new Image("heal2.png"));
+            else if(drawnCard instanceof ExtremeHealCard) cardPics.setImage(new Image("heal3.png"));
+            else if(drawnCard instanceof DamageCard) cardPics.setImage(new Image("damage1.png"));
+            else if(drawnCard instanceof SuperDamageCard) cardPics.setImage(new Image("damage2.png"));
+            else if(drawnCard instanceof ExtremeDamageCard) cardPics.setImage(new Image("damage3.png"));
 
             System.out.println(player2.getHp());
             hpPlayer2.setText(String.valueOf(player2.getHp()));
             textEffect.setText(drawnCard.effect());
             pickUpPics.setVisible(false);
         }
+        cardPics.setVisible(true);
 
     }
 
@@ -315,7 +349,7 @@ public class Board implements Initializable {
             if (!(player1.getPosition() == 0 || player1.getPosition() == 5 || player1.getPosition() == 10 || player1.getPosition() == 15)
                     && areas.get(player1.getPosition()).getOwner().getName().equals("player 1")) {
                 buyTheArea(player1);
-                areaPanes[player1.getPosition()].setBackground(new Background(new BackgroundFill(Color.ORANGE, null, null)));
+                areaPanes[player1.getPosition()].setBackground(new Background(new BackgroundFill(Color.DARKORANGE, null, null)));
                 areas.get(player1.getPosition()).setLevel(areas.get(player1.getPosition()).getLevel() + 1);
                 player1.setHp(player1.getHp() - 1);
                 hpPlayer1.setText(String.valueOf(player1.getHp()));
@@ -325,7 +359,7 @@ public class Board implements Initializable {
             if (!(player2.getPosition() == 0 || player2.getPosition() == 5 || player2.getPosition() == 10 || player2.getPosition() == 15)
                     && areas.get(player2.getPosition()).getOwner().getName().equals("player 2")) {
                 buyTheArea(player2);
-                areaPanes[player2.getPosition()].setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
+                areaPanes[player2.getPosition()].setBackground(new Background(new BackgroundFill(Color.DARKGRAY, null, null)));
                 areas.get(player2.getPosition()).setLevel(areas.get(player2.getPosition()).getLevel() + 1);
                 player2.setHp(player2.getHp() - 1);
                 hpPlayer2.setText(String.valueOf(player2.getHp()));
