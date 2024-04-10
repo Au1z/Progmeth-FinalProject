@@ -27,11 +27,10 @@ public class HomePage implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Board.fxml"));
             Parent root = fxmlLoader.load();
 
-            // Get the current stage from any UI element
             Stage stage = (Stage) startButton1.getScene().getWindow();
 
             stage.setTitle("Castle of Bloodlines: The Monopoly of Nightmares");
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(root,1200,800));
         } catch (IOException e) {
             e.printStackTrace();
         }

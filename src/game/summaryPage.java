@@ -69,7 +69,7 @@ public class summaryPage implements Initializable {
             Stage stage = (Stage) retryButton.getScene().getWindow();
 
             stage.setTitle("Castle of Bloodlines: The Monopoly of Nightmares");
-            stage.setScene(new Scene(root, 1200, 700));
+            stage.setScene(new Scene(root, 1200, 800));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

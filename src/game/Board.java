@@ -215,7 +215,7 @@ public class Board implements Initializable {
             Stage stage = (Stage) anyNode.getScene().getWindow();
 
             stage.setTitle("Game Over");
-            stage.setScene(new Scene(root, 1200, 700));
+            stage.setScene(new Scene(root, 1200, 675));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -289,6 +289,7 @@ public class Board implements Initializable {
             else if(drawnCard instanceof DamageCard) cardPics.setImage(new Image("damage1.png"));
             else if(drawnCard instanceof SuperDamageCard) cardPics.setImage(new Image("damage2.png"));
             else if(drawnCard instanceof ExtremeDamageCard) cardPics.setImage(new Image("damage3.png"));
+            else if(drawnCard instanceof SkipCard) cardPics.setImage(new Image("skip.png"));
 
             System.out.println(player1.getHp());
             hpPlayer1.setText(String.valueOf(player1.getHp()));
@@ -309,6 +310,7 @@ public class Board implements Initializable {
             else if(drawnCard instanceof DamageCard) cardPics.setImage(new Image("damage1.png"));
             else if(drawnCard instanceof SuperDamageCard) cardPics.setImage(new Image("damage2.png"));
             else if(drawnCard instanceof ExtremeDamageCard) cardPics.setImage(new Image("damage3.png"));
+            else if(drawnCard instanceof SkipCard) cardPics.setImage(new Image("skip.png"));
 
             System.out.println(player2.getHp());
             hpPlayer2.setText(String.valueOf(player2.getHp()));

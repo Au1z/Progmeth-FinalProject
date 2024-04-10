@@ -14,7 +14,7 @@ public class AllCards {
         allCards.add(new SuperDamageCard());
         allCards.add(new ExtremeDamageCard());
         allCards.add(new SkipCard());
-        allCards.add(new SkipCard());
+
         return allCards;
     }
 }
