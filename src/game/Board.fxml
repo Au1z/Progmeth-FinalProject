@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800" prefWidth="1200" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.Board">
+<AnchorPane prefHeight="800" prefWidth="1200" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.Board">
     <children>
         <StackPane layoutX="6.0" layoutY="13.0" prefHeight="595.0" prefWidth="600.0">
             <children>
@@ -203,14 +203,19 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-        <TextField fx:id="textTurn" accessibleRole="IMAGE_VIEW" editable="false" layoutX="53.0" layoutY="631.0" prefHeight="22.0" prefWidth="488.0" style="-fx-background-color: lightgray;" />
-        <TextField fx:id="textEffect" accessibleRole="IMAGE_VIEW" editable="false" layoutX="53.0" layoutY="663.0" prefHeight="16.0" prefWidth="488.0" style="-fx-background-color: lightgray;" />
-        <TextField fx:id="textDescription" accessibleRole="IMAGE_VIEW" editable="false" layoutX="53.0" layoutY="700.0" prefHeight="16.0" prefWidth="488.0" style="-fx-background-color: lightgray;" />
+        <TextField fx:id="textTurn" accessibleRole="IMAGE_VIEW" editable="false" layoutX="53.0" layoutY="631.0" prefHeight="50.0" prefWidth="488.0" style="-fx-background-color: #000000; -fx-text-fill: red; -fx-font-weight: bold;">
+            <font>
+                <Font size="16.0" />
+            </font></TextField>
+        <TextField fx:id="textDescription" accessibleRole="IMAGE_VIEW" editable="false" layoutX="53.0" layoutY="681.0" prefHeight="50.0" prefWidth="488.0" style="-fx-background-color: #000000; -fx-text-fill: red; -fx-font-weight: bold;">
+            <font>
+                <Font size="16.0" />
+            </font></TextField>
         <ImageView fx:id="upgradeAreasPics" fitHeight="123.0" fitWidth="152.0" layoutX="957.0" layoutY="577.0" onMouseClicked="#upgradeArea" pickOnBounds="true" preserveRatio="true">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-      <ImageView fx:id="cardPics" fitHeight="595.0" fitWidth="600.0" layoutX="9.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="cardPics" fitHeight="595.0" fitWidth="600.0" layoutX="9.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>
