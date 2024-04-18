@@ -2,6 +2,8 @@ package game;
 
 import item.Dice;
 import item.card.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -13,9 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import player.Player;
@@ -28,7 +28,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
-
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.util.Duration;
 import static game.GameControllers.*;
 
 public class Board implements Initializable {
@@ -58,7 +61,6 @@ public class Board implements Initializable {
     public ImageView buyAreaPics;
     public ImageView pickUpPics;
     public TextField textTurn;
-    public TextField textEffect;
     public TextField textDescription;
     private Player player1;
     private Player player2;
@@ -85,8 +87,8 @@ public class Board implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        player1 = new Player("player 1");
-        player2 = new Player("player 2");
+        player1 = new Player("Somsri");
+        player2 = new Player("Somchai");
 
         P1.setText(player1.getName());
         P2.setText(player2.getName());
@@ -137,6 +139,7 @@ public class Board implements Initializable {
 
     public void rollDicesAndPutImage(MouseEvent actionEvent) {
         cardPics.setVisible(false);
+        textDescription.setText(null);
         if(actionEvent.getButton() == MouseButton.PRIMARY){
             Dice dice1 = new Dice();
             Dice dice2 = new Dice();
@@ -144,7 +147,7 @@ public class Board implements Initializable {
             dice2.randomFaceValue();
             System.out.println("Dice 1: " + dice1.getFaceValue());
             System.out.println("Dice 2: " + dice2.getFaceValue());
-            textEffect.setText(null);
+            textDescription.setText(null);
             upgradeAreasPics.setVisible(false);
 
             Thread thread = new Thread() {
@@ -169,20 +172,20 @@ public class Board implements Initializable {
             movePlayer(isPlayer1Turn ? player1 : player2, dice1.getFaceValue() + dice2.getFaceValue(), isPlayer1Turn ? imagePlayer1 : imagePlayer2);
             startGameLogic(isPlayer1Turn ? player2 : player1);
             if (isPlayer1Turn) {
-                textTurn.setText("<< " + player1.getName() + " Turn >>");
+                textTurn.setText(player1.getName() + " Turn ");
 
                 if (player1.getPosition() == 5 || player1.getPosition() == 10 || player1.getPosition() == 15) {
                     pickUpPics.setVisible(true);
                 }
-                if(areas.get(player1.getPosition()).getOwner().getName().equals("player 1")){
+                if(areas.get(player1.getPosition()).getOwner().getName().equals(player1.getName())){
                     upgradeAreasPics.setVisible(true);
                 }
             } else {
-                textTurn.setText("<< " + player2.getName() + " Turn >>");
+                textTurn.setText(player2.getName() + " Turn");
                 if (player2.getPosition() == 5 || player2.getPosition() == 10 || player2.getPosition() == 15) {
                     pickUpPics.setVisible(true);
                 }
-                if(areas.get(player2.getPosition()).getOwner().getName().equals("player 2")){
+                if(areas.get(player2.getPosition()).getOwner().getName().equals(player2.getName())){
                     upgradeAreasPics.setVisible(true);
                 }
             }
@@ -195,11 +198,11 @@ public class Board implements Initializable {
 
             if (player1.getHp() <= 0) {
                 player2.setIsWin(true);
-                gotoSummaryPage (rollDicePics);
+                gotoSummaryPage (false);
             }
             else if (player2.getHp() <= 0) {
                 player1.setIsWin(true);
-                gotoSummaryPage (rollDicePics);
+                gotoSummaryPage (true);
             }
         }
         for (int i = 0; i < areas.size(); i++) {
@@ -207,20 +210,24 @@ public class Board implements Initializable {
         }
     }
 
-    public void gotoSummaryPage(Node anyNode) {
+    public void gotoSummaryPage(boolean isPlayer1Win) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("summaryPage.fxml"));
             Parent root = fxmlLoader.load();
+            summaryPage controller = fxmlLoader.getController();
 
-            Stage stage = (Stage) anyNode.getScene().getWindow();
-
+            Stage stage = (Stage) rollDicePics.getScene().getWindow();
             stage.setTitle("Game Over");
             stage.setScene(new Scene(root, 1200, 700));
+
+            controller.setPlayer1Win(isPlayer1Win);
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     public void movePlayer(Player player, int sumOfDices, ImageView playerImage) {
         for (int i = 0; i < sumOfDices; i++) {
@@ -242,11 +249,12 @@ public class Board implements Initializable {
         }
         if(player.getPosition()==0){
             player.setHp(Math.max(player.getHp()-1,0));
+            textDescription.setText(player.getName()+" lose " +  "1 hp for drop in area 0");
         }
         System.out.println("Area " + player.getPosition() + ": " + areas.get(player.getPosition()).getLevel() + " " + areas.get(player.getPosition()).getOwner().getName());
         System.out.println(player.getName());
         if (isPlayer1Turn) {
-            if (areas.get(player1.getPosition()).getOwner().getName().equals("player 2")) {
+            if (areas.get(player1.getPosition()).getOwner().getName().equals(player2.getName())) {
                 player1.setHp(player.getHp() - areas.get(player.getPosition()).getLevel());
                 System.out.println(player.getHp());
                 textDescription.setText(player1.getName()+" lose " + areas.get(player1.getPosition()).getLevel() + " hp");
@@ -255,13 +263,14 @@ public class Board implements Initializable {
 
         }
         else{
-            if (areas.get(player2.getPosition()).getOwner().getName().equals("player 1")) {
+            if (areas.get(player2.getPosition()).getOwner().getName().equals(player1.getName())) {
                 player2.setHp(player2.getHp() - areas.get(player2.getPosition()).getLevel());
                 textDescription.setText(player2.getName()+" lose " + areas.get(player2.getPosition()).getLevel() + " hp");
                 hpPlayer2.setText(String.valueOf(player2.getHp()));
             }
 
         }
+        pickUpPics.setVisible(false);
         System.out.println("Now position: " + player.getPosition());
         System.out.println("=====================================");
     }
@@ -292,7 +301,7 @@ public class Board implements Initializable {
 
             System.out.println(player1.getHp());
             hpPlayer1.setText(String.valueOf(player1.getHp()));
-            textEffect.setText(drawnCard.effect());
+            textDescription.setText(drawnCard.effect());
             pickUpPics.setVisible(false);
         }
 
@@ -312,7 +321,7 @@ public class Board implements Initializable {
 
             System.out.println(player2.getHp());
             hpPlayer2.setText(String.valueOf(player2.getHp()));
-            textEffect.setText(drawnCard.effect());
+            textDescription.setText(drawnCard.effect());
             pickUpPics.setVisible(false);
         }
         cardPics.setVisible(true);
@@ -347,7 +356,7 @@ public class Board implements Initializable {
     public void upgradeArea(MouseEvent mouseEvent) {
         if (!isPlayer1Turn) {
             if (!(player1.getPosition() == 0 || player1.getPosition() == 5 || player1.getPosition() == 10 || player1.getPosition() == 15)
-                    && areas.get(player1.getPosition()).getOwner().getName().equals("player 1")) {
+                    && areas.get(player1.getPosition()).getOwner().getName().equals(player1.getName())) {
                 buyTheArea(player1);
                 areaPanes[player1.getPosition()].setBackground(new Background(new BackgroundFill(Color.DARKORANGE, null, null)));
                 areas.get(player1.getPosition()).setLevel(areas.get(player1.getPosition()).getLevel() + 1);
@@ -357,7 +366,7 @@ public class Board implements Initializable {
         }
         else {
             if (!(player2.getPosition() == 0 || player2.getPosition() == 5 || player2.getPosition() == 10 || player2.getPosition() == 15)
-                    && areas.get(player2.getPosition()).getOwner().getName().equals("player 2")) {
+                    && areas.get(player2.getPosition()).getOwner().getName().equals(player2.getName())) {
                 buyTheArea(player2);
                 areaPanes[player2.getPosition()].setBackground(new Background(new BackgroundFill(Color.DARKGRAY, null, null)));
                 areas.get(player2.getPosition()).setLevel(areas.get(player2.getPosition()).getLevel() + 1);
@@ -367,4 +376,5 @@ public class Board implements Initializable {
         }
         upgradeAreasPics.setVisible(false);
     }
+
 }

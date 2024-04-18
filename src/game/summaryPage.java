@@ -25,15 +25,22 @@ public class summaryPage implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        if(board.gethpPlayer1()<=0){
-//            p2Wins.setVisible(true);
-//        } else{
-//            p1Wins.setVisible(true);
-//        }
         endBg.setImage(new Image("endBg.png"));
         retryButton.setImage(new Image("retry.png"));
         exitButton.setImage(new Image("exit.png"));
     }
+
+    public void setPlayer1Win(Boolean check) {
+        if(check){
+            p1Wins.setImage(new Image("p1Win.png"));
+            p2Wins.setImage(null);
+        }
+        else{
+            p1Wins.setImage(null);
+            p2Wins.setImage(new Image("p2Win.png"));
+        }
+    }
+
 
 
 
