@@ -88,6 +88,8 @@ public class Board implements Initializable {
     private AudioClip bgSound;
     private AudioClip cardEffect;
     private AudioClip diceEffect;
+    private AudioClip cry;
+    private AudioClip hurt;
     private ArrayList<String> dicesPics = new ArrayList<>();
 
 
@@ -131,6 +133,10 @@ public class Board implements Initializable {
         bgSound = new AudioClip(getClass().getResource("/audio/bgSound.mp3").toString());
         bgSound.setVolume(0.7);
         bgSound.setCycleCount(AudioClip.INDEFINITE);
+        cry = new AudioClip(getClass().getResource("/audio/cry.mp3").toString());
+        cry.setVolume(0.7);
+        hurt = new AudioClip(getClass().getResource("/audio/hurt.mp3").toString());
+        hurt.setVolume(0.7);
         cardEffect = new AudioClip(getClass().getResource("/audio/cardEffect.wav").toString());
         diceEffect = new AudioClip(getClass().getResource("/audio/diceEffect.mp3").toString());
 
@@ -313,21 +319,45 @@ public class Board implements Initializable {
                 System.out.println(player.getHp());
                 textDescription.setText(player1.getName()+" lose " + areas.get(player1.getPosition()).getLevel() + " hp");
                 hpPlayer1.setText(String.valueOf(player1.getHp()));
+                playCrySound();
             }
-
         }
         else{
             if (areas.get(player2.getPosition()).getOwner().getName().equals(player1.getName())) {
                 player2.setHp(player2.getHp() - areas.get(player2.getPosition()).getLevel());
                 textDescription.setText(player2.getName()+" lose " + areas.get(player2.getPosition()).getLevel() + " hp");
                 hpPlayer2.setText(String.valueOf(player2.getHp()));
+                playCrySound();
             }
-
         }
         pickUpPics.setVisible(false);
         System.out.println("Now position: " + player.getPosition());
         System.out.println("=====================================");
     }
+
+    public void playCrySound(){
+        Thread soundThread = new Thread(() -> {
+            if (cry != null) {
+                cry.play();
+            } else {
+                System.err.println("AudioClip (cry) is null.");
+            }
+        });
+        soundThread.start();
+    }
+
+    public void playHurtSound(){
+        Thread soundThread = new Thread(() -> {
+            if (cry != null) {
+                hurt.play();
+            } else {
+                System.err.println("AudioClip (hurt) is null.");
+            }
+        });
+        soundThread.start();
+    }
+
+
 
     public int gethpPlayer1() {
         return player1.getHp();
@@ -403,6 +433,7 @@ public class Board implements Initializable {
                 areas.get(player1.getPosition()).setLevel(areas.get(player1.getPosition()).getLevel() + 1);
                 player1.setHp(player1.getHp() - 1);
                 hpPlayer1.setText(String.valueOf(player1.getHp()));
+                playHurtSound();
             }
         } else {
             if (!(player2.getPosition() == 0 || player2.getPosition() == 5 || player2.getPosition() == 10 || player2.getPosition() == 15)
@@ -413,6 +444,7 @@ public class Board implements Initializable {
                 areas.get(player2.getPosition()).setLevel(areas.get(player2.getPosition()).getLevel() + 1);
                 player2.setHp(player2.getHp() - 1);
                 hpPlayer2.setText(String.valueOf(player2.getHp()));
+                playHurtSound();
             }
         }
     }
@@ -426,6 +458,7 @@ public class Board implements Initializable {
                 areas.get(player1.getPosition()).setLevel(areas.get(player1.getPosition()).getLevel() + 1);
                 player1.setHp(player1.getHp() - 1);
                 hpPlayer1.setText(String.valueOf(player1.getHp()));
+                playHurtSound();
             }
         }
         else {
@@ -436,6 +469,7 @@ public class Board implements Initializable {
                 areas.get(player2.getPosition()).setLevel(areas.get(player2.getPosition()).getLevel() + 1);
                 player2.setHp(player2.getHp() - 1);
                 hpPlayer2.setText(String.valueOf(player2.getHp()));
+                playHurtSound();
             }
         }
         upgradeAreasPics.setVisible(false);
