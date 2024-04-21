@@ -90,12 +90,11 @@ public class Board implements Initializable {
     private AudioClip diceEffect;
     private AudioClip cry;
     private AudioClip hurt;
+    private AudioClip vampireEffect;
     private ArrayList<String> dicesPics = new ArrayList<>();
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("Board 1");
         player1 = new Player("Penney-Wise");
         player2 = new Player("Scream");
 
@@ -104,41 +103,33 @@ public class Board implements Initializable {
 
         hpPlayer1.setText(String.valueOf(player1.getHp()));
         hpPlayer2.setText(String.valueOf(player2.getHp()));
-
-        System.out.println("Board 2");
         bg.setImage(new Image("bg.png"));
-        System.out.println("Board 2.1");
         chracterImage1.setImage(new Image("character1.png"));
         chracterImage2.setImage(new Image("character2.png"));
-        System.out.println("Board 2.2");
         area0.setImage(new Image("vampire.png"));
         area5.setImage(new Image("event.png"));
         area10.setImage(new Image("event.png"));
         area15.setImage(new Image("event.png"));
-        System.out.println("Board 2.3");
         imagePlayer1.setImage(new Image("character1mini.png"));
         imagePlayer2.setImage(new Image("character2mini.png"));
-        System.out.println("Board 2.4");
         upgradeAreasPics.setImage(new Image("upgrade.png"));
-        System.out.println("Board 2.5");
         upgradeAreasPics.setVisible(false);
-        System.out.println("Board 2.6");
         rollDicePics.setImage(new Image("rollDice.png"));
         buyAreaPics.setImage(new Image("buy.png"));
         pickUpPics.setImage(new Image("pickUpCard.png"));
         pickUpPics.setVisible(false);
-        ArrayList<String> dices = new ArrayList<>();
 
-        System.out.println("Board 3");
+
         bgSound = new AudioClip(getClass().getResource("/audio/bgSound.mp3").toString());
-        bgSound.setVolume(0.7);
+        bgSound.setVolume(0.4);
         bgSound.setCycleCount(AudioClip.INDEFINITE);
         cry = new AudioClip(getClass().getResource("/audio/cry.mp3").toString());
         cry.setVolume(0.7);
         hurt = new AudioClip(getClass().getResource("/audio/hurt.mp3").toString());
-        hurt.setVolume(0.7);
+        hurt.setVolume(1);
         cardEffect = new AudioClip(getClass().getResource("/audio/cardEffect.wav").toString());
         diceEffect = new AudioClip(getClass().getResource("/audio/diceEffect.mp3").toString());
+        vampireEffect = new AudioClip(getClass().getResource("/audio/evilLaugh.mp3").toString());
 
         dicesPics.add("dice1.png");
         dicesPics.add("dice2.png");
@@ -146,8 +137,6 @@ public class Board implements Initializable {
         dicesPics.add("dice4.png");
         dicesPics.add("dice5.png");
         dicesPics.add("dice6.png");
-
-        Random random = new Random();
 
         System.out.println("Board 4");
         Thread soundThread = new Thread(() -> {
@@ -185,7 +174,7 @@ public class Board implements Initializable {
         gameThread.start();
     }
 
-    public void rollDicesAndPutImage(MouseEvent actionEvent) {
+    public void rollDices(MouseEvent actionEvent) {
         if (player1.getHp() <= 0) {
             player2.setIsWin(true);
             gotoSummaryPage (false);
@@ -210,8 +199,10 @@ public class Board implements Initializable {
             Dice dice2 = new Dice();
             dice1.randomFaceValue();
             dice2.randomFaceValue();
+
             System.out.println("Dice 1: " + dice1.getFaceValue());
             System.out.println("Dice 2: " + dice2.getFaceValue());
+
             textDescription.setText(null);
             upgradeAreasPics.setVisible(false);
 
@@ -228,30 +219,22 @@ public class Board implements Initializable {
 
             };
             thread.start();
+
             dice.setText(String.valueOf(dice1.getFaceValue() + dice2.getFaceValue()));
             movePlayer(isPlayer1Turn ? player1 : player2, dice1.getFaceValue() + dice2.getFaceValue(), isPlayer1Turn ? imagePlayer1 : imagePlayer2);
             startGameLogic(isPlayer1Turn ? player2 : player1);
-            if (isPlayer1Turn) {
-                textTurn.setText(player1.getName() + " Turn ");
 
-                if (player1.getPosition() == 5 || player1.getPosition() == 10 || player1.getPosition() == 15) {
-                    pickUpPics.setVisible(true);
-                }
-                if(areas.get(player1.getPosition()).getOwner().getName().equals(player1.getName())){
-                    upgradeAreasPics.setVisible(true);
-                }
-            } else {
-                textTurn.setText(player2.getName() + " Turn");
-                if (player2.getPosition() == 5 || player2.getPosition() == 10 || player2.getPosition() == 15) {
-                    pickUpPics.setVisible(true);
-                }
-                if(areas.get(player2.getPosition()).getOwner().getName().equals(player2.getName())){
-                    upgradeAreasPics.setVisible(true);
-                }
+            Player currentPlayer = isPlayer1Turn ? player1 : player2;
+            String playerName = isPlayer1Turn ? player1.getName() : player2.getName();
+
+            textTurn.setText(playerName + " Turn");
+
+            if (currentPlayer.getPosition() == 5 || currentPlayer.getPosition() == 10 || currentPlayer.getPosition() == 15) {
+                pickUpPics.setVisible(true);
+            } else if (areas.get(currentPlayer.getPosition()).getOwner().getName().equals(playerName)) {
+                upgradeAreasPics.setVisible(true);
             }
-            if ((player1.getPosition() != 5 && player1.getPosition() != 10 && player1.getPosition() != 15) && (player2.getPosition() != 5 && player2.getPosition() != 10 && player2.getPosition() != 15)) {
-                pickUpPics.setVisible(false);
-            }
+
             hpPlayer1.setText(String.valueOf(player1.getHp()));
             hpPlayer2.setText(String.valueOf(player2.getHp()));
             isPlayer1Turn = !isPlayer1Turn;
@@ -301,8 +284,9 @@ public class Board implements Initializable {
         }
         if(player.getPosition()==0){
             Thread effect = new Thread(() -> {
-                if (bgSound != null) {
-                    bgSound.play();
+                if (vampireEffect != null && hurt != null) {
+                    hurt.play();
+                    vampireEffect.play();
                 } else {
                     System.err.println("AudioClip (bgSound) is null.");
                 }
@@ -311,8 +295,10 @@ public class Board implements Initializable {
             player.setHp(Math.max(player.getHp()-1,0));
             textDescription.setText(player.getName()+" lose " +  "1 hp for drop in area 0");
         }
+
         System.out.println("Area " + player.getPosition() + ": " + areas.get(player.getPosition()).getLevel() + " " + areas.get(player.getPosition()).getOwner().getName());
         System.out.println(player.getName());
+
         if (isPlayer1Turn) {
             if (areas.get(player1.getPosition()).getOwner().getName().equals(player2.getName())) {
                 player1.setHp(player.getHp() - areas.get(player.getPosition()).getLevel());
@@ -348,23 +334,13 @@ public class Board implements Initializable {
 
     public void playHurtSound(){
         Thread soundThread = new Thread(() -> {
-            if (cry != null) {
+            if (hurt != null) {
                 hurt.play();
             } else {
                 System.err.println("AudioClip (hurt) is null.");
             }
         });
         soundThread.start();
-    }
-
-
-
-    public int gethpPlayer1() {
-        return player1.getHp();
-    }
-
-    public int gethpPlayer2() {
-        return player2.getHp();
     }
 
     public void openCard(MouseEvent actionEvent) {
@@ -450,22 +426,27 @@ public class Board implements Initializable {
     }
 
     public void upgradeArea(MouseEvent mouseEvent) {
+        double darkenFactor = 0.8; // Adjust this value to control the darkness level
+
         if (!isPlayer1Turn) {
             if (!(player1.getPosition() == 0 || player1.getPosition() == 5 || player1.getPosition() == 10 || player1.getPosition() == 15)
                     && areas.get(player1.getPosition()).getOwner().getName().equals(player1.getName())) {
                 buyTheArea(player1);
-                areaPanes[player1.getPosition()].setBackground(new Background(new BackgroundFill(Color.DARKORANGE, null, null)));
+                Color currentColor = ((Color) areaPanes[player1.getPosition()].getBackground().getFills().get(0).getFill());
+                Color newColor = currentColor.deriveColor(0, 1, darkenFactor, 1); // Darken the color slightly
+                areaPanes[player1.getPosition()].setBackground(new Background(new BackgroundFill(newColor, null, null)));
                 areas.get(player1.getPosition()).setLevel(areas.get(player1.getPosition()).getLevel() + 1);
                 player1.setHp(player1.getHp() - 1);
                 hpPlayer1.setText(String.valueOf(player1.getHp()));
                 playHurtSound();
             }
-        }
-        else {
+        } else {
             if (!(player2.getPosition() == 0 || player2.getPosition() == 5 || player2.getPosition() == 10 || player2.getPosition() == 15)
                     && areas.get(player2.getPosition()).getOwner().getName().equals(player2.getName())) {
                 buyTheArea(player2);
-                areaPanes[player2.getPosition()].setBackground(new Background(new BackgroundFill(Color.DARKGRAY, null, null)));
+                Color currentColor = ((Color) areaPanes[player2.getPosition()].getBackground().getFills().get(0).getFill());
+                Color newColor = currentColor.deriveColor(0, 1, darkenFactor, 1); // Darken the color slightly
+                areaPanes[player2.getPosition()].setBackground(new Background(new BackgroundFill(newColor, null, null)));
                 areas.get(player2.getPosition()).setLevel(areas.get(player2.getPosition()).getLevel() + 1);
                 player2.setHp(player2.getHp() - 1);
                 hpPlayer2.setText(String.valueOf(player2.getHp()));
