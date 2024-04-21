@@ -2,7 +2,6 @@ package game;
 
 import item.card.BaseCard;
 import item.area.Area;
-import item.card.TravelCard;
 import player.Player;
 import item.Dice;
 import utils.AllCards;
@@ -84,16 +83,6 @@ public class GameControllers {
         scanner.nextLine();
 
         System.out.println("You draw a " + drawnCard.getName() + " card.");
-
-        if (drawnCard instanceof TravelCard) {
-            showAreaOwner(areas);
-            System.out.println(drawnCard.effect());
-            drawnCard.activate(player);
-            existArea(player, areas);
-        } else {
-            System.out.println(drawnCard.effect());
-            drawnCard.activate(player);
-        }
     }
 
     private static void showAreaOwner(ArrayList<Area> areas) {
