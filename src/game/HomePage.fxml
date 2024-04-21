@@ -22,7 +22,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </ImageView>
-                <ImageView fx:id="option1" fitHeight="100.0" fitWidth="300.0" layoutX="447.0" layoutY="353.0" onMouseEntered="#expandImage2" onMouseExited="#shrinkImage2" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="option1" fitHeight="100.0" fitWidth="300.0" layoutX="447.0" layoutY="353.0" onMouseClicked="#gotoHtp" onMouseEntered="#expandImage2" onMouseExited="#shrinkImage2" pickOnBounds="true" preserveRatio="true">
                     <effect>
                         <DropShadow color="#610000" height="20.0" radius="10.0" width="20.0" />
                     </effect>
@@ -30,7 +30,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </ImageView>
-                <ImageView fx:id="option2" fitHeight="100.0" fitWidth="300.0" layoutX="447.0" layoutY="453.0" onMouseEntered="#expandImage3" onMouseExited="#shrinkImage3" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="option2" fitHeight="100.0" fitWidth="300.0" layoutX="447.0" layoutY="453.0" onMouseClicked="#gotoHtp" onMouseEntered="#expandImage3" onMouseExited="#shrinkImage3" pickOnBounds="true" preserveRatio="true">
                     <effect>
                         <DropShadow color="#610000" height="20.0" radius="10.0" width="20.0" />
                     </effect>

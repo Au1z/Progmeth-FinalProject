@@ -1,6 +1,5 @@
 package game;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,7 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
-import game.Main;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,11 +48,26 @@ public class HomePage implements Initializable {
         }
     }
 
+    public void gotoHtp(MouseEvent mouseEvent) {
+        homeSound.stop();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/game/Other.fxml"));
+            Parent root = fxmlLoader.load();
+
+            Stage stage = (Stage) option1.getScene().getWindow();
+
+            stage.setTitle("Castle of Bloodlines: The Monopoly of Nightmares");
+            stage.setScene(new Scene(root, 1200, 650));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        startButton1.setImage(new Image("startGameText1.png"));
-        option1.setImage(new Image("howToPlayText.png"));
-        option2.setImage(new Image("viewStory.png"));
-        homeBg.setImage(new Image("homeBg.jpg"));
+        startButton1.setImage(new Image("image/startGameText1.png"));
+        option1.setImage(new Image("image/howToPlayText.png"));
+        option2.setImage(new Image("image/viewStory.png"));
+        homeBg.setImage(new Image("image/homeBg.jpg"));
         buttonEffect = new AudioClip(getClass().getResource("/audio/buttonEffect2.mp3").toString());
         buttonEffect.setVolume(1);
         playEffect = new AudioClip(getClass().getResource("/audio/playEffect.mp3").toString());

@@ -28,9 +28,9 @@ public class summaryPage implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        endBg.setImage(new Image("endBg.png"));
-        retryButton.setImage(new Image("retry.png"));
-        exitButton.setImage(new Image("exit.png"));
+        endBg.setImage(new Image("image/endBg.png"));
+        retryButton.setImage(new Image("image/retry.png"));
+        exitButton.setImage(new Image("image/exit.png"));
         bgSound = new AudioClip(getClass().getResource("/audio/sumPage.mp3").toString());
         bgSound.setVolume(1);
         buttonEffect = new AudioClip(getClass().getResource("/audio/buttonEffect2.mp3").toString());
@@ -47,12 +47,12 @@ public class summaryPage implements Initializable {
 
     public void setPlayer1Win(Boolean check) {
         if(check){
-            p1Wins.setImage(new Image("p1Win.png"));
+            p1Wins.setImage(new Image("image/p1Win.png"));
             p2Wins.setImage(null);
         }
         else{
             p1Wins.setImage(null);
-            p2Wins.setImage(new Image("p2Win.png"));
+            p2Wins.setImage(new Image("image/p2Win.png"));
         }
     }
 
@@ -97,6 +97,7 @@ public class summaryPage implements Initializable {
     }
 
     public void gotoBoard() {
+        bgSound.stop();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Board.fxml"));
             Parent root = fxmlLoader.load();

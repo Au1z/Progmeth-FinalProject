@@ -2,11 +2,8 @@ package game;
 
 import item.Dice;
 import item.card.*;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,17 +19,13 @@ import javafx.stage.Stage;
 import player.Player;
 import item.area.Area;
 import utils.AllCards;
-import game.Config;
-import java.io.File;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.util.Duration;
+
 import static game.GameControllers.*;
 
 public class Board implements Initializable {
@@ -103,20 +96,20 @@ public class Board implements Initializable {
 
         hpPlayer1.setText(String.valueOf(player1.getHp()));
         hpPlayer2.setText(String.valueOf(player2.getHp()));
-        bg.setImage(new Image("bg.png"));
-        chracterImage1.setImage(new Image("character1.png"));
-        chracterImage2.setImage(new Image("character2.png"));
-        area0.setImage(new Image("vampire.png"));
-        area5.setImage(new Image("event.png"));
-        area10.setImage(new Image("event.png"));
-        area15.setImage(new Image("event.png"));
-        imagePlayer1.setImage(new Image("character1mini.png"));
-        imagePlayer2.setImage(new Image("character2mini.png"));
-        upgradeAreasPics.setImage(new Image("upgrade.png"));
+        bg.setImage(new Image("image/bg.png"));
+        chracterImage1.setImage(new Image("image/character1.png"));
+        chracterImage2.setImage(new Image("image/character2.png"));
+        area0.setImage(new Image("image/vampire.png"));
+        area5.setImage(new Image("image/event.png"));
+        area10.setImage(new Image("image/event.png"));
+        area15.setImage(new Image("image/event.png"));
+        imagePlayer1.setImage(new Image("image/character1mini.png"));
+        imagePlayer2.setImage(new Image("image/character2mini.png"));
+        upgradeAreasPics.setImage(new Image("image/upgrade.png"));
         upgradeAreasPics.setVisible(false);
-        rollDicePics.setImage(new Image("rollDice.png"));
-        buyAreaPics.setImage(new Image("buy.png"));
-        pickUpPics.setImage(new Image("pickUpCard.png"));
+        rollDicePics.setImage(new Image("image/rollDice.png"));
+        buyAreaPics.setImage(new Image("image/buy.png"));
+        pickUpPics.setImage(new Image("image/pickUpCard.png"));
         pickUpPics.setVisible(false);
 
 
@@ -131,12 +124,12 @@ public class Board implements Initializable {
         diceEffect = new AudioClip(getClass().getResource("/audio/diceEffect.mp3").toString());
         vampireEffect = new AudioClip(getClass().getResource("/audio/evilLaugh.mp3").toString());
 
-        dicesPics.add("dice1.png");
-        dicesPics.add("dice2.png");
-        dicesPics.add("dice3.png");
-        dicesPics.add("dice4.png");
-        dicesPics.add("dice5.png");
-        dicesPics.add("dice6.png");
+        dicesPics.add("image/dice1.png");
+        dicesPics.add("image/dice2.png");
+        dicesPics.add("image/dice3.png");
+        dicesPics.add("image/dice4.png");
+        dicesPics.add("image/dice5.png");
+        dicesPics.add("image/dice6.png");
 
         System.out.println("Board 4");
         Thread soundThread = new Thread(() -> {
@@ -360,13 +353,13 @@ public class Board implements Initializable {
             System.out.println("O P E N 1");
             System.out.println(drawnCard.getName());
             drawnCard.activate(player1);
-            if(drawnCard instanceof HealCard) cardPics.setImage(new Image("heal1.png"));
-            else if(drawnCard instanceof SuperHealCard) cardPics.setImage(new Image("heal2.png"));
-            else if(drawnCard instanceof ExtremeHealCard) cardPics.setImage(new Image("heal3.png"));
-            else if(drawnCard instanceof DamageCard) cardPics.setImage(new Image("damage1.png"));
-            else if(drawnCard instanceof SuperDamageCard) cardPics.setImage(new Image("damage2.png"));
-            else if(drawnCard instanceof ExtremeDamageCard) cardPics.setImage(new Image("damage3.png"));
-            else if(drawnCard instanceof SkipCard) cardPics.setImage(new Image("skip.png"));
+            if(drawnCard instanceof HealCard) cardPics.setImage(new Image("image/heal1.png"));
+            else if(drawnCard instanceof SuperHealCard) cardPics.setImage(new Image("image/heal2.png"));
+            else if(drawnCard instanceof ExtremeHealCard) cardPics.setImage(new Image("image/heal3.png"));
+            else if(drawnCard instanceof DamageCard) cardPics.setImage(new Image("image/damage1.png"));
+            else if(drawnCard instanceof SuperDamageCard) cardPics.setImage(new Image("image/damage2.png"));
+            else if(drawnCard instanceof ExtremeDamageCard) cardPics.setImage(new Image("image/damage3.png"));
+            else if(drawnCard instanceof SkipCard) cardPics.setImage(new Image("image/skip.png"));
 
             System.out.println(player1.getHp());
             hpPlayer1.setText(String.valueOf(player1.getHp()));
@@ -381,13 +374,13 @@ public class Board implements Initializable {
             System.out.println("O P E N 2");
             System.out.println(drawnCard.getName());
             drawnCard.activate(player2);
-            if(drawnCard instanceof HealCard) cardPics.setImage(new Image("heal1.png"));
-            else if(drawnCard instanceof SuperHealCard) cardPics.setImage(new Image("heal2.png"));
-            else if(drawnCard instanceof ExtremeHealCard) cardPics.setImage(new Image("heal3.png"));
-            else if(drawnCard instanceof DamageCard) cardPics.setImage(new Image("damage1.png"));
-            else if(drawnCard instanceof SuperDamageCard) cardPics.setImage(new Image("damage2.png"));
-            else if(drawnCard instanceof ExtremeDamageCard) cardPics.setImage(new Image("damage3.png"));
-            else if(drawnCard instanceof SkipCard) cardPics.setImage(new Image("skip.png"));
+            if(drawnCard instanceof HealCard) cardPics.setImage(new Image("image/heal1.png"));
+            else if(drawnCard instanceof SuperHealCard) cardPics.setImage(new Image("image/heal2.png"));
+            else if(drawnCard instanceof ExtremeHealCard) cardPics.setImage(new Image("image/heal3.png"));
+            else if(drawnCard instanceof DamageCard) cardPics.setImage(new Image("image/damage1.png"));
+            else if(drawnCard instanceof SuperDamageCard) cardPics.setImage(new Image("image/damage2.png"));
+            else if(drawnCard instanceof ExtremeDamageCard) cardPics.setImage(new Image("image/damage3.png"));
+            else if(drawnCard instanceof SkipCard) cardPics.setImage(new Image("image/skip.png"));
 
             System.out.println(player2.getHp());
             hpPlayer2.setText(String.valueOf(player2.getHp()));
