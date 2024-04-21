@@ -204,18 +204,18 @@
             </cursor>
         </ImageView>
         <TextField fx:id="textTurn" accessibleRole="IMAGE_VIEW" editable="false" layoutX="53.0" layoutY="631.0" prefHeight="50.0" prefWidth="488.0" style="-fx-background-color: #000000; -fx-text-fill: red; -fx-font-weight: bold;">
-         <font>
-            <Font size="16.0" />
-         </font></TextField>
+            <font>
+                <Font size="16.0" />
+            </font></TextField>
         <TextField fx:id="textDescription" accessibleRole="IMAGE_VIEW" editable="false" layoutX="53.0" layoutY="681.0" prefHeight="50.0" prefWidth="488.0" style="-fx-background-color: #000000; -fx-text-fill: red; -fx-font-weight: bold;">
-         <font>
-            <Font size="16.0" />
-         </font></TextField>
+            <font>
+                <Font size="16.0" />
+            </font></TextField>
         <ImageView fx:id="upgradeAreasPics" fitHeight="123.0" fitWidth="152.0" layoutX="957.0" layoutY="577.0" onMouseClicked="#upgradeArea" pickOnBounds="true" preserveRatio="true">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-      <ImageView fx:id="cardPics" fitHeight="595.0" fitWidth="600.0" layoutX="9.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="cardPics" fitHeight="595.0" fitWidth="600.0" layoutX="9.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>

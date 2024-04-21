@@ -49,6 +49,10 @@ public class Player {
         this.hp = Math.max(0, hp);
     }
 
+    public boolean getIsWin(){
+        return this.isWin;
+    }
+
     @Override
     public String toString() {
         return name;

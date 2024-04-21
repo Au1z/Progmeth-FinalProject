@@ -19,7 +19,7 @@ public class Main extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
             Parent root = loader.load();
             primaryStage.setTitle("Castle of Bloodlines: The Monopoly of Nightmares");
-            primaryStage.setScene(new Scene(root));
+            primaryStage.setScene(new Scene(root,1200,675));
             primaryStage.show();
 
         } catch (Exception e) {

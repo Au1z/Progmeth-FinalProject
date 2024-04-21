@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,12 +23,26 @@ public class summaryPage implements Initializable {
     public ImageView retryButton;
     public ImageView exitButton;
     public Board board;
+    private AudioClip bgSound;
+    private AudioClip buttonEffect;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         endBg.setImage(new Image("endBg.png"));
         retryButton.setImage(new Image("retry.png"));
         exitButton.setImage(new Image("exit.png"));
+        bgSound = new AudioClip(getClass().getResource("/audio/sumPage.mp3").toString());
+        bgSound.setVolume(1);
+        buttonEffect = new AudioClip(getClass().getResource("/audio/buttonEffect2.mp3").toString());
+        buttonEffect.setVolume(1);
+        Thread soundThread = new Thread(() -> {
+            if (bgSound != null) {
+                bgSound.play();
+            } else {
+                System.err.println("AudioClip (bgSound) is null.");
+            }
+        });
+        soundThread.start();
     }
 
     public void setPlayer1Win(Boolean check) {
@@ -41,19 +56,32 @@ public class summaryPage implements Initializable {
         }
     }
 
-
-
-
     @FXML
     public void expandImage1(MouseEvent mouseEvent) {
-        retryButton.setScaleX(1.1);
-        retryButton.setScaleY(1.1);
+        Thread effect = new Thread(() -> {
+            if (buttonEffect != null) {
+                buttonEffect.play();
+            } else {
+                System.err.println("AudioClip (bgSound) is null.");
+            }
+        });
+        effect.start();
+        retryButton.setScaleX(1.2);
+        retryButton.setScaleY(1.2);
     }
 
     @FXML
     public void expandImage2(MouseEvent mouseEvent) {
-        exitButton.setScaleX(1.1);
-        exitButton.setScaleY(1.1);
+        Thread effect = new Thread(() -> {
+            if (buttonEffect != null) {
+                buttonEffect.play();
+            } else {
+                System.err.println("AudioClip (bgSound) is null.");
+            }
+        });
+        effect.start();
+        exitButton.setScaleX(1.2);
+        exitButton.setScaleY(1.2);
     }
 
     @FXML

@@ -13,8 +13,8 @@ public class AllCards {
         allCards.add(new DamageCard());
         allCards.add(new SuperDamageCard());
         allCards.add(new ExtremeDamageCard());
-        allCards.add(new SkipCard());
-        allCards.add(new SkipCard());
+//        allCards.add(new SkipCard());
+
         return allCards;
     }
 }
