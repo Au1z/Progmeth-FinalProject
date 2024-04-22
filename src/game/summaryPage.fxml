@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.summaryPage">
+    <children>
+        <AnchorPane prefHeight="400.0" prefWidth="600.0">
+            <children>
+                <ImageView fx:id="endBg" fitHeight="675.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="p2Wins" fitHeight="100.0" fitWidth="400.0" layoutX="400.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="p1Wins" fitHeight="100.0" fitWidth="400.0" layoutX="400.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="retryButton" fitHeight="52.0" fitWidth="240.0" layoutX="537.0" layoutY="312.0" onMouseClicked="#gotoBoard" onMouseEntered="#expandImage1" onMouseExited="#shrinkImage1" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="exitButton" fitHeight="52.0" fitWidth="192.0" layoutX="542.0" layoutY="385.0" onMouseClicked="#exit" onMouseEntered="#expandImage2" onMouseExited="#shrinkImage2" pickOnBounds="true" preserveRatio="true" />
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

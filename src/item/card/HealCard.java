@@ -3,7 +3,7 @@ package item.card;
 import game.Config;
 import player.Player;
 
-public class HealCard extends BaseCard { // increase player hp 2
+public class HealCard extends BaseCard {
 
     public HealCard() {
         super("HEAL");
@@ -11,12 +11,12 @@ public class HealCard extends BaseCard { // increase player hp 2
 
     @Override
     public void activate(Player player) {
-        player.setHp(Math.min(player.getHp() + 2, Config.PlayerStartHp)); // make max hp not more than 12
+        player.setHp(Math.min(player.getHp() + 1, Config.PlayerStartHp));
     }
 
     @Override
     public String effect() {
-        return "Heal card: It will increase player's health by 2.";
+        return "Heal card: It will increase player's health by 1.";
     }
 
 

@@ -6,11 +6,17 @@ public class Player {
     private String name;
     private int hp;
     private int position;
+    private boolean isWin;
 
     public Player() {
         setName("");
         setHp(Config.PlayerStartHp);
         setPosition(Config.PlayerStartPosition);
+        this.isWin = false;
+    }
+
+    public void setIsWin(boolean isWin) {
+        this.isWin = isWin;
     }
 
     public Player(String name) {
@@ -42,4 +48,14 @@ public class Player {
     public void setHp(int hp) {
         this.hp = Math.max(0, hp);
     }
+
+    public boolean getIsWin(){
+        return this.isWin;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
 }

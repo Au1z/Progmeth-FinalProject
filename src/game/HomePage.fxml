@@ -1,32 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.HomePage">
+<AnchorPane prefHeight="675" prefWidth="1200" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.HomePage">
     <children>
-        <AnchorPane prefHeight="400.0" prefWidth="600.0">
+        <AnchorPane prefHeight="800.0" prefWidth="1200.0">
             <children>
-                <ImageView fx:id="homeBg" fitHeight="400.0" fitWidth="600.0" opacity="0.8" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="homeBg" fitHeight="800.0" fitWidth="1200.0" opacity="0.8" pickOnBounds="true" preserveRatio="true" />
             </children>
         </AnchorPane>
-        <AnchorPane layoutX="-6.0" layoutY="-7.0" prefHeight="413.0" prefWidth="610.0">
+        <AnchorPane layoutX="-6.0" layoutY="-7.0" prefHeight="806.0" prefWidth="1207.0">
             <children>
-                <ImageView fx:id="startButton1" fitHeight="59.0" fitWidth="166.0" layoutX="222.0" layoutY="127.0" onMouseClicked="#gotoBoard" onMouseEntered="#expandImage1" onMouseExited="#shrinkImage1" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="startButton1" fitHeight="100.0" fitWidth="300.0" layoutX="447.0" layoutY="253.0" onMouseClicked="#gotoBoard" onMouseEntered="#expandImage1" onMouseExited="#shrinkImage1" pickOnBounds="true" preserveRatio="true">
                     <effect>
                         <DropShadow color="#610000" height="20.0" radius="10.0" width="20.0" />
                     </effect>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
                 </ImageView>
-                <ImageView fx:id="option1" fitHeight="59.0" fitWidth="166.0" layoutX="222.0" layoutY="187.0" onMouseEntered="#expandImage2" onMouseExited="#shrinkImage2" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="option1" fitHeight="100.0" fitWidth="300.0" layoutX="447.0" layoutY="353.0" onMouseClicked="#gotoHtp" onMouseEntered="#expandImage2" onMouseExited="#shrinkImage2" pickOnBounds="true" preserveRatio="true">
                     <effect>
                         <DropShadow color="#610000" height="20.0" radius="10.0" width="20.0" />
                     </effect>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
                 </ImageView>
-                <ImageView fx:id="option2" fitHeight="59.0" fitWidth="166.0" layoutX="222.0" layoutY="246.0" onMouseEntered="#expandImage3" onMouseExited="#shrinkImage3" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="option2" fitHeight="100.0" fitWidth="300.0" layoutX="447.0" layoutY="453.0" onMouseClicked="#gotoHtp" onMouseEntered="#expandImage3" onMouseExited="#shrinkImage3" pickOnBounds="true" preserveRatio="true">
                     <effect>
                         <DropShadow color="#610000" height="20.0" radius="10.0" width="20.0" />
                     </effect>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
                 </ImageView>
             </children>
         </AnchorPane>
