@@ -29,33 +29,29 @@ import java.util.ResourceBundle;
 import static game.GameControllers.*;
 
 public class Board implements Initializable {
-    public TextField P1;
-    public TextField P2;
-    public ImageView bg;
-    public ImageView dice01;
-    public ImageView dice02;
-    public Button roll;
-    public TextField dice;
-    public ImageView chracterImage2;
-    public ImageView chracterImage1;
+    public TextField playerName1;
+    public TextField playerName2;
+    public ImageView boardBackground;
+    public ImageView diceImage1;
+    public ImageView diceImage2;
+    public TextField totalValueOfDices;
+    public ImageView characterImage1;
+    public ImageView characterImage2;
+    public ImageView area0;
     public ImageView area5;
     public ImageView area10;
     public ImageView area15;
-    public ImageView area0;
-    public ImageView cardPics;
-    public Button openCard;
-    public Button endTurn;
-    public ImageView imagePlayer1;
-    public ImageView imagePlayer2;
+    public ImageView cardImage;
+    public ImageView playerImage1;
+    public ImageView playerImage2;
     public TextField hpPlayer1;
     public TextField hpPlayer2;
-    public Button buyArea;
-    public ImageView upgradeAreasPics;
-    public ImageView rollDicePics;
-    public ImageView buyAreaPics;
-    public ImageView pickUpPics;
-    public TextField textTurn;
-    public TextField textDescription;
+    public ImageView upgradeAreasImage;
+    public ImageView rollDiceImage;
+    public ImageView buyAreaImage;
+    public ImageView pickUpImage;
+    public TextField turnText;
+    public TextField descriptionText;
     private Player player1;
     private Player player2;
     private ArrayList<Area> areas;
@@ -77,71 +73,24 @@ public class Board implements Initializable {
     public AnchorPane area18;
     public AnchorPane area19;
     public AnchorPane[] areaPanes;
-    public boolean isPlayer1Win = false;
-    private AudioClip bgSound;
-    private AudioClip cardEffect;
-    private AudioClip diceEffect;
-    private AudioClip cry;
-    private AudioClip hurt;
-    private AudioClip vampireEffect;
-    private ArrayList<String> dicesPics = new ArrayList<>();
+    private AudioClip backgroundSound;
+    private AudioClip cardSound;
+    private AudioClip diceSound;
+    private AudioClip crySound;
+    private AudioClip hurtSound;
+    private AudioClip vampireSound;
+    private ArrayList<String> dicesImage = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        player1 = new Player("Penney-Wise");
-        player2 = new Player("Scream");
+        initializePlayer();
 
-        P1.setText(player1.getName());
-        P2.setText(player2.getName());
+        initializeBoard();
 
-        hpPlayer1.setText(String.valueOf(player1.getHp()));
-        hpPlayer2.setText(String.valueOf(player2.getHp()));
-        bg.setImage(new Image("image/bg.png"));
-        chracterImage1.setImage(new Image("image/character1.png"));
-        chracterImage2.setImage(new Image("image/character2.png"));
-        area0.setImage(new Image("image/vampire.png"));
-        area5.setImage(new Image("image/event.png"));
-        area10.setImage(new Image("image/event.png"));
-        area15.setImage(new Image("image/event.png"));
-        imagePlayer1.setImage(new Image("image/character1mini.png"));
-        imagePlayer2.setImage(new Image("image/character2mini.png"));
-        upgradeAreasPics.setImage(new Image("image/upgrade.png"));
-        upgradeAreasPics.setVisible(false);
-        rollDicePics.setImage(new Image("image/rollDice.png"));
-        buyAreaPics.setImage(new Image("image/buy.png"));
-        pickUpPics.setImage(new Image("image/pickUpCard.png"));
-        pickUpPics.setVisible(false);
+        initializeSound();
 
+        initializeDice();
 
-        bgSound = new AudioClip(getClass().getResource("/audio/bgSound.mp3").toString());
-        bgSound.setVolume(0.4);
-        bgSound.setCycleCount(AudioClip.INDEFINITE);
-        cry = new AudioClip(getClass().getResource("/audio/cry.mp3").toString());
-        cry.setVolume(0.7);
-        hurt = new AudioClip(getClass().getResource("/audio/hurt.mp3").toString());
-        hurt.setVolume(1);
-        cardEffect = new AudioClip(getClass().getResource("/audio/cardEffect.wav").toString());
-        diceEffect = new AudioClip(getClass().getResource("/audio/diceEffect.mp3").toString());
-        vampireEffect = new AudioClip(getClass().getResource("/audio/evilLaugh.mp3").toString());
-
-        dicesPics.add("image/dice1.png");
-        dicesPics.add("image/dice2.png");
-        dicesPics.add("image/dice3.png");
-        dicesPics.add("image/dice4.png");
-        dicesPics.add("image/dice5.png");
-        dicesPics.add("image/dice6.png");
-
-        System.out.println("Board 4");
-        Thread soundThread = new Thread(() -> {
-            if (bgSound != null) {
-                bgSound.play();
-            } else {
-                System.err.println("AudioClip (bgSound) is null.");
-            }
-        });
-        soundThread.start();
-
-        System.out.println("Board 5");
         areaPanes = new AnchorPane[]{null, area1, area2, area3, area4, null, area6, area7, area8, area9, null, area11, area12, area13, area14, null, area16, area17, area18, area19};
         areas = new ArrayList<>();
         for (int i = 0; i < Config.NumberOfArea; i++) {
@@ -151,12 +100,85 @@ public class Board implements Initializable {
         startGameLogic(player1);
     }
 
+    private void initializePlayer() {
+        player1 = new Player("Penney-Wise");
+        player2 = new Player("Scream");
+
+        playerName1.setText(player1.getName());
+        playerName2.setText(player2.getName());
+
+        hpPlayer1.setText(String.valueOf(player1.getHp()));
+        hpPlayer2.setText(String.valueOf(player2.getHp()));
+
+        characterImage1.setImage(new Image("image/player1.png"));
+        characterImage2.setImage(new Image("image/player2.png"));
+    }
+
+    private void initializeBoard() {
+        boardBackground.setImage(new Image("image/background.png"));
+
+        area0.setImage(new Image("image/vampire.png"));
+        area5.setImage(new Image("image/event.png"));
+        area10.setImage(new Image("image/event.png"));
+        area15.setImage(new Image("image/event.png"));
+
+        playerImage1.setImage(new Image("image/miniPlayer1.png"));
+        playerImage2.setImage(new Image("image/miniPlayer2.png"));
+
+        upgradeAreasImage.setImage(new Image("image/upgrade.png"));
+        upgradeAreasImage.setVisible(false);
+        rollDiceImage.setImage(new Image("image/rollDice.png"));
+        buyAreaImage.setImage(new Image("image/buy.png"));
+        pickUpImage.setImage(new Image("image/pickUpCard.png"));
+        pickUpImage.setVisible(false);
+    }
+
+    private void initializeSound() {
+        backgroundSound = new AudioClip(getClass().getResource("/audio/backgroundSound.mp3").toString());
+        backgroundSound.setVolume(0.4);
+        backgroundSound.setCycleCount(AudioClip.INDEFINITE);
+        crySound = new AudioClip(getClass().getResource("/audio/crySound.mp3").toString());
+        crySound.setVolume(0.7);
+        hurtSound = new AudioClip(getClass().getResource("/audio/hurtSound.mp3").toString());
+        hurtSound.setVolume(1);
+        cardSound = new AudioClip(getClass().getResource("/audio/cardSound.wav").toString());
+        diceSound = new AudioClip(getClass().getResource("/audio/diceSound.mp3").toString());
+        vampireSound = new AudioClip(getClass().getResource("/audio/evilLaugh.mp3").toString());
+
+        changeBackgroundSound(null, backgroundSound);
+    }
+
+    private void changeBackgroundSound(AudioClip stopSound, AudioClip startSound) {
+        Thread sound = new Thread(() -> {
+            if (startSound != null) {
+                startSound.play();
+            } else {
+                System.err.println("AudioClip (bgSound) is null.");
+            }
+        });
+
+        sound.start();
+
+        if (stopSound != null) {
+            stopSound.stop();
+        }
+    }
+
+    private void initializeDice() {
+        dicesImage.add("image/dice1.png");
+        dicesImage.add("image/dice2.png");
+        dicesImage.add("image/dice3.png");
+        dicesImage.add("image/dice4.png");
+        dicesImage.add("image/dice5.png");
+        dicesImage.add("image/dice6.png");
+    }
+
     private void startGameLogic(Player currentPlayer) {
-        Thread gameThread = new Thread(() -> {
+        Thread game = new Thread(() -> {
             start(currentPlayer, player2, areas);
         });
-        gameThread.setDaemon(true);
-        gameThread.start();
+        game.setDaemon(true);
+        game.start();
     }
 
     private void buyTheArea(Player currentPlayer) {
@@ -176,13 +198,13 @@ public class Board implements Initializable {
             player1.setIsWin(true);
             gotoSummaryPage (true);
         }
-        cardPics.setVisible(false);
-        textDescription.setText(null);
+        cardImage.setVisible(false);
+        descriptionText.setText(null);
         Thread effect = new Thread(() -> {
-            if (diceEffect != null) {
-                diceEffect.play();
+            if (diceSound != null) {
+                diceSound.play();
             } else {
-                System.err.println("AudioClip (bgSound) is null.");
+                System.err.println("AudioClip (backgroundSound) is null.");
             }
         });
         effect.start();
@@ -196,36 +218,36 @@ public class Board implements Initializable {
             System.out.println("Dice 1: " + dice1.getFaceValue());
             System.out.println("Dice 2: " + dice2.getFaceValue());
 
-            textDescription.setText(null);
-            upgradeAreasPics.setVisible(false);
+            descriptionText.setText(null);
+            upgradeAreasImage.setVisible(false);
 
             Thread thread = new Thread() {
                 public void run() {
                     System.out.println("thread start");
                     for (int i = 0; i < 6; i++) {
-                          dice01.setImage(new Image(dicesPics.get(i)));
-                          dice02.setImage(new Image(dicesPics.get(i)));
-                        dice01.setImage(new Image(dicesPics.get(dice1.getFaceValue()-1)));
-                        dice02.setImage(new Image(dicesPics.get(dice2.getFaceValue()-1)));
+                          diceImage1.setImage(new Image(dicesImage.get(i)));
+                          diceImage2.setImage(new Image(dicesImage.get(i)));
+                        diceImage1.setImage(new Image(dicesImage.get(dice1.getFaceValue()-1)));
+                        diceImage2.setImage(new Image(dicesImage.get(dice2.getFaceValue()-1)));
                     }
                 }
 
             };
             thread.start();
 
-            dice.setText(String.valueOf(dice1.getFaceValue() + dice2.getFaceValue()));
-            movePlayer(isPlayer1Turn ? player1 : player2, dice1.getFaceValue() + dice2.getFaceValue(), isPlayer1Turn ? imagePlayer1 : imagePlayer2);
+            totalValueOfDices.setText(String.valueOf(dice1.getFaceValue() + dice2.getFaceValue()));
+            movePlayer(isPlayer1Turn ? player1 : player2, dice1.getFaceValue() + dice2.getFaceValue(), isPlayer1Turn ? playerImage1 : playerImage2);
             startGameLogic(isPlayer1Turn ? player2 : player1);
 
             Player currentPlayer = isPlayer1Turn ? player1 : player2;
             String playerName = isPlayer1Turn ? player1.getName() : player2.getName();
 
-            textTurn.setText(playerName + " Turn");
+            turnText.setText(playerName + " Turn");
 
             if (currentPlayer.getPosition() == 5 || currentPlayer.getPosition() == 10 || currentPlayer.getPosition() == 15) {
-                pickUpPics.setVisible(true);
+                pickUpImage.setVisible(true);
             } else if (areas.get(currentPlayer.getPosition()).getOwner().getName().equals(playerName)) {
-                upgradeAreasPics.setVisible(true);
+                upgradeAreasImage.setVisible(true);
             }
 
             hpPlayer1.setText(String.valueOf(player1.getHp()));
@@ -238,13 +260,13 @@ public class Board implements Initializable {
     }
 
     public void gotoSummaryPage(boolean isPlayer1Win) {
-        bgSound.stop();
+        backgroundSound.stop();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("summaryPage.fxml"));
             Parent root = fxmlLoader.load();
             summaryPage controller = fxmlLoader.getController();
 
-            Stage stage = (Stage) rollDicePics.getScene().getWindow();
+            Stage stage = (Stage) rollDiceImage.getScene().getWindow();
             stage.setTitle("Game Over");
             stage.setScene(new Scene(root,1200,600));
 
@@ -277,16 +299,16 @@ public class Board implements Initializable {
         }
         if(player.getPosition()==0){
             Thread effect = new Thread(() -> {
-                if (vampireEffect != null && hurt != null) {
-                    hurt.play();
-                    vampireEffect.play();
+                if (vampireSound != null && hurtSound != null) {
+                    hurtSound.play();
+                    vampireSound.play();
                 } else {
-                    System.err.println("AudioClip (bgSound) is null.");
+                    System.err.println("AudioClip (backgroundSound) is null.");
                 }
             });
             effect.start();
             player.setHp(Math.max(player.getHp()-1,0));
-            textDescription.setText(player.getName()+" lose " +  "1 hp for drop in area 0");
+            descriptionText.setText(player.getName()+" lose " +  "1 hp for drop in area 0");
         }
 
         System.out.println("Area " + player.getPosition() + ": " + areas.get(player.getPosition()).getLevel() + " " + areas.get(player.getPosition()).getOwner().getName());
@@ -296,7 +318,7 @@ public class Board implements Initializable {
             if (areas.get(player1.getPosition()).getOwner().getName().equals(player2.getName())) {
                 player1.setHp(player.getHp() - areas.get(player.getPosition()).getLevel());
                 System.out.println(player.getHp());
-                textDescription.setText(player1.getName()+" lose " + areas.get(player1.getPosition()).getLevel() + " hp");
+                descriptionText.setText(player1.getName()+" lose " + areas.get(player1.getPosition()).getLevel() + " hp");
                 hpPlayer1.setText(String.valueOf(player1.getHp()));
                 playCrySound();
             }
@@ -304,22 +326,22 @@ public class Board implements Initializable {
         else{
             if (areas.get(player2.getPosition()).getOwner().getName().equals(player1.getName())) {
                 player2.setHp(player2.getHp() - areas.get(player2.getPosition()).getLevel());
-                textDescription.setText(player2.getName()+" lose " + areas.get(player2.getPosition()).getLevel() + " hp");
+                descriptionText.setText(player2.getName()+" lose " + areas.get(player2.getPosition()).getLevel() + " hp");
                 hpPlayer2.setText(String.valueOf(player2.getHp()));
                 playCrySound();
             }
         }
-        pickUpPics.setVisible(false);
+        pickUpImage.setVisible(false);
         System.out.println("Now position: " + player.getPosition());
         System.out.println("=====================================");
     }
 
     public void playCrySound(){
         Thread soundThread = new Thread(() -> {
-            if (cry != null) {
-                cry.play();
+            if (crySound != null) {
+                crySound.play();
             } else {
-                System.err.println("AudioClip (cry) is null.");
+                System.err.println("AudioClip (crySound) is null.");
             }
         });
         soundThread.start();
@@ -327,22 +349,22 @@ public class Board implements Initializable {
 
     public void playHurtSound(){
         Thread soundThread = new Thread(() -> {
-            if (hurt != null) {
-                hurt.play();
+            if (hurtSound != null) {
+                hurtSound.play();
             } else {
-                System.err.println("AudioClip (hurt) is null.");
+                System.err.println("AudioClip (hurtSound) is null.");
             }
         });
         soundThread.start();
     }
 
     public void openCard(MouseEvent actionEvent) {
-        cardPics.setVisible(false);
+        cardImage.setVisible(false);
         Thread effect = new Thread(() -> {
-            if (cardEffect != null) {
-                cardEffect.play();
+            if (cardSound != null) {
+                cardSound.play();
             } else {
-                System.err.println("AudioClip (bgSound) is null.");
+                System.err.println("AudioClip (backgroundSound) is null.");
             }
         });
         effect.start();
@@ -353,18 +375,18 @@ public class Board implements Initializable {
             System.out.println("O P E N 1");
             System.out.println(drawnCard.getName());
             drawnCard.activate(player1);
-            if(drawnCard instanceof HealCard) cardPics.setImage(new Image("image/heal1.png"));
-            else if(drawnCard instanceof SuperHealCard) cardPics.setImage(new Image("image/heal2.png"));
-            else if(drawnCard instanceof ExtremeHealCard) cardPics.setImage(new Image("image/heal3.png"));
-            else if(drawnCard instanceof DamageCard) cardPics.setImage(new Image("image/damage1.png"));
-            else if(drawnCard instanceof SuperDamageCard) cardPics.setImage(new Image("image/damage2.png"));
-            else if(drawnCard instanceof ExtremeDamageCard) cardPics.setImage(new Image("image/damage3.png"));
-            else if(drawnCard instanceof SkipCard) cardPics.setImage(new Image("image/skip.png"));
+            if(drawnCard instanceof HealCard) cardImage.setImage(new Image("image/heal1.png"));
+            else if(drawnCard instanceof SuperHealCard) cardImage.setImage(new Image("image/heal2.png"));
+            else if(drawnCard instanceof ExtremeHealCard) cardImage.setImage(new Image("image/heal3.png"));
+            else if(drawnCard instanceof DamageCard) cardImage.setImage(new Image("image/damage1.png"));
+            else if(drawnCard instanceof SuperDamageCard) cardImage.setImage(new Image("image/damage2.png"));
+            else if(drawnCard instanceof ExtremeDamageCard) cardImage.setImage(new Image("image/damage3.png"));
+            else if(drawnCard instanceof SkipCard) cardImage.setImage(new Image("image/skip.png"));
 
             System.out.println(player1.getHp());
             hpPlayer1.setText(String.valueOf(player1.getHp()));
-            textDescription.setText(drawnCard.effect());
-            pickUpPics.setVisible(false);
+            descriptionText.setText(drawnCard.effect());
+            pickUpImage.setVisible(false);
         }
 
         else if (isPlayer1Turn&&(player2.getPosition() == 5 || player2.getPosition() == 10 || player2.getPosition() == 15)) {
@@ -374,20 +396,20 @@ public class Board implements Initializable {
             System.out.println("O P E N 2");
             System.out.println(drawnCard.getName());
             drawnCard.activate(player2);
-            if(drawnCard instanceof HealCard) cardPics.setImage(new Image("image/heal1.png"));
-            else if(drawnCard instanceof SuperHealCard) cardPics.setImage(new Image("image/heal2.png"));
-            else if(drawnCard instanceof ExtremeHealCard) cardPics.setImage(new Image("image/heal3.png"));
-            else if(drawnCard instanceof DamageCard) cardPics.setImage(new Image("image/damage1.png"));
-            else if(drawnCard instanceof SuperDamageCard) cardPics.setImage(new Image("image/damage2.png"));
-            else if(drawnCard instanceof ExtremeDamageCard) cardPics.setImage(new Image("image/damage3.png"));
-            else if(drawnCard instanceof SkipCard) cardPics.setImage(new Image("image/skip.png"));
+            if(drawnCard instanceof HealCard) cardImage.setImage(new Image("image/heal1.png"));
+            else if(drawnCard instanceof SuperHealCard) cardImage.setImage(new Image("image/heal2.png"));
+            else if(drawnCard instanceof ExtremeHealCard) cardImage.setImage(new Image("image/heal3.png"));
+            else if(drawnCard instanceof DamageCard) cardImage.setImage(new Image("image/damage1.png"));
+            else if(drawnCard instanceof SuperDamageCard) cardImage.setImage(new Image("image/damage2.png"));
+            else if(drawnCard instanceof ExtremeDamageCard) cardImage.setImage(new Image("image/damage3.png"));
+            else if(drawnCard instanceof SkipCard) cardImage.setImage(new Image("image/skip.png"));
 
             System.out.println(player2.getHp());
             hpPlayer2.setText(String.valueOf(player2.getHp()));
-            textDescription.setText(drawnCard.effect());
-            pickUpPics.setVisible(false);
+            descriptionText.setText(drawnCard.effect());
+            pickUpImage.setVisible(false);
         }
-        cardPics.setVisible(true);
+        cardImage.setVisible(true);
 
     }
 
@@ -446,7 +468,7 @@ public class Board implements Initializable {
                 playHurtSound();
             }
         }
-        upgradeAreasPics.setVisible(false);
+        upgradeAreasImage.setVisible(false);
     }
 
 }

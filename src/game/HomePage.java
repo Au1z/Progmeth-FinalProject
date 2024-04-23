@@ -16,30 +16,37 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HomePage implements Initializable {
-    public ImageView startButton1;
-    public ImageView option1;
-    public ImageView option2;
-    public ImageView homeBg;
+    public ImageView startButton;
+    public ImageView howToPlayButton;
+    public ImageView viewStoryButton;
+    public ImageView homeBackground;
     private AudioClip homeSound;
-    private AudioClip buttonEffect;
-    private AudioClip playEffect;
+    private AudioClip buttonSound;
+    private AudioClip startSound;
+
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        startButton.setImage(new Image("image/startGameText.png"));
+        howToPlayButton.setImage(new Image("image/howToPlayText.png"));
+        viewStoryButton.setImage(new Image("image/viewStory.png"));
+        homeBackground.setImage(new Image("image/homeBackground.jpg"));
+        buttonSound = new AudioClip(getClass().getResource("/audio/buttonSound.mp3").toString());
+        buttonSound.setVolume(1);
+        startSound = new AudioClip(getClass().getResource("/audio/startSound.mp3").toString());
+        startSound.setVolume(1);
+        homeSound = new AudioClip(getClass().getResource("/audio/homeSound.mp3").toString());
+        homeSound.setVolume(0.5);
+
+        changeBackgroundSound(null, homeSound);
+    }
 
     public void gotoBoard() {
-        Thread effect = new Thread(() -> {
-            if (playEffect != null) {
-                playEffect.play();
-            } else {
-                System.err.println("AudioClip (bgSound) is null.");
-            }
-        });
-        effect.start();
-        homeSound.stop();
+        changeBackgroundSound(homeSound, startSound);
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Board.fxml"));
             Parent root = fxmlLoader.load();
 
-            Stage stage = (Stage) startButton1.getScene().getWindow();
+            Stage stage = (Stage) startButton.getScene().getWindow();
 
             stage.setTitle("Castle of Bloodlines: The Monopoly of Nightmares");
             stage.setScene(new Scene(root,1200,800));
@@ -48,13 +55,14 @@ public class HomePage implements Initializable {
         }
     }
 
-    public void gotoHtp(MouseEvent mouseEvent) {
-        homeSound.stop();
+    public void gotoHowToPlay(MouseEvent mouseEvent) {
+        changeBackgroundSound(homeSound, null);
+
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/game/Other.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Other.fxml"));
             Parent root = fxmlLoader.load();
 
-            Stage stage = (Stage) option1.getScene().getWindow();
+            Stage stage = (Stage) howToPlayButton.getScene().getWindow();
 
             stage.setTitle("Castle of Bloodlines: The Monopoly of Nightmares");
             stage.setScene(new Scene(root, 1200, 650));
@@ -63,84 +71,79 @@ public class HomePage implements Initializable {
         }
     }
 
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        startButton1.setImage(new Image("image/startGameText1.png"));
-        option1.setImage(new Image("image/howToPlayText.png"));
-        option2.setImage(new Image("image/viewStory.png"));
-        homeBg.setImage(new Image("image/homeBg.jpg"));
-        buttonEffect = new AudioClip(getClass().getResource("/audio/buttonEffect2.mp3").toString());
-        buttonEffect.setVolume(1);
-        playEffect = new AudioClip(getClass().getResource("/audio/playEffect.mp3").toString());
-        playEffect.setVolume(1);
-        homeSound = new AudioClip(getClass().getResource("/audio/homeSound.mp3").toString());
-        homeSound.setVolume(0.5);
-        Thread soundThread = new Thread(() -> {
-            if (homeSound != null) {
-                homeSound.play();
+    private void changeBackgroundSound(AudioClip stopSound, AudioClip startSound) {
+        Thread sound = new Thread(() -> {
+            if (startSound != null) {
+                startSound.play();
             } else {
                 System.err.println("AudioClip (bgSound) is null.");
             }
         });
-        soundThread.start();
+
+        sound.start();
+
+        if (stopSound != null) {
+            stopSound.stop();
+        }
     }
 
     @FXML
-    public void expandImage1(MouseEvent mouseEvent) {
+    public void buttonImageEffect(MouseEvent mouseEvent) {
         Thread effect = new Thread(() -> {
-            if (buttonEffect != null) {
-                buttonEffect.play();
+            if (buttonSound != null) {
+                buttonSound.play();
             } else {
                 System.err.println("AudioClip (bgSound) is null.");
             }
         });
         effect.start();
-        startButton1.setScaleX(1.1);
-        startButton1.setScaleY(1.1);
+        startButton.setScaleX(1.1);
+        startButton.setScaleY(1.1);
     }
 
     @FXML
-    public void expandImage2(MouseEvent mouseEvent) {
+    public void howToPlayButtonEffect(MouseEvent mouseEvent) {
         Thread effect = new Thread(() -> {
-            if (buttonEffect != null) {
-                buttonEffect.play();
+            if (buttonSound != null) {
+                buttonSound.play();
             } else {
                 System.err.println("AudioClip (bgSound) is null.");
             }
         });
         effect.start();
-        option1.setScaleX(1.1);
-        option1.setScaleY(1.1);
+        howToPlayButton.setScaleX(1.1);
+        howToPlayButton.setScaleY(1.1);
     }
 
     @FXML
-    public void expandImage3(MouseEvent mouseEvent) {
+    public void viewStoryButtonEffect(MouseEvent mouseEvent) {
         Thread effect = new Thread(() -> {
-            if (buttonEffect != null) {
-                buttonEffect.play();
+            if (buttonSound != null) {
+                buttonSound.play();
             } else {
                 System.err.println("AudioClip (bgSound) is null.");
             }
         });
         effect.start();
-        option2.setScaleX(1.1);
-        option2.setScaleY(1.1);
+        viewStoryButton.setScaleX(1.1);
+        viewStoryButton.setScaleY(1.1);
     }
 
     @FXML
-    private void shrinkImage1() {
-        startButton1.setScaleX(1.0);
-        startButton1.setScaleY(1.0);
+    private void shrinkStartButtonImage() {
+        startButton.setScaleX(1.0);
+        startButton.setScaleY(1.0);
     }
 
     @FXML
-    private void shrinkImage2() {
-        option1.setScaleX(1.0);
-        option1.setScaleY(1.0);
+    private void shrinkHowToPlayButtonImage() {
+        howToPlayButton.setScaleX(1.0);
+        howToPlayButton.setScaleY(1.0);
     }
 
     @FXML
-    private void shrinkImage3() {
-        option2.setScaleX(1.0);
-        option2.setScaleY(1.0);
+    private void shrinkViewStoryButtonImage() {
+        viewStoryButton.setScaleX(1.0);
+        viewStoryButton.setScaleY(1.0);
     }
 }
