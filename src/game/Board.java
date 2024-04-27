@@ -171,14 +171,6 @@ public class Board implements Initializable {
         dicesImage.add("image/dice6.png");
     }
 
-    private void buyTheArea(Player currentPlayer) {
-        Thread game = new Thread(() -> {
-            existArea(currentPlayer, areas);
-        });
-        game.setDaemon(true);
-        game.start();
-    }
-
     public void rollDices(MouseEvent actionEvent) {
         checkPlayerDied();
 
@@ -368,7 +360,7 @@ public class Board implements Initializable {
 
     private void existArea1(Player player, TextField hpPlayer, Color color) {
         if (!(player.getPosition() == 0 || player.getPosition() == 5 || player.getPosition() == 10 || player.getPosition() == 15)
-                && areas.get(player.getPosition()).canBuy(player)) {
+                && areas.get(player.getPosition()).canBuy()) {
             areaPanes[player.getPosition()].setBackground(new Background(new BackgroundFill(color, null, null)));
             areas.get(player.getPosition()).setOwned(true);
             areas.get(player.getPosition()).setOwner(player);
@@ -397,7 +389,6 @@ public class Board implements Initializable {
     }
 
     private void upgradeLogic(Player player, Double darkenFactor) {
-        buyTheArea(player);
         Color currentColor = ((Color) areaPanes[player.getPosition()].getBackground().getFills().get(0).getFill());
         Color newColor = currentColor.deriveColor(0, 1, darkenFactor, 1); // Darken the color slightly
         areaPanes[player.getPosition()].setBackground(new Background(new BackgroundFill(newColor, null, null)));
