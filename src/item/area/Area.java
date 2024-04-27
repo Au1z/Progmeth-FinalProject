@@ -37,7 +37,7 @@ public class Area {
         this.owned = owned;
     }
 
-    public boolean isBuyable(Player player) {
+    public boolean canBuy(Player player) {
         if (!owned || owner == null ) {
             return true;
         } else {

@@ -16,7 +16,7 @@
     <children>
         <StackPane layoutX="6.0" layoutY="13.0" prefHeight="595.0" prefWidth="600.0">
             <children>
-                <ImageView fx:id="bg" fitHeight="391.0" fitWidth="395.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="boardBackground" fitHeight="391.0" fitWidth="395.0" pickOnBounds="true" preserveRatio="true" />
                 <GridPane fx:id="table" prefHeight="540.0" prefWidth="540.0" style="-fx-border-color: #800000; -fx-border-width: 5px;" StackPane.alignment="CENTER">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
@@ -35,8 +35,8 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <ImageView fx:id="dice01" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <ImageView fx:id="dice02" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <ImageView fx:id="diceImage1" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <ImageView fx:id="diceImage2" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                         <AnchorPane fx:id="area11" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EC143C; -fx-border-color: #8E1600;" GridPane.columnIndex="1">
                             <children>
                                 <Text layoutX="32.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Area 11" />
@@ -156,8 +156,8 @@
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
                             <children>
                                 <ImageView fx:id="area0" fitHeight="100.0" fitWidth="100.0" layoutX="-1.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" />
-                                <ImageView fx:id="imagePlayer1" fitHeight="84.0" fitWidth="48.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
-                                <ImageView fx:id="imagePlayer2" fitHeight="96.0" fitWidth="48.0" layoutX="51.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+                                <ImageView fx:id="playerImage1" fitHeight="84.0" fitWidth="48.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+                                <ImageView fx:id="playerImage2" fitHeight="96.0" fitWidth="48.0" layoutX="51.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
                             </children>
                         </AnchorPane>
                     </children>
@@ -167,14 +167,14 @@
                 </GridPane>
             </children>
         </StackPane>
-        <TextField fx:id="dice" accessibleRole="IMAGE_VIEW" alignment="CENTER" editable="false" layoutX="867.0" layoutY="286.0" mouseTransparent="true" prefHeight="145.0" prefWidth="144.0" style="-fx-background-color: #000000; -fx-text-fill: red; -fx-font-size: 60px;" />
-        <ImageView fx:id="chracterImage2" fitHeight="213.0" fitWidth="123.0" layoutX="951.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="chracterImage1" fitHeight="213.0" fitWidth="144.0" layoutX="754.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
-        <TextField fx:id="P1" accessibleRole="IMAGE_VIEW" alignment="CENTER" editable="false" layoutX="767.0" layoutY="248.0" prefHeight="43.0" prefWidth="162.0" style="-fx-background-color: #000000; -fx-text-fill: red; -fx-font-weight: bold;">
+        <TextField fx:id="totalValueOfDices" accessibleRole="IMAGE_VIEW" alignment="CENTER" editable="false" layoutX="867.0" layoutY="286.0" mouseTransparent="true" prefHeight="145.0" prefWidth="144.0" style="-fx-background-color: #000000; -fx-text-fill: red; -fx-font-size: 60px;" />
+        <ImageView fx:id="characterImage2" fitHeight="213.0" fitWidth="123.0" layoutX="951.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="characterImage1" fitHeight="213.0" fitWidth="144.0" layoutX="754.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
+        <TextField fx:id="playerName1" accessibleRole="IMAGE_VIEW" alignment="CENTER" editable="false" layoutX="767.0" layoutY="248.0" prefHeight="43.0" prefWidth="162.0" style="-fx-background-color: #000000; -fx-text-fill: red; -fx-font-weight: bold;">
             <font>
                 <Font size="20.0" />
             </font></TextField>
-        <TextField fx:id="P2" accessibleRole="IMAGE_VIEW" alignment="CENTER" editable="false" layoutX="930.0" layoutY="248.0" prefHeight="43.0" prefWidth="170.0" style="-fx-background-color: #000000; -fx-text-fill: red; -fx-font-weight: bold;">
+        <TextField fx:id="playerName2" accessibleRole="IMAGE_VIEW" alignment="CENTER" editable="false" layoutX="930.0" layoutY="248.0" prefHeight="43.0" prefWidth="170.0" style="-fx-background-color: #000000; -fx-text-fill: red; -fx-font-weight: bold;">
             <font>
                 <Font size="20.0" />
             </font>
@@ -189,33 +189,33 @@
                 <Font size="20.0" />
             </font>
         </TextField>
-        <ImageView fx:id="rollDicePics" fitHeight="123.0" fitWidth="152.0" layoutX="781.0" layoutY="438.0" onKeyPressed="#rollDices" onMouseClicked="#rollDices" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="rollDiceImage" fitHeight="123.0" fitWidth="152.0" layoutX="781.0" layoutY="438.0" onMouseClicked="#rollDices" pickOnBounds="true" preserveRatio="true">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor></ImageView>
-        <ImageView fx:id="buyAreaPics" fitHeight="123.0" fitWidth="152.0" layoutX="957.0" layoutY="438.0" onMouseClicked="#buyArea" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="buyAreaImage" fitHeight="123.0" fitWidth="152.0" layoutX="957.0" layoutY="438.0" onMouseClicked="#buyArea" pickOnBounds="true" preserveRatio="true">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-        <ImageView fx:id="pickUpPics" fitHeight="123.0" fitWidth="152.0" layoutX="781.0" layoutY="577.0" onMouseClicked="#openCard" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="pickUpImage" fitHeight="123.0" fitWidth="152.0" layoutX="781.0" layoutY="577.0" onMouseClicked="#openCard" pickOnBounds="true" preserveRatio="true">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-        <TextField fx:id="textTurn" accessibleRole="IMAGE_VIEW" editable="false" layoutX="53.0" layoutY="631.0" prefHeight="50.0" prefWidth="488.0" style="-fx-background-color: #000000; -fx-text-fill: red; -fx-font-weight: bold;">
+        <TextField fx:id="turnText" accessibleRole="IMAGE_VIEW" editable="false" layoutX="53.0" layoutY="631.0" prefHeight="50.0" prefWidth="488.0" style="-fx-background-color: #000000; -fx-text-fill: red; -fx-font-weight: bold;">
             <font>
                 <Font size="16.0" />
             </font></TextField>
-        <TextField fx:id="textDescription" accessibleRole="IMAGE_VIEW" editable="false" layoutX="53.0" layoutY="681.0" prefHeight="50.0" prefWidth="488.0" style="-fx-background-color: #000000; -fx-text-fill: red; -fx-font-weight: bold;">
+        <TextField fx:id="descriptionText" accessibleRole="IMAGE_VIEW" editable="false" layoutX="53.0" layoutY="681.0" prefHeight="50.0" prefWidth="488.0" style="-fx-background-color: #000000; -fx-text-fill: red; -fx-font-weight: bold;">
             <font>
                 <Font size="16.0" />
             </font></TextField>
-        <ImageView fx:id="upgradeAreasPics" fitHeight="123.0" fitWidth="152.0" layoutX="957.0" layoutY="577.0" onMouseClicked="#upgradeArea" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="upgradeAreasImage" fitHeight="123.0" fitWidth="152.0" layoutX="957.0" layoutY="577.0" onMouseClicked="#upgradeArea" pickOnBounds="true" preserveRatio="true">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-        <ImageView fx:id="cardPics" fitHeight="595.0" fitWidth="600.0" layoutX="9.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="cardImage" fitHeight="595.0" fitWidth="600.0" layoutX="9.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>
