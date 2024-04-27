@@ -189,7 +189,7 @@
                 <Font size="20.0" />
             </font>
         </TextField>
-        <ImageView fx:id="rollDiceImage" fitHeight="123.0" fitWidth="152.0" layoutX="781.0" layoutY="438.0" onKeyPressed="#rollDices" onMouseClicked="#rollDices" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="rollDiceImage" fitHeight="123.0" fitWidth="152.0" layoutX="781.0" layoutY="438.0" onMouseClicked="#rollDices" pickOnBounds="true" preserveRatio="true">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor></ImageView>
