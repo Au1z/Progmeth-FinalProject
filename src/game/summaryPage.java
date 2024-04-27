@@ -49,6 +49,7 @@ public class summaryPage implements Initializable {
             player2Win.setImage(null);
         }
         else{
+
             player1Win.setImage(null);
             player2Win.setImage(new Image("image/player2Win.png"));
         }

@@ -2,7 +2,7 @@ package item.card;
 
 import player.Player;
 
-public class ExtremeDamageCard extends BaseCard {
+public class ExtremeDamageCard extends BaseCard implements Activatable{
 
     public ExtremeDamageCard() {
         super("EXTREMEDAMAGE");

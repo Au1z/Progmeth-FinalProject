@@ -3,7 +3,7 @@ package item.card;
 import game.Config;
 import player.Player;
 
-public class SuperHealCard extends BaseCard {
+public class SuperHealCard extends BaseCard implements Activatable{
 
     public SuperHealCard() {
         super("SUPERHEAL");

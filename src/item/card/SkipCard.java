@@ -2,7 +2,7 @@ package item.card;
 
 import player.Player;
 
-public class SkipCard extends BaseCard { // skip turn of player
+public class SkipCard extends BaseCard implements Activatable{ // skip turn of player
 
     public SkipCard() {
         super("SKIP");
