@@ -27,8 +27,6 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-import static game.GameControllers.*;
-
 public class Board implements Initializable {
     public TextField playerName1;
     public TextField playerName2;
@@ -243,7 +241,7 @@ public class Board implements Initializable {
 
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -301,7 +299,7 @@ public class Board implements Initializable {
         }
     }
 
-    public void openCard(MouseEvent actionEvent) {
+    public void openCard() {
         cardImage.setVisible(false);
 
         Sound.changeBackgroundSound(null, cardSound);
@@ -335,7 +333,7 @@ public class Board implements Initializable {
         pickUpImage.setVisible(false);
     }
 
-    public void buyArea(MouseEvent actionEvent) {
+    public void buyArea() {
         if (!isPlayer1Turn) {
             existArea1(player1, hpPlayer1, Color.ORANGE);
         } else {
@@ -356,30 +354,30 @@ public class Board implements Initializable {
         }
     }
 
-    public void upgradeArea(MouseEvent mouseEvent) {
+    public void upgradeArea() {
         double darkenFactor = 0.8; // Adjust this value to control the darkness level
 
         if (!isPlayer1Turn) {
             if (!(player1.getPosition() == 0 || player1.getPosition() == 5 || player1.getPosition() == 10 || player1.getPosition() == 15)
                     && areas.get(player1.getPosition()).getOwner().getName().equals(player1.getName())) {
-                upgradeLogic(player1, darkenFactor);
+                upgradeLogic(player1, darkenFactor, hpPlayer1);
             }
         } else {
             if (!(player2.getPosition() == 0 || player2.getPosition() == 5 || player2.getPosition() == 10 || player2.getPosition() == 15)
                     && areas.get(player2.getPosition()).getOwner().getName().equals(player2.getName())) {
-                upgradeLogic(player2, darkenFactor);
+                upgradeLogic(player2, darkenFactor, hpPlayer2);
             }
         }
         upgradeAreasImage.setVisible(false);
     }
 
-    private void upgradeLogic(Player player, Double darkenFactor) {
+    private void upgradeLogic(Player player, Double darkenFactor, TextField hpPlayer) {
         Color currentColor = ((Color) areaPanes[player.getPosition()].getBackground().getFills().get(0).getFill());
         Color newColor = currentColor.deriveColor(0, 1, darkenFactor, 1); // Darken the color slightly
         areaPanes[player.getPosition()].setBackground(new Background(new BackgroundFill(newColor, null, null)));
         areas.get(player.getPosition()).setLevel(areas.get(player.getPosition()).getLevel() + 1);
         player.setHp(player.getHp() - 1);
-        hpPlayer1.setText(String.valueOf(player.getHp()));
+        hpPlayer.setText(String.valueOf(player.getHp()));
         Sound.changeBackgroundSound(null, hurtSound);
     }
 }

@@ -106,7 +106,7 @@ public class summaryPage implements Initializable {
             stage.setScene(new Scene(root, 1200, 700));
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
