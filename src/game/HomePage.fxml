@@ -34,6 +34,6 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-      <ImageView fx:id="exitButton" fitHeight="75.0" fitWidth="167.0" layoutX="1017.0" layoutY="583.0" onMouseClicked="#exit" onMouseEntered="#exitButtonEffect" onMouseExited="#shrinkExitButtonImage" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="exitButton" fitHeight="50.0" fitWidth="149.0" layoutX="1035.0" layoutY="608.0" onMouseClicked="#exit" onMouseEntered="#exitButtonEffect" onMouseExited="#shrinkExitButtonImage" pickOnBounds="true" preserveRatio="true" />
     </AnchorPane>
 </AnchorPane>
