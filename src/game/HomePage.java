@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import utils.Sound;
@@ -53,11 +52,11 @@ public class HomePage implements Initializable {
             stage.setTitle("Castle of Bloodlines: The Monopoly of Nightmares");
             stage.setScene(new Scene(root,1200,800));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
-    public void gotoHowToPlay(MouseEvent mouseEvent) {
+    public void gotoHowToPlay() {
         Sound.changeBackgroundSound(homeSound, null);
 
         try {
@@ -69,12 +68,12 @@ public class HomePage implements Initializable {
             stage.setTitle("Castle of Bloodlines: The Monopoly of Nightmares");
             stage.setScene(new Scene(root, 1200, 650));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
     @FXML
-    public void buttonImageEffect(MouseEvent mouseEvent) {
+    public void buttonImageEffect() {
         Thread effect = new Thread(() -> {
             if (buttonSound != null) {
                 buttonSound.play();
@@ -88,7 +87,7 @@ public class HomePage implements Initializable {
     }
 
     @FXML
-    public void howToPlayButtonEffect(MouseEvent mouseEvent) {
+    public void howToPlayButtonEffect() {
         Thread effect = new Thread(() -> {
             if (buttonSound != null) {
                 buttonSound.play();
@@ -102,7 +101,7 @@ public class HomePage implements Initializable {
     }
 
     @FXML
-    public void viewStoryButtonEffect(MouseEvent mouseEvent) {
+    public void viewStoryButtonEffect() {
         Thread effect = new Thread(() -> {
             if (buttonSound != null) {
                 buttonSound.play();

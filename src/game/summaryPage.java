@@ -17,8 +17,8 @@ import java.util.ResourceBundle;
 
 public class summaryPage implements Initializable {
     public ImageView endBackground;
-    public ImageView p2Win;
-    public ImageView p1Win;
+    public ImageView player2Win;
+    public ImageView player1Win;
     public ImageView retryButton;
     public ImageView exitButton;
     private AudioClip backgroundSound;
@@ -45,12 +45,12 @@ public class summaryPage implements Initializable {
 
     public void setPlayer1Win(Boolean check) {
         if(check){
-            p1Win.setImage(new Image("image/p1Win.png"));
-            p2Win.setImage(null);
+            player1Win.setImage(new Image("image/player1Win.png"));
+            player2Win.setImage(null);
         }
         else{
-            p1Win.setImage(null);
-            p2Win.setImage(new Image("image/p2Win.png"));
+            player1Win.setImage(null);
+            player2Win.setImage(new Image("image/player2Win.png"));
         }
     }
 
@@ -106,7 +106,7 @@ public class summaryPage implements Initializable {
             stage.setScene(new Scene(root, 1200, 700));
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 

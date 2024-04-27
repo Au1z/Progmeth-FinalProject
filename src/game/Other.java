@@ -6,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,7 +25,7 @@ public class Other implements Initializable {
         homeBackground.setImage(new Image("image/homeBackground.jpg"));
     }
 
-    public void goBack(MouseEvent mouseEvent) {
+    public void goBack() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
             Parent root = fxmlLoader.load();
@@ -36,7 +35,7 @@ public class Other implements Initializable {
             stage.setTitle("Castle of Bloodlines: The Monopoly of Nightmares");
             stage.setScene(new Scene(root, 1200, 675));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 }
