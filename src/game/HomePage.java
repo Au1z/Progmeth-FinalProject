@@ -10,9 +10,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
+import utils.Sound;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class HomePage implements Initializable {
@@ -29,18 +31,18 @@ public class HomePage implements Initializable {
         howToPlayButton.setImage(new Image("image/howToPlayText.png"));
         viewStoryButton.setImage(new Image("image/viewStory.png"));
         homeBackground.setImage(new Image("image/homeBackground.jpg"));
-        buttonSound = new AudioClip(getClass().getResource("/audio/buttonSound.mp3").toString());
+        buttonSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/audio/buttonSound.mp3")).toString());
         buttonSound.setVolume(1);
-        startSound = new AudioClip(getClass().getResource("/audio/startSound.mp3").toString());
+        startSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/audio/startSound.mp3")).toString());
         startSound.setVolume(1);
-        homeSound = new AudioClip(getClass().getResource("/audio/homeSound.mp3").toString());
+        homeSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/audio/homeSound.mp3")).toString());
         homeSound.setVolume(0.5);
 
-        changeBackgroundSound(null, homeSound);
+        Sound.changeBackgroundSound(null, homeSound);
     }
 
     public void gotoBoard() {
-        changeBackgroundSound(homeSound, startSound);
+        Sound.changeBackgroundSound(homeSound, startSound);
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Board.fxml"));
@@ -56,7 +58,7 @@ public class HomePage implements Initializable {
     }
 
     public void gotoHowToPlay(MouseEvent mouseEvent) {
-        changeBackgroundSound(homeSound, null);
+        Sound.changeBackgroundSound(homeSound, null);
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Other.fxml"));
@@ -68,22 +70,6 @@ public class HomePage implements Initializable {
             stage.setScene(new Scene(root, 1200, 650));
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    private void changeBackgroundSound(AudioClip stopSound, AudioClip startSound) {
-        Thread sound = new Thread(() -> {
-            if (startSound != null) {
-                startSound.play();
-            } else {
-                System.err.println("AudioClip (bgSound) is null.");
-            }
-        });
-
-        sound.start();
-
-        if (stopSound != null) {
-            stopSound.stop();
         }
     }
 

@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import player.Player;
 import item.area.Area;
 import utils.AllCards;
+import utils.Sound;
 
 import java.io.IOException;
 import java.net.URL;
@@ -143,23 +144,7 @@ public class Board implements Initializable {
         diceSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/audio/diceSound.mp3")).toString());
         vampireSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/audio/evilLaugh.mp3")).toString());
 
-        changeBackgroundSound(null, backgroundSound);
-    }
-
-    private void changeBackgroundSound(AudioClip stopSound, AudioClip startSound) {
-        Thread sound = new Thread(() -> {
-            if (startSound != null) {
-                startSound.play();
-            } else {
-                System.err.println("AudioClip (bgSound) is null.");
-            }
-        });
-
-        sound.start();
-
-        if (stopSound != null) {
-            stopSound.stop();
-        }
+        Sound.changeBackgroundSound(null, backgroundSound);
     }
 
     private void initializeDice() {
@@ -171,20 +156,12 @@ public class Board implements Initializable {
         dicesImage.add("image/dice6.png");
     }
 
-    private void buyTheArea(Player currentPlayer) {
-        Thread game = new Thread(() -> {
-            existArea(currentPlayer, areas);
-        });
-        game.setDaemon(true);
-        game.start();
-    }
-
     public void rollDices(MouseEvent actionEvent) {
         checkPlayerDied();
 
         clear();
 
-        changeBackgroundSound(null, diceSound);
+        Sound.changeBackgroundSound(null, diceSound);
 
         if (actionEvent.getButton() == MouseButton.PRIMARY) {
             Dice dice1 = new Dice();
@@ -275,8 +252,8 @@ public class Board implements Initializable {
         movePlayerLogic(player, sumOfDices, playerImage);
 
         if (player.getPosition() == 0) {
-            changeBackgroundSound(null, hurtSound);
-            changeBackgroundSound(null, vampireSound);
+            Sound.changeBackgroundSound(null, hurtSound);
+            Sound.changeBackgroundSound(null, vampireSound);
 
             player.setHp(Math.max(player.getHp()-1,0));
             descriptionText.setText(player.getName()+" lose " +  "1 hp for drop in area 0");
@@ -311,7 +288,7 @@ public class Board implements Initializable {
                 player1.setHp(player1.getHp() - areas.get(player1.getPosition()).getLevel());
                 descriptionText.setText(player1.getName()+" lose " + areas.get(player1.getPosition()).getLevel() + " hp");
                 hpPlayer1.setText(String.valueOf(player1.getHp()));
-                changeBackgroundSound(null, crySound);
+                Sound.changeBackgroundSound(null, crySound);
             }
         }
         else {
@@ -319,7 +296,7 @@ public class Board implements Initializable {
                 player2.setHp(player2.getHp() - areas.get(player2.getPosition()).getLevel());
                 descriptionText.setText(player2.getName()+" lose " + areas.get(player2.getPosition()).getLevel() + " hp");
                 hpPlayer2.setText(String.valueOf(player2.getHp()));
-                changeBackgroundSound(null, crySound);
+                Sound.changeBackgroundSound(null, crySound);
             }
         }
     }
@@ -327,7 +304,7 @@ public class Board implements Initializable {
     public void openCard(MouseEvent actionEvent) {
         cardImage.setVisible(false);
 
-        changeBackgroundSound(null, cardSound);
+        Sound.changeBackgroundSound(null, cardSound);
 
         if (!isPlayer1Turn && (player1.getPosition() == 5 || player1.getPosition() == 10 || player1.getPosition() == 15)) {
             openCardLogic(player1, hpPlayer1);
@@ -368,14 +345,14 @@ public class Board implements Initializable {
 
     private void existArea1(Player player, TextField hpPlayer, Color color) {
         if (!(player.getPosition() == 0 || player.getPosition() == 5 || player.getPosition() == 10 || player.getPosition() == 15)
-                && areas.get(player.getPosition()).canBuy(player)) {
+                && areas.get(player.getPosition()).canBuy()) {
             areaPanes[player.getPosition()].setBackground(new Background(new BackgroundFill(color, null, null)));
             areas.get(player.getPosition()).setOwned(true);
             areas.get(player.getPosition()).setOwner(player);
             areas.get(player.getPosition()).setLevel(areas.get(player.getPosition()).getLevel() + 1);
             player.setHp(player.getHp() - 1);
             hpPlayer.setText(String.valueOf(player.getHp()));
-            changeBackgroundSound(null, hurtSound);
+            Sound.changeBackgroundSound(null, hurtSound);
         }
     }
 
@@ -397,13 +374,12 @@ public class Board implements Initializable {
     }
 
     private void upgradeLogic(Player player, Double darkenFactor) {
-        buyTheArea(player);
         Color currentColor = ((Color) areaPanes[player.getPosition()].getBackground().getFills().get(0).getFill());
         Color newColor = currentColor.deriveColor(0, 1, darkenFactor, 1); // Darken the color slightly
         areaPanes[player.getPosition()].setBackground(new Background(new BackgroundFill(newColor, null, null)));
         areas.get(player.getPosition()).setLevel(areas.get(player.getPosition()).getLevel() + 1);
         player.setHp(player.getHp() - 1);
         hpPlayer1.setText(String.valueOf(player.getHp()));
-        changeBackgroundSound(null, hurtSound);
+        Sound.changeBackgroundSound(null, hurtSound);
     }
 }

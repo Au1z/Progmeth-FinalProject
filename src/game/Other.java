@@ -15,22 +15,20 @@ import java.util.ResourceBundle;
 
 public class Other implements Initializable {
 
-    public ImageView cms;
+    public ImageView comingSoon;
     public ImageView back;
-    public ImageView bg;
+    public ImageView homeBackground;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        cms.setImage(new Image("image/cms.png"));
+        comingSoon.setImage(new Image("image/comingSoon.png"));
         back.setImage(new Image("image/back.png"));
-        bg.setImage(new Image("image/homeBg.jpg"));
+        homeBackground.setImage(new Image("image/homeBackground.jpg"));
     }
 
     public void goBack(MouseEvent mouseEvent) {
-//        System.out.println("asdada");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
-//            System.out.println("sadasds");
             Parent root = fxmlLoader.load();
 
             Stage stage = (Stage) back.getScene().getWindow();
