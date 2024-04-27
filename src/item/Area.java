@@ -1,6 +1,4 @@
-package item.area;
-
-import player.Player;
+package item;
 
 public class Area {
     private Player owner;

@@ -1,6 +1,6 @@
 package item.card;
 
-import player.Player;
+import item.Player;
 
 public class DamageCard extends BaseCard implements Activatable{
 

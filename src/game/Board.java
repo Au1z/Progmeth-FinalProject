@@ -15,8 +15,8 @@ import javafx.scene.layout.*;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import player.Player;
-import item.area.Area;
+import item.Player;
+import item.Area;
 import utils.AllCards;
 import utils.Sound;
 
@@ -188,6 +188,12 @@ public class Board implements Initializable {
         }
     }
 
+    private void clear() {
+        cardImage.setVisible(false);
+        upgradeAreasImage.setVisible(false);
+        descriptionText.setText(null);
+    }
+
     private void setBoard(Dice dice1, Dice dice2) {
         movePlayer(isPlayer1Turn ? player1 : player2, dice1.getFaceValue() + dice2.getFaceValue(), isPlayer1Turn ? playerImage1 : playerImage2);
 
@@ -206,12 +212,6 @@ public class Board implements Initializable {
         hpPlayer2.setText(String.valueOf(player2.getHp()));
 
         isPlayer1Turn = !isPlayer1Turn;
-    }
-
-    private void clear() {
-        cardImage.setVisible(false);
-        upgradeAreasImage.setVisible(false);
-        descriptionText.setText(null);
     }
 
     private void rollDicesAnimation(Dice dice1, Dice dice2) {
@@ -335,13 +335,13 @@ public class Board implements Initializable {
 
     public void buyArea() {
         if (!isPlayer1Turn) {
-            existArea1(player1, hpPlayer1, Color.ORANGE);
+            existArea(player1, hpPlayer1, Color.ORANGE);
         } else {
-            existArea1(player2, hpPlayer2, Color.GRAY);
+            existArea(player2, hpPlayer2, Color.GRAY);
         }
     }
 
-    private void existArea1(Player player, TextField hpPlayer, Color color) {
+    private void existArea(Player player, TextField hpPlayer, Color color) {
         if (!(player.getPosition() == 0 || player.getPosition() == 5 || player.getPosition() == 10 || player.getPosition() == 15)
                 && areas.get(player.getPosition()).canBuy()) {
             areaPanes[player.getPosition()].setBackground(new Background(new BackgroundFill(color, null, null)));

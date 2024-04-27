@@ -1,9 +1,9 @@
 package item.card;
 
 import game.Config;
-import player.Player;
+import item.Player;
 
-public class ExtremeHealCard extends BaseCard implements Activatable{
+public class ExtremeHealCard extends BaseCard implements Activatable {
 
     public ExtremeHealCard() {
         super("ExtremeHEAL");

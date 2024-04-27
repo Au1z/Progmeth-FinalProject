@@ -1,4 +1,4 @@
-package player;
+package item;
 
 import game.Config;
 
