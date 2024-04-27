@@ -1,8 +1,8 @@
 package item.card;
 
-import player.Player;
+import item.Player;
 
-public class SuperDamageCard extends BaseCard implements Activatable{
+public class SuperDamageCard extends BaseCard implements Activatable {
 
     public SuperDamageCard() {
         super("SUPERDAMAGE");

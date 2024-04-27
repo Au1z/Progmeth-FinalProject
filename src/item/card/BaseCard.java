@@ -1,7 +1,5 @@
 package item.card;
 
-import player.Player;
-
 public abstract class BaseCard implements Activatable{
     private String name;
     private boolean isUsed;

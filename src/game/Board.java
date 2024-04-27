@@ -1,7 +1,6 @@
 package game;
 
 import item.Dice;
-import item.card.*;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -15,16 +14,14 @@ import javafx.scene.layout.*;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import player.Player;
-import item.area.Area;
-import utils.AllCards;
+import item.Player;
+import item.Area;
 import utils.Sound;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 public class Board implements Initializable {
@@ -188,6 +185,12 @@ public class Board implements Initializable {
         }
     }
 
+    private void clear() {
+        cardImage.setVisible(false);
+        upgradeAreasImage.setVisible(false);
+        descriptionText.setText(null);
+    }
+
     private void setBoard(Dice dice1, Dice dice2) {
         movePlayer(isPlayer1Turn ? player1 : player2, dice1.getFaceValue() + dice2.getFaceValue(), isPlayer1Turn ? playerImage1 : playerImage2);
 
@@ -196,7 +199,7 @@ public class Board implements Initializable {
 
         turnText.setText(playerName + " Turn");
 
-        if (currentPlayer.getPosition() == 5 || currentPlayer.getPosition() == 10 || currentPlayer.getPosition() == 15) {
+        if (GameControllers.isCardPosition(currentPlayer.getPosition())) {
             pickUpImage.setVisible(true);
         } else if (areas.get(currentPlayer.getPosition()).getOwner().getName().equals(playerName)) {
             upgradeAreasImage.setVisible(true);
@@ -206,12 +209,6 @@ public class Board implements Initializable {
         hpPlayer2.setText(String.valueOf(player2.getHp()));
 
         isPlayer1Turn = !isPlayer1Turn;
-    }
-
-    private void clear() {
-        cardImage.setVisible(false);
-        upgradeAreasImage.setVisible(false);
-        descriptionText.setText(null);
     }
 
     private void rollDicesAnimation(Dice dice1, Dice dice2) {
@@ -227,7 +224,7 @@ public class Board implements Initializable {
     }
 
     public void gotoSummaryPage(boolean isPlayer1Win) {
-        backgroundSound.stop();
+        Sound.changeBackgroundSound(backgroundSound, null);
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("summaryPage.fxml"));
             Parent root = fxmlLoader.load();
@@ -247,9 +244,9 @@ public class Board implements Initializable {
 
 
     public void movePlayer(Player player, int sumOfDices, ImageView playerImage) {
-        movePlayerLogic(player, sumOfDices, playerImage);
+        GameControllers.movePlayer(player, sumOfDices, playerImage);
 
-        if (player.getPosition() == 0) {
+        if (player.getPosition() == Config.VampirePosition) {
             Sound.changeBackgroundSound(null, hurtSound);
             Sound.changeBackgroundSound(null, vampireSound);
 
@@ -257,46 +254,13 @@ public class Board implements Initializable {
             descriptionText.setText(player.getName()+" lose " +  "1 hp for drop in area 0");
         }
 
-        checkArea();
+        if (isPlayer1Turn) {
+            GameControllers.checkArea(player1, player2, hpPlayer1, areas, descriptionText, crySound);
+        } else {
+            GameControllers.checkArea(player2, player1, hpPlayer2, areas, descriptionText, crySound);
+        }
 
         pickUpImage.setVisible(false);
-    }
-
-    private void movePlayerLogic(Player player, int sumOfDices, ImageView playerImage) {
-        for (int i = 0; i < sumOfDices; i++) {
-            int currentPosition = player.getPosition();
-            if (currentPosition >= 0 && currentPosition <= 4) {
-                playerImage.setTranslateX(playerImage.getTranslateX() - 99);
-            } else if (currentPosition >= 5 && currentPosition <= 9) {
-                playerImage.setTranslateY(playerImage.getTranslateY() - 99);
-            } else if (currentPosition >= 10 && currentPosition <= 14) {
-                playerImage.setTranslateX(playerImage.getTranslateX() + 99);
-            } else {
-                playerImage.setTranslateY(playerImage.getTranslateY() + 99);
-            }
-
-            int newPosition = (currentPosition + 1) % 20;
-            player.setPosition(newPosition);
-        }
-    }
-
-    private void checkArea() {
-        if (isPlayer1Turn) {
-            if (areas.get(player1.getPosition()).getOwner().getName().equals(player2.getName())) {
-                player1.setHp(player1.getHp() - areas.get(player1.getPosition()).getLevel());
-                descriptionText.setText(player1.getName()+" lose " + areas.get(player1.getPosition()).getLevel() + " hp");
-                hpPlayer1.setText(String.valueOf(player1.getHp()));
-                Sound.changeBackgroundSound(null, crySound);
-            }
-        }
-        else {
-            if (areas.get(player2.getPosition()).getOwner().getName().equals(player1.getName())) {
-                player2.setHp(player2.getHp() - areas.get(player2.getPosition()).getLevel());
-                descriptionText.setText(player2.getName()+" lose " + areas.get(player2.getPosition()).getLevel() + " hp");
-                hpPlayer2.setText(String.valueOf(player2.getHp()));
-                Sound.changeBackgroundSound(null, crySound);
-            }
-        }
     }
 
     public void openCard() {
@@ -304,80 +268,31 @@ public class Board implements Initializable {
 
         Sound.changeBackgroundSound(null, cardSound);
 
-        if (!isPlayer1Turn && (player1.getPosition() == 5 || player1.getPosition() == 10 || player1.getPosition() == 15)) {
-            openCardLogic(player1, hpPlayer1);
+        if (!isPlayer1Turn && GameControllers.isCardPosition(player1.getPosition())) {
+            GameControllers.openCard(player1, hpPlayer1, cardImage, descriptionText, pickUpImage);
         }
 
-        else if (isPlayer1Turn && (player2.getPosition() == 5 || player2.getPosition() == 10 || player2.getPosition() == 15)) {
-            openCardLogic(player2, hpPlayer2);
+        else if (isPlayer1Turn && GameControllers.isCardPosition(player2.getPosition())) {
+            GameControllers.openCard(player2, hpPlayer2, cardImage, descriptionText, pickUpImage);
         }
 
         cardImage.setVisible(true);
     }
 
-    private void openCardLogic(Player player, TextField hpPlayer) {
-        ArrayList<BaseCard> allCards = AllCards.getAllCards();
-        Random random = new Random();
-        BaseCard drawnCard = allCards.get(random.nextInt(allCards.size()));
-        drawnCard.activate(player);
-        if(drawnCard instanceof HealCard) cardImage.setImage(new Image("image/heal1.png"));
-        else if(drawnCard instanceof SuperHealCard) cardImage.setImage(new Image("image/heal2.png"));
-        else if(drawnCard instanceof ExtremeHealCard) cardImage.setImage(new Image("image/heal3.png"));
-        else if(drawnCard instanceof DamageCard) cardImage.setImage(new Image("image/damage1.png"));
-        else if(drawnCard instanceof SuperDamageCard) cardImage.setImage(new Image("image/damage2.png"));
-        else if(drawnCard instanceof ExtremeDamageCard) cardImage.setImage(new Image("image/damage3.png"));
-        else if(drawnCard instanceof SkipCard) cardImage.setImage(new Image("image/skip.png"));
-
-        hpPlayer.setText(String.valueOf(player.getHp()));
-        descriptionText.setText(drawnCard.effect());
-        pickUpImage.setVisible(false);
-    }
-
     public void buyArea() {
         if (!isPlayer1Turn) {
-            existArea1(player1, hpPlayer1, Color.ORANGE);
+            GameControllers.buyArea(player1, hpPlayer1, Color.ORANGE, areaPanes, areas, hurtSound);
         } else {
-            existArea1(player2, hpPlayer2, Color.GRAY);
-        }
-    }
-
-    private void existArea1(Player player, TextField hpPlayer, Color color) {
-        if (!(player.getPosition() == 0 || player.getPosition() == 5 || player.getPosition() == 10 || player.getPosition() == 15)
-                && areas.get(player.getPosition()).canBuy()) {
-            areaPanes[player.getPosition()].setBackground(new Background(new BackgroundFill(color, null, null)));
-            areas.get(player.getPosition()).setOwned(true);
-            areas.get(player.getPosition()).setOwner(player);
-            areas.get(player.getPosition()).setLevel(areas.get(player.getPosition()).getLevel() + 1);
-            player.setHp(player.getHp() - 1);
-            hpPlayer.setText(String.valueOf(player.getHp()));
-            Sound.changeBackgroundSound(null, hurtSound);
+            GameControllers.buyArea(player2, hpPlayer2, Color.GRAY, areaPanes, areas, hurtSound);
         }
     }
 
     public void upgradeArea() {
-        double darkenFactor = 0.8; // Adjust this value to control the darkness level
-
         if (!isPlayer1Turn) {
-            if (!(player1.getPosition() == 0 || player1.getPosition() == 5 || player1.getPosition() == 10 || player1.getPosition() == 15)
-                    && areas.get(player1.getPosition()).getOwner().getName().equals(player1.getName())) {
-                upgradeLogic(player1, darkenFactor, hpPlayer1);
-            }
+            GameControllers.upgradeArea(player1, hpPlayer1, areaPanes, areas, hurtSound);
         } else {
-            if (!(player2.getPosition() == 0 || player2.getPosition() == 5 || player2.getPosition() == 10 || player2.getPosition() == 15)
-                    && areas.get(player2.getPosition()).getOwner().getName().equals(player2.getName())) {
-                upgradeLogic(player2, darkenFactor, hpPlayer2);
-            }
+            GameControllers.upgradeArea(player2, hpPlayer2, areaPanes, areas, hurtSound);
         }
         upgradeAreasImage.setVisible(false);
-    }
-
-    private void upgradeLogic(Player player, Double darkenFactor, TextField hpPlayer) {
-        Color currentColor = ((Color) areaPanes[player.getPosition()].getBackground().getFills().get(0).getFill());
-        Color newColor = currentColor.deriveColor(0, 1, darkenFactor, 1); // Darken the color slightly
-        areaPanes[player.getPosition()].setBackground(new Background(new BackgroundFill(newColor, null, null)));
-        areas.get(player.getPosition()).setLevel(areas.get(player.getPosition()).getLevel() + 1);
-        player.setHp(player.getHp() - 1);
-        hpPlayer.setText(String.valueOf(player.getHp()));
-        Sound.changeBackgroundSound(null, hurtSound);
     }
 }

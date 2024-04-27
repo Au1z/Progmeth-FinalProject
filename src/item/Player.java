@@ -1,4 +1,4 @@
-package player;
+package item;
 
 import game.Config;
 
@@ -57,5 +57,4 @@ public class Player {
     public String toString() {
         return name;
     }
-
 }

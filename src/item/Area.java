@@ -1,6 +1,4 @@
-package item.area;
-
-import player.Player;
+package item;
 
 public class Area {
     private Player owner;
@@ -29,7 +27,7 @@ public class Area {
         this.level = Math.max(0, level);
     }
 
-    public boolean isOwneded() {
+    public boolean isOwned() {
         return isOwned;
     }
 
