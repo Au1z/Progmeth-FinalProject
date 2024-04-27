@@ -27,7 +27,7 @@ public class Area {
         this.level = Math.max(0, level);
     }
 
-    public boolean isOwneded() {
+    public boolean isOwned() {
         return isOwned;
     }
 
