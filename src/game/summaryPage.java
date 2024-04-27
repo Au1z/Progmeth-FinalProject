@@ -112,6 +112,7 @@ public class summaryPage implements Initializable {
     }
 
     public void exit() {
-
+        backgroundSound.stop();
+        System.exit(0);
     }
 }
