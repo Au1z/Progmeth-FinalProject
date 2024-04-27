@@ -5,42 +5,35 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="675" prefWidth="1200" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.HomePage">
+<AnchorPane prefHeight="675" prefWidth="1200" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.HomePage">
     <AnchorPane prefHeight="800.0" prefWidth="1200.0">
-        <ImageView fx:id="homeBackground" fitHeight="800.0" fitWidth="1200.0" opacity="0.8" pickOnBounds="true"
-                   preserveRatio="true"/>
+        <ImageView fx:id="homeBackground" fitHeight="800.0" fitWidth="1200.0" opacity="0.8" pickOnBounds="true" preserveRatio="true" />
     </AnchorPane>
     <AnchorPane layoutX="-6.0" layoutY="-7.0" prefHeight="806.0" prefWidth="1207.0">
-        <ImageView fx:id="startButton" fitHeight="100.0" fitWidth="300.0" layoutX="447.0" layoutY="253.0"
-                   onMouseClicked="#gotoBoard" onMouseEntered="#buttonImageEffect"
-                   onMouseExited="#shrinkStartButtonImage" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="startButton" fitHeight="100.0" fitWidth="300.0" layoutX="447.0" layoutY="253.0" onMouseClicked="#gotoBoard" onMouseEntered="#buttonImageEffect" onMouseExited="#shrinkStartButtonImage" pickOnBounds="true" preserveRatio="true">
             <effect>
-                <DropShadow color="#610000" height="20.0" width="20.0"/>
+                <DropShadow color="#610000" height="20.0" width="20.0" />
             </effect>
             <cursor>
-                <Cursor fx:constant="HAND"/>
+                <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-        <ImageView fx:id="howToPlayButton" fitHeight="100.0" fitWidth="300.0" layoutX="447.0" layoutY="353.0"
-                   onMouseClicked="#gotoHowToPlay" onMouseEntered="#howToPlayButtonEffect"
-                   onMouseExited="#shrinkHowToPlayButtonImage" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="howToPlayButton" fitHeight="100.0" fitWidth="300.0" layoutX="447.0" layoutY="353.0" onMouseClicked="#gotoHowToPlay" onMouseEntered="#howToPlayButtonEffect" onMouseExited="#shrinkHowToPlayButtonImage" pickOnBounds="true" preserveRatio="true">
             <effect>
-                <DropShadow color="#610000" height="20.0" width="20.0"/>
+                <DropShadow color="#610000" height="20.0" width="20.0" />
             </effect>
             <cursor>
-                <Cursor fx:constant="HAND"/>
+                <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-        <ImageView fx:id="viewStoryButton" fitHeight="100.0" fitWidth="300.0" layoutX="447.0" layoutY="453.0"
-                   onMouseClicked="#gotoHowToPlay" onMouseEntered="#viewStoryButtonEffect"
-                   onMouseExited="#shrinkViewStoryButtonImage" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="viewStoryButton" fitHeight="100.0" fitWidth="300.0" layoutX="447.0" layoutY="453.0" onMouseClicked="#gotoHowToPlay" onMouseEntered="#viewStoryButtonEffect" onMouseExited="#shrinkViewStoryButtonImage" pickOnBounds="true" preserveRatio="true">
             <effect>
-                <DropShadow color="#610000" height="20.0" width="20.0"/>
+                <DropShadow color="#610000" height="20.0" width="20.0" />
             </effect>
             <cursor>
-                <Cursor fx:constant="HAND"/>
+                <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
+      <ImageView fx:id="exitButton" fitHeight="75.0" fitWidth="167.0" layoutX="1017.0" layoutY="583.0" onMouseClicked="#exit" onMouseEntered="#exitButtonEffect" onMouseExited="#shrinkExitButtonImage" pickOnBounds="true" preserveRatio="true" />
     </AnchorPane>
 </AnchorPane>

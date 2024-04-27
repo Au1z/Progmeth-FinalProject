@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import utils.Sound;
@@ -21,15 +22,18 @@ public class HomePage implements Initializable {
     public ImageView howToPlayButton;
     public ImageView viewStoryButton;
     public ImageView homeBackground;
+    public ImageView exitButton;
     private AudioClip homeSound;
     private AudioClip buttonSound;
     private AudioClip startSound;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startButton.setImage(new Image("image/startGameText.png"));
+        exitButton.setImage(new Image("image/exit.png"));
         howToPlayButton.setImage(new Image("image/howToPlayText.png"));
         viewStoryButton.setImage(new Image("image/viewStory.png"));
         homeBackground.setImage(new Image("image/homeBackground.jpg"));
+
         buttonSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/audio/buttonSound.mp3")).toString());
         buttonSound.setVolume(1);
         startSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/audio/startSound.mp3")).toString());
@@ -70,6 +74,11 @@ public class HomePage implements Initializable {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @FXML
+    public void exit() {
+        System.exit(0);
     }
 
     @FXML
@@ -115,6 +124,20 @@ public class HomePage implements Initializable {
     }
 
     @FXML
+    public void exitButtonEffect() {
+        Thread effect = new Thread(() -> {
+            if (buttonSound != null) {
+                buttonSound.play();
+            } else {
+                System.err.println("AudioClip (bgSound) is null.");
+            }
+        });
+        effect.start();
+        exitButton.setScaleX(1.1);
+        exitButton.setScaleY(1.1);
+    }
+
+    @FXML
     private void shrinkStartButtonImage() {
         startButton.setScaleX(1.0);
         startButton.setScaleY(1.0);
@@ -130,5 +153,11 @@ public class HomePage implements Initializable {
     private void shrinkViewStoryButtonImage() {
         viewStoryButton.setScaleX(1.0);
         viewStoryButton.setScaleY(1.0);
+    }
+
+    @FXML
+    public void shrinkExitButtonImage() {
+        exitButton.setScaleX(1.0);
+        exitButton.setScaleY(1.0);
     }
 }
