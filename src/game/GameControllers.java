@@ -4,7 +4,6 @@ import item.Area;
 import item.Player;
 import item.card.*;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -68,14 +67,7 @@ public class GameControllers {
         Random random = new Random();
         BaseCard drawnCard = allCards.get(random.nextInt(allCards.size()));
         drawnCard.activate(player);
-        if(drawnCard instanceof HealCard) cardImage.setImage(new Image("image/heal1.png"));
-        else if(drawnCard instanceof SuperHealCard) cardImage.setImage(new Image("image/heal2.png"));
-        else if(drawnCard instanceof ExtremeHealCard) cardImage.setImage(new Image("image/heal3.png"));
-        else if(drawnCard instanceof DamageCard) cardImage.setImage(new Image("image/damage1.png"));
-        else if(drawnCard instanceof SuperDamageCard) cardImage.setImage(new Image("image/damage2.png"));
-        else if(drawnCard instanceof ExtremeDamageCard) cardImage.setImage(new Image("image/damage3.png"));
-        else if(drawnCard instanceof SkipCard) cardImage.setImage(new Image("image/skip.png"));
-
+        cardImage.setImage(drawnCard.getImage());
         hpPlayer.setText(String.valueOf(player.getHp()));
         descriptionText.setText(drawnCard.effect());
         pickUpImage.setVisible(false);
