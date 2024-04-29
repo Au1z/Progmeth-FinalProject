@@ -2,11 +2,12 @@ package item.card;
 
 import game.Config;
 import item.Player;
+import javafx.scene.image.Image;
 
 public class SuperHealCard extends BaseCard implements Activatable {
 
     public SuperHealCard() {
-        super("SUPERHEAL");
+        super("SUPERHEAL", new Image("image/heal2.png"));
     }
 
     @Override
