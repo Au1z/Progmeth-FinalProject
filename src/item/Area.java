@@ -1,16 +1,14 @@
-package item.area;
-
-import player.Player;
+package item;
 
 public class Area {
     private Player owner;
     private int level;
-    private boolean owned;
+    private boolean isOwned;
 
     public Area() {
         setLevel(0);
         setOwner(new Player());
-        owned = false;
+        isOwned = false;
     }
 
     public Player getOwner() {
@@ -30,18 +28,14 @@ public class Area {
     }
 
     public boolean isOwned() {
-        return owned;
+        return isOwned;
     }
 
-    public void setOwned(boolean owned) {
-        this.owned = owned;
+    public void setOwned(boolean isOwned) {
+        this.isOwned = isOwned;
     }
 
-    public boolean isBuyable(Player player) {
-        if (!owned || owner == null ) {
-            return true;
-        } else {
-            return false;
-        }
+    public boolean canBuy() {
+        return !isOwned || owner == null;
     }
 }

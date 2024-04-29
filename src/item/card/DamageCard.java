@@ -1,20 +1,22 @@
 package item.card;
 
-import player.Player;
+import item.Player;
+import javafx.scene.image.Image;
 
-public class DamageCard extends BaseCard {
+public class DamageCard extends BaseCard implements Activatable{
 
     public DamageCard() {
-        super("DAMAGE");
+        super("DAMAGE", new Image("image/damage1.png"));
+    }
+
+
+    @Override
+    public String effect() {
+        return "Damage card: It will decrease player's health by 1.";
     }
 
     @Override
     public void activate(Player player) {
         player.setHp(player.getHp() - 1);
-    }
-
-    @Override
-    public String effect() {
-        return "Damage card: It will decrease player's health by 1.";
     }
 }

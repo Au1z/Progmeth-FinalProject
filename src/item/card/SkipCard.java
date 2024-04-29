@@ -1,11 +1,12 @@
 package item.card;
 
-import player.Player;
+import item.Player;
+import javafx.scene.image.Image;
 
-public class SkipCard extends BaseCard { // skip turn of player
+public class SkipCard extends BaseCard implements Activatable { // skip turn of player
 
     public SkipCard() {
-        super("SKIP");
+        super("SKIP", new Image("image/skip.png"));
     }
 
     @Override

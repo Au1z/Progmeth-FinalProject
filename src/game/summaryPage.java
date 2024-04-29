@@ -7,39 +7,37 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
-import game.Board;
 
 public class summaryPage implements Initializable {
-    public ImageView endBg;
-    public ImageView p2Wins;
-    public ImageView p1Wins;
+    public ImageView endBackground;
+    public ImageView player2Win;
+    public ImageView player1Win;
     public ImageView retryButton;
     public ImageView exitButton;
-    public Board board;
-    private AudioClip bgSound;
-    private AudioClip buttonEffect;
+    private AudioClip backgroundSound;
+    private AudioClip buttonSound;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        endBg.setImage(new Image("image/endBg.png"));
+        endBackground.setImage(new Image("image/endBackground.png"));
         retryButton.setImage(new Image("image/retry.png"));
         exitButton.setImage(new Image("image/exit.png"));
-        bgSound = new AudioClip(getClass().getResource("/audio/sumPage.mp3").toString());
-        bgSound.setVolume(1);
-        buttonEffect = new AudioClip(getClass().getResource("/audio/buttonEffect2.mp3").toString());
-        buttonEffect.setVolume(1);
+        backgroundSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/audio/sumPage.mp3")).toString());
+        backgroundSound.setVolume(1);
+        buttonSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/audio/buttonSound.mp3")).toString());
+        buttonSound.setVolume(1);
         Thread soundThread = new Thread(() -> {
-            if (bgSound != null) {
-                bgSound.play();
+            if (backgroundSound != null) {
+                backgroundSound.play();
             } else {
-                System.err.println("AudioClip (bgSound) is null.");
+                System.err.println("AudioClip (backgroundSound) is null.");
             }
         });
         soundThread.start();
@@ -47,22 +45,23 @@ public class summaryPage implements Initializable {
 
     public void setPlayer1Win(Boolean check) {
         if(check){
-            p1Wins.setImage(new Image("image/p1Win.png"));
-            p2Wins.setImage(null);
+            player1Win.setImage(new Image("image/player1Win.png"));
+            player2Win.setImage(null);
         }
         else{
-            p1Wins.setImage(null);
-            p2Wins.setImage(new Image("image/p2Win.png"));
+
+            player1Win.setImage(null);
+            player2Win.setImage(new Image("image/player2Win.png"));
         }
     }
 
     @FXML
-    public void expandImage1(MouseEvent mouseEvent) {
+    public void expandImage1() {
         Thread effect = new Thread(() -> {
-            if (buttonEffect != null) {
-                buttonEffect.play();
+            if (buttonSound != null) {
+                buttonSound.play();
             } else {
-                System.err.println("AudioClip (bgSound) is null.");
+                System.err.println("AudioClip (backgroundSound) is null.");
             }
         });
         effect.start();
@@ -71,12 +70,12 @@ public class summaryPage implements Initializable {
     }
 
     @FXML
-    public void expandImage2(MouseEvent mouseEvent) {
+    public void expandImage2() {
         Thread effect = new Thread(() -> {
-            if (buttonEffect != null) {
-                buttonEffect.play();
+            if (buttonSound != null) {
+                buttonSound.play();
             } else {
-                System.err.println("AudioClip (bgSound) is null.");
+                System.err.println("AudioClip (backgroundSound) is null.");
             }
         });
         effect.start();
@@ -97,7 +96,7 @@ public class summaryPage implements Initializable {
     }
 
     public void gotoBoard() {
-        bgSound.stop();
+        backgroundSound.stop();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Board.fxml"));
             Parent root = fxmlLoader.load();
@@ -108,11 +107,12 @@ public class summaryPage implements Initializable {
             stage.setScene(new Scene(root, 1200, 700));
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
-    public void exit(MouseEvent mouseEvent) {
-
+    public void exit() {
+        backgroundSound.stop();
+        System.exit(0);
     }
 }

@@ -1,11 +1,12 @@
 package item.card;
 
-import player.Player;
+import item.Player;
+import javafx.scene.image.Image;
 
-public class ExtremeDamageCard extends BaseCard {
+public class ExtremeDamageCard extends BaseCard implements Activatable{
 
     public ExtremeDamageCard() {
-        super("EXTREMEDAMAGE");
+        super("EXTREMEDAMAGE", new Image("image/damage1.png"));
     }
 
     @Override
