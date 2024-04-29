@@ -67,7 +67,7 @@ public class GameControllers {
         Random random = new Random();
         BaseCard drawnCard = allCards.get(random.nextInt(allCards.size()));
         drawnCard.activate(player);
-        cardImage.setImage(drawnCard.getImage());
+        cardImage.setImage(drawnCard.getImage());     
         hpPlayer.setText(String.valueOf(player.getHp()));
         descriptionText.setText(drawnCard.effect());
         pickUpImage.setVisible(false);

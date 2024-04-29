@@ -2,7 +2,7 @@ package item.card;
 
 import javafx.scene.image.Image;
 
-public abstract class BaseCard implements Activatable {
+public abstract class BaseCard implements Activatable{
     private String name;
     private boolean isUsed;
     private Image image;
