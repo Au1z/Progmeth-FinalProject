@@ -95,8 +95,8 @@ public class Board implements Initializable {
     }
 
     private void initializePlayer() {
-        player1 = new Player("Penney-Wise");
-        player2 = new Player("Scream");
+        player1 = new Player("Penney-Wise", new Image("image/player1.png"), new Image("image/miniPlayer1.png"));
+        player2 = new Player("Scream", new Image("image/player2.png"), new Image("image/miniPlayer2.png"));
 
         playerName1.setText(player1.getName());
         playerName2.setText(player2.getName());
@@ -104,8 +104,8 @@ public class Board implements Initializable {
         hpPlayer1.setText(String.valueOf(player1.getHp()));
         hpPlayer2.setText(String.valueOf(player2.getHp()));
 
-        characterImage1.setImage(new Image("image/player1.png"));
-        characterImage2.setImage(new Image("image/player2.png"));
+        characterImage1.setImage(player1.getImage());
+        characterImage2.setImage(player2.getImage());
     }
 
     private void initializeBoard() {
@@ -116,8 +116,8 @@ public class Board implements Initializable {
         area10.setImage(new Image("image/event.png"));
         area15.setImage(new Image("image/event.png"));
 
-        playerImage1.setImage(new Image("image/miniPlayer1.png"));
-        playerImage2.setImage(new Image("image/miniPlayer2.png"));
+        playerImage1.setImage(player1.getMiniImage());
+        playerImage2.setImage(player2.getMiniImage());
 
         upgradeAreasImage.setImage(new Image("image/upgrade.png"));
         upgradeAreasImage.setVisible(false);
