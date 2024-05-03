@@ -46,7 +46,7 @@ public class Config {
     public static String Dice5Path = "image/dice5.png";
     public static String Dice6Path = "image/dice6.png";
     public static String Title = "Castle of Bloodlines: The Monopoly of Nightmares";
-    public static String Player1Name = "Penney-Wise";
-    public static String Player2Name = "Scream";
+    public static String Player1Name = "Player1";
+    public static String Player2Name = "Player2";
 
 }

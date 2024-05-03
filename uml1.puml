@@ -1,0 +1,183 @@
+@startuml
+class game.Config {
++ {static} int PlayerStartHp
++ {static} int PlayerStartPosition
++ {static} int NumberOfArea
++ {static} int[] DrawCardPosition
++ {static} int[] NotBuyAblePosition
++ {static} int VampirePosition
++ {static} double DarkenFactor
++ {static} Image DamageCardImage
++ {static} Image SuperDamageCardImage
++ {static} Image ExtremeDamageCardImage
++ {static} Image HealCardImage
++ {static} Image SuperHealCardImage
++ {static} Image ExtremeHealCardImage
++ {static} Image SkipCardImage
++ {static} Image StartGameText
++ {static} Image ExitText
++ {static} Image HowToPlayText
++ {static} Image ViewStoryText
++ {static} Image HomeBackground
++ {static} Image Player1Image
++ {static} Image MiniPlayer1Image
++ {static} Image Player2Image
++ {static} Image MiniPlayer2Image
++ {static} Image Background
++ {static} Image VampireImage
++ {static} Image EventImage
++ {static} Image UpgradeImage
++ {static} Image RollDiceImage
++ {static} Image BuyImage
++ {static} Image PickUpCardImage
++ {static} Image EndBackground
++ {static} Image RetryText
++ {static} Image Player1WinImage
++ {static} Image Player2WinImage
++ {static} Image CommingSoonImage
++ {static} Image BackText
++ {static} String Dice1Path
++ {static} String Dice2Path
++ {static} String Dice3Path
++ {static} String Dice4Path
++ {static} String Dice5Path
++ {static} String Dice6Path
++ {static} String Title
++ {static} String Player1Name
++ {static} String Player2Name
+}
+class game.Board {
++ TextField playerName1
++ TextField playerName2
++ ImageView boardBackground
++ ImageView diceImage1
++ ImageView diceImage2
++ TextField totalValueOfDices
++ ImageView characterImage1
++ ImageView characterImage2
++ ImageView area0
++ ImageView area5
++ ImageView area10
++ ImageView area15
++ ImageView cardImage
++ ImageView playerImage1
++ ImageView playerImage2
++ TextField hpPlayer1
++ TextField hpPlayer2
++ ImageView upgradeAreasImage
++ ImageView rollDiceImage
++ ImageView buyAreaImage
++ ImageView pickUpImage
++ TextField turnText
++ TextField descriptionText
+- Player player1
+- Player player2
+- ArrayList<Area> areas
+- boolean isPlayer1Turn
++ AnchorPane area1
++ AnchorPane area2
++ AnchorPane area3
++ AnchorPane area4
++ AnchorPane area6
++ AnchorPane area7
++ AnchorPane area8
++ AnchorPane area9
++ AnchorPane area11
++ AnchorPane area12
++ AnchorPane area13
++ AnchorPane area14
++ AnchorPane area16
++ AnchorPane area17
++ AnchorPane area18
++ AnchorPane area19
++ AnchorPane[] areaPanes
+- AudioClip backgroundSound
+- AudioClip cardSound
+- AudioClip diceSound
+- AudioClip crySound
+- AudioClip hurtSound
+- AudioClip vampireSound
+- ArrayList<String> dicesImage
++ void initialize(URL,ResourceBundle)
+- void initializePlayer()
+- void initializeBoard()
+- void initializeSound()
+- void initializeDice()
++ void rollDices(MouseEvent)
+- void checkPlayerDied()
+- void clear()
+- void setBoard(Dice,Dice)
+- void rollDicesAnimation(Dice,Dice)
++ void gotoSummaryPage(boolean)
++ void movePlayer(Player,int,ImageView)
++ void openCard()
++ void buyArea()
++ void upgradeArea()
+}
+class game.Other {
++ ImageView comingSoon
++ ImageView back
++ ImageView homeBackground
++ void initialize(URL,ResourceBundle)
++ void goBack()
+}
+class game.HomePage {
++ ImageView startButton
++ ImageView howToPlayButton
++ ImageView viewStoryButton
++ ImageView homeBackground
++ ImageView exitButton
+- AudioClip homeSound
+- AudioClip buttonSound
+- AudioClip startSound
++ void initialize(URL,ResourceBundle)
++ void gotoBoard()
++ void gotoHowToPlay()
++ void exit()
++ void buttonImageEffect()
++ void howToPlayButtonEffect()
++ void viewStoryButtonEffect()
++ void exitButtonEffect()
+- void shrinkStartButtonImage()
+- void shrinkHowToPlayButtonImage()
+- void shrinkViewStoryButtonImage()
++ void shrinkExitButtonImage()
+}
+class game.Main {
++ void start(Stage)
++ {static} void main(String[])
+}
+class game.summaryPage {
++ ImageView endBackground
++ ImageView player2Win
++ ImageView player1Win
++ ImageView retryButton
++ ImageView exitButton
+- AudioClip backgroundSound
+- AudioClip buttonSound
++ void initialize(URL,ResourceBundle)
++ void setPlayer1Win(Boolean)
++ void expandImage1()
++ void expandImage2()
+- void shrinkImage1()
+- void shrinkImage2()
++ void gotoBoard()
++ void exit()
+}
+class game.GameControllers {
++ {static} boolean isCardPosition(int)
++ {static} boolean isBuyAblePosition(int)
++ {static} void movePlayer(Player,int,ImageView)
++ {static} void checkArea(Player,Player,TextField,ArrayList<Area>,TextField,AudioClip)
++ {static} void openCard(Player,TextField,ImageView,TextField,ImageView)
++ {static} void buyArea(Player,TextField,Color,AnchorPane[],ArrayList<Area>,AudioClip)
++ {static} void upgradeArea(Player,TextField,AnchorPane[],ArrayList<Area>,AudioClip)
+}
+
+
+javafx.fxml.Initializable <|.. game.Board
+javafx.fxml.Initializable <|.. game.Other
+javafx.fxml.Initializable <|.. game.HomePage
+javafx.application.Application <|-- game.Main
+javafx.fxml.Initializable <|.. game.summaryPage
+@enduml

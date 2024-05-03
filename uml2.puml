@@ -1,0 +1,113 @@
+@startuml
+class item.Player {
+- String name
+- int hp
+- int position
+- boolean isWin
+- Image image
+- Image miniImage
++ <<Create>> Player()
++ <<Create>> Player(String,Image,Image)
++ String getName()
++ void setName(String)
++ int getPosition()
++ void setPosition(int)
++ int getHp()
++ void setHp(int)
++ boolean getIsWin()
++ void setIsWin(boolean)
++ Image getImage()
++ void setImage(Image)
++ Image getMiniImage()
++ void setMiniImage(Image)
++ String toString()
+}
+class item.Area {
+- Player owner
+- int level
+- boolean isOwned
++ <<Create>> Area()
++ Player getOwner()
++ void setOwner(Player)
++ int getLevel()
++ void setLevel(int)
++ boolean isOwned()
++ void setOwned(boolean)
++ boolean canBuy()
+}
+class item.Dice {
+- int faceValue
++ <<Create>> Dice()
++ void randomFaceValue()
++ int getFaceValue()
++ void setFaceValue(int)
+}
+interface item.card.Activatable {
++ void activate(Player)
+}
+class item.card.SkipCard {
++ <<Create>> SkipCard()
++ void activate(Player)
++ String effect()
+}
+class item.card.ExtremeHealCard {
++ <<Create>> ExtremeHealCard()
++ void activate(Player)
++ String effect()
+}
+class item.card.ExtremeDamageCard {
++ <<Create>> ExtremeDamageCard()
++ void activate(Player)
++ String effect()
+}
+abstract class item.card.BaseCard {
+- String name
+- boolean isUsed
+- Image image
++ <<Create>> BaseCard(String,Image)
++ String getName()
++ void setName(String)
++ boolean isUsed()
++ void setUsed(boolean)
++ Image getImage()
++ void setImage(Image)
++ String effect()
+}
+class item.card.SuperHealCard {
++ <<Create>> SuperHealCard()
++ void activate(Player)
++ String effect()
+}
+class item.card.HealCard {
++ <<Create>> HealCard()
++ void activate(Player)
++ String effect()
+}
+class item.card.DamageCard {
++ <<Create>> DamageCard()
++ String effect()
++ void activate(Player)
+}
+class item.card.SuperDamageCard {
++ <<Create>> SuperDamageCard()
++ void activate(Player)
++ String effect()
+}
+
+
+item.card.Activatable <|.. item.card.SkipCard
+item.card.BaseCard <|-- item.card.SkipCard
+item.card.Activatable <|.. item.card.ExtremeHealCard
+item.card.BaseCard <|-- item.card.ExtremeHealCard
+item.card.Activatable <|.. item.card.ExtremeDamageCard
+item.card.BaseCard <|-- item.card.ExtremeDamageCard
+item.card.Activatable <|.. item.card.BaseCard
+item.card.Activatable <|.. item.card.SuperHealCard
+item.card.BaseCard <|-- item.card.SuperHealCard
+item.card.Activatable <|.. item.card.HealCard
+item.card.BaseCard <|-- item.card.HealCard
+item.card.Activatable <|.. item.card.DamageCard
+item.card.BaseCard <|-- item.card.DamageCard
+item.card.Activatable <|.. item.card.SuperDamageCard
+item.card.BaseCard <|-- item.card.SuperDamageCard
+@enduml
