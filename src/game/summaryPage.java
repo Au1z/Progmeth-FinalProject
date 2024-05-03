@@ -26,10 +26,10 @@ public class summaryPage implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        endBackground.setImage(new Image("image/endBackground.png"));
-        retryButton.setImage(new Image("image/retry.png"));
-        exitButton.setImage(new Image("image/exit.png"));
-        backgroundSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/audio/sumPage.mp3")).toString());
+        endBackground.setImage(Config.EndBackground);
+        retryButton.setImage(Config.RetryText);
+        exitButton.setImage(Config.ExitText);
+        backgroundSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/audio/summaryPageSound.mp3")).toString());
         backgroundSound.setVolume(1);
         buttonSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/audio/buttonSound.mp3")).toString());
         buttonSound.setVolume(1);
@@ -45,13 +45,13 @@ public class summaryPage implements Initializable {
 
     public void setPlayer1Win(Boolean check) {
         if(check){
-            player1Win.setImage(new Image("image/player1Win.png"));
+            player1Win.setImage(Config.Player1WinImage);
             player2Win.setImage(null);
         }
         else{
 
             player1Win.setImage(null);
-            player2Win.setImage(new Image("image/player2Win.png"));
+            player2Win.setImage(Config.Player2WinImage);
         }
     }
 
@@ -103,7 +103,7 @@ public class summaryPage implements Initializable {
 
             Stage stage = (Stage) retryButton.getScene().getWindow();
 
-            stage.setTitle("Castle of Bloodlines: The Monopoly of Nightmares");
+            stage.setTitle(Config.Title);
             stage.setScene(new Scene(root, 1200, 700));
             stage.show();
         } catch (IOException e) {

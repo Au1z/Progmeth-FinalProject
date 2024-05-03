@@ -1,12 +1,13 @@
 package item.card;
 
+import game.Config;
 import item.Player;
 import javafx.scene.image.Image;
 
 public class DamageCard extends BaseCard implements Activatable{
 
     public DamageCard() {
-        super("DAMAGE", new Image("image/damage1.png"));
+        super("DAMAGE", Config.DamageCardImage);
     }
 
 

@@ -95,8 +95,8 @@ public class Board implements Initializable {
     }
 
     private void initializePlayer() {
-        player1 = new Player("Penney-Wise", new Image("image/player1.png"), new Image("image/miniPlayer1.png"));
-        player2 = new Player("Scream", new Image("image/player2.png"), new Image("image/miniPlayer2.png"));
+        player1 = new Player(Config.Player1Name, Config.Player1Image, Config.MiniPlayer1Image);
+        player2 = new Player(Config.Player2Name, Config.Player2Image, Config.MiniPlayer2Image);
 
         playerName1.setText(player1.getName());
         playerName2.setText(player2.getName());
@@ -109,21 +109,21 @@ public class Board implements Initializable {
     }
 
     private void initializeBoard() {
-        boardBackground.setImage(new Image("image/background.png"));
+        boardBackground.setImage(Config.Background);
 
-        area0.setImage(new Image("image/vampire.png"));
-        area5.setImage(new Image("image/event.png"));
-        area10.setImage(new Image("image/event.png"));
-        area15.setImage(new Image("image/event.png"));
+        area0.setImage(Config.VampireImage);
+        area5.setImage(Config.EventImage);
+        area10.setImage(Config.EventImage);
+        area15.setImage(Config.EventImage);
 
         playerImage1.setImage(player1.getMiniImage());
         playerImage2.setImage(player2.getMiniImage());
 
-        upgradeAreasImage.setImage(new Image("image/upgrade.png"));
+        upgradeAreasImage.setImage(Config.UpgradeImage);
         upgradeAreasImage.setVisible(false);
-        rollDiceImage.setImage(new Image("image/rollDice.png"));
-        buyAreaImage.setImage(new Image("image/buy.png"));
-        pickUpImage.setImage(new Image("image/pickUpCard.png"));
+        rollDiceImage.setImage(Config.RollDiceImage);
+        buyAreaImage.setImage(Config.BuyImage);
+        pickUpImage.setImage(Config.PickUpCardImage);
         pickUpImage.setVisible(false);
     }
 
@@ -137,18 +137,18 @@ public class Board implements Initializable {
         hurtSound.setVolume(1);
         cardSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/audio/cardSound.wav")).toString());
         diceSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/audio/diceSound.mp3")).toString());
-        vampireSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/audio/evilLaugh.mp3")).toString());
+        vampireSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/audio/evilLaughSound.mp3")).toString());
 
         Sound.changeBackgroundSound(null, backgroundSound);
     }
 
     private void initializeDice() {
-        dicesImage.add("image/dice1.png");
-        dicesImage.add("image/dice2.png");
-        dicesImage.add("image/dice3.png");
-        dicesImage.add("image/dice4.png");
-        dicesImage.add("image/dice5.png");
-        dicesImage.add("image/dice6.png");
+        dicesImage.add(Config.Dice1Path);
+        dicesImage.add(Config.Dice2Path);
+        dicesImage.add(Config.Dice3Path);
+        dicesImage.add(Config.Dice4Path);
+        dicesImage.add(Config.Dice5Path);
+        dicesImage.add(Config.Dice6Path);
     }
 
     public void rollDices(MouseEvent actionEvent) {

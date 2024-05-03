@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 public class ExtremeHealCard extends BaseCard implements Activatable {
 
     public ExtremeHealCard() {
-        super("ExtremeHEAL", new Image("image/heal3.png"));
+        super("EXTREMEHEAL", Config.ExtremeHealCardImage);
     }
 
     @Override

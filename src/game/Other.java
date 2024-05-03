@@ -20,9 +20,9 @@ public class Other implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        comingSoon.setImage(new Image("image/comingSoon.png"));
-        back.setImage(new Image("image/back.png"));
-        homeBackground.setImage(new Image("image/homeBackground.jpg"));
+        comingSoon.setImage(Config.CommingSoonImage);
+        back.setImage(Config.BackText);
+        homeBackground.setImage(Config.HomeBackground);
     }
 
     public void goBack() {
@@ -32,7 +32,7 @@ public class Other implements Initializable {
 
             Stage stage = (Stage) back.getScene().getWindow();
 
-            stage.setTitle("Castle of Bloodlines: The Monopoly of Nightmares");
+            stage.setTitle(Config.Title);
             stage.setScene(new Scene(root, 1200, 675));
         } catch (IOException e) {
             System.out.println(e.getMessage());

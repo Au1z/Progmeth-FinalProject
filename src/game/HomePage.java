@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
@@ -27,11 +26,11 @@ public class HomePage implements Initializable {
     private AudioClip startSound;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        startButton.setImage(new Image("image/startGameText.png"));
-        exitButton.setImage(new Image("image/exit.png"));
-        howToPlayButton.setImage(new Image("image/howToPlayText.png"));
-        viewStoryButton.setImage(new Image("image/viewStory.png"));
-        homeBackground.setImage(new Image("image/homeBackground.jpg"));
+        startButton.setImage(Config.StartGameText);
+        exitButton.setImage(Config.ExitText);
+        howToPlayButton.setImage(Config.HowToPlayText);
+        viewStoryButton.setImage(Config.ViewStoryText);
+        homeBackground.setImage(Config.HomeBackground);
 
         buttonSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/audio/buttonSound.mp3")).toString());
         buttonSound.setVolume(1);
@@ -52,7 +51,7 @@ public class HomePage implements Initializable {
 
             Stage stage = (Stage) startButton.getScene().getWindow();
 
-            stage.setTitle("Castle of Bloodlines: The Monopoly of Nightmares");
+            stage.setTitle(Config.Title);
             stage.setScene(new Scene(root,1200,800));
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -68,7 +67,7 @@ public class HomePage implements Initializable {
 
             Stage stage = (Stage) howToPlayButton.getScene().getWindow();
 
-            stage.setTitle("Castle of Bloodlines: The Monopoly of Nightmares");
+            stage.setTitle(Config.Title);
             stage.setScene(new Scene(root, 1200, 650));
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -86,7 +85,7 @@ public class HomePage implements Initializable {
             if (buttonSound != null) {
                 buttonSound.play();
             } else {
-                System.err.println("AudioClip (bgSound) is null.");
+                System.err.println("AudioClip (backgroundSound) is null.");
             }
         });
         effect.start();
@@ -100,7 +99,7 @@ public class HomePage implements Initializable {
             if (buttonSound != null) {
                 buttonSound.play();
             } else {
-                System.err.println("AudioClip (bgSound) is null.");
+                System.err.println("AudioClip (backgroundSound) is null.");
             }
         });
         effect.start();
@@ -114,7 +113,7 @@ public class HomePage implements Initializable {
             if (buttonSound != null) {
                 buttonSound.play();
             } else {
-                System.err.println("AudioClip (bgSound) is null.");
+                System.err.println("AudioClip (backgroundSound) is null.");
             }
         });
         effect.start();
@@ -128,7 +127,7 @@ public class HomePage implements Initializable {
             if (buttonSound != null) {
                 buttonSound.play();
             } else {
-                System.err.println("AudioClip (bgSound) is null.");
+                System.err.println("AudioClip (backgroundSound) is null.");
             }
         });
         effect.start();
